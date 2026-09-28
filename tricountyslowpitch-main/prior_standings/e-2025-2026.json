@@ -1,0 +1,47 @@
+{
+    "1": {
+        "team_name": "That's What She Set",
+        "wins": 85,
+        "losses": 26
+    },
+    "2": {
+        "team_name": "Busta Spike",
+        "wins": 103,
+        "losses": 35
+    },
+    "3": {
+        "team_name": "All Set",
+        "wins": 91,
+        "losses": 41
+    },
+    "4": {
+        "team_name": "Scared Hitless",
+        "wins": 74,
+        "losses": 64
+    },
+    "5": {
+        "team_name": "Setting Ducks",
+        "wins": 71,
+        "losses": 67
+    },
+    "6": {
+        "team_name": "Be Feelin' It Tomorrow",
+        "wins": 52,
+        "losses": 80
+    },
+    "7": {
+        "team_name": "Big Dig Energy",
+        "wins": 50,
+        "losses": 85
+    },
+    "8": {
+        "team_name": "New Kids",
+        "wins": 51,
+        "losses": 87
+    },
+    "9": {
+        "team_name": "Concordia Steins",
+        "wins": 14,
+        "losses": 124
+    }
+}

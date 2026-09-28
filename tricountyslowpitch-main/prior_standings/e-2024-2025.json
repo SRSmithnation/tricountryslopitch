@@ -1,0 +1,62 @@
+{
+    "1": {
+        "team_name": "That's What She Set",
+        "wins": 105,
+        "losses": 33
+    },
+    "2": {
+        "team_name": "Serv-i-vors",
+        "wins": 99,
+        "losses": 39
+    },
+    "3": {
+        "team_name": "V",
+        "wins": 96,
+        "losses": 42
+    },
+    "4": {
+        "team_name": "Speed Bumps",
+        "wins": 88,
+        "losses": 50
+    },
+    "5": {
+        "team_name": "Busta Spike",
+        "wins": 41,
+        "losses": 25
+    },
+    "6": {
+        "team_name": "Scared Hitless",
+        "wins": 81,
+        "losses": 57
+    },
+    "7": {
+        "team_name": "Setting Ducks",
+        "wins": 69,
+        "losses": 69
+    },
+    "8": {
+        "team_name": "Coco Loco",
+        "wins": 56,
+        "losses": 82
+    },
+    "9": {
+        "team_name": "Be Feelin' This Tomorrow",
+        "wins": 53,
+        "losses": 85
+    },
+    "10": {
+        "team_name": "New Kids",
+        "wins": 43,
+        "losses": 95
+    },
+    "11": {
+        "team_name": "Big Dig Energy",
+        "wins": 27,
+        "losses": 111
+    },
+    "12": {
+        "team_name": "Concordia Stein",
+        "wins": 6,
+        "losses": 132
+    }
+}

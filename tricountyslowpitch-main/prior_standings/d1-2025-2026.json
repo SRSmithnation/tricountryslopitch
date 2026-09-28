@@ -1,0 +1,47 @@
+{
+    "1": {
+        "team_name": "Consensual Sets",
+        "wins": 98,
+        "losses": 46
+    },
+    "2": {
+        "team_name": "Who Gives a Hit",
+        "wins": 73,
+        "losses": 47
+    },
+    "3": {
+        "team_name": "Vertically Challenged",
+        "wins": 81,
+        "losses": 63
+    },
+    "4": {
+        "team_name": "Where's Carl",
+        "wins": 70,
+        "losses": 74
+    },
+    "5": {
+        "team_name": "Sets Addicts",
+        "wins": 65,
+        "losses": 79
+    },
+    "6": {
+        "team_name": "Hits & Runz",
+        "wins": 64,
+        "losses": 80
+    },
+    "7": {
+        "team_name": "Volleybulls",
+        "wins": 63,
+        "losses": 81
+    },
+    "8": {
+        "team_name": "Balls Deep",
+        "wins": 58,
+        "losses": 86
+    },
+    "9": {
+        "team_name": "Hit List",
+        "wins": 54,
+        "losses": 90
+    }
+}
