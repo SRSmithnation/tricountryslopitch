@@ -1,0 +1,47 @@
+{
+    "1": {
+        "team_name": "Peaked in HighSchool",
+        "wins": 75,
+        "losses": 39
+    },
+    "2": {
+        "team_name": "V-Ballin'",
+        "wins": 59,
+        "losses": 55
+    },
+    "3": {
+        "team_name": "Stranger Swings",
+        "wins": 84,
+        "losses": 54
+    },
+    "4": {
+        "team_name": "Screamin' Eagles",
+        "wins": 79,
+        "losses": 57
+    },
+    "5": {
+        "team_name": "Victoria's Secret",
+        "wins": 78,
+        "losses": 64
+    },
+    "6": {
+        "team_name": "Sloppy Slappers",
+        "wins": 79,
+        "losses": 65
+    },
+    "7": {
+        "team_name": "Vipers",
+        "wins": 64,
+        "losses": 80
+    },
+    "8": {
+        "team_name": "Notorious D.I.G.",
+        "wins": 43,
+        "losses": 101
+    },
+    "9": {
+        "team_name": "Serves You Right",
+        "wins": 38,
+        "losses": 100
+    }
+}

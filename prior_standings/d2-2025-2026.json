@@ -1,0 +1,47 @@
+{
+    "1": {
+        "team_name": "The Naturals",
+        "wins": 111,
+        "losses": 33
+    },
+    "2": {
+        "team_name": "Hits and Giggles",
+        "wins": 103,
+        "losses": 41
+    },
+    "3": {
+        "team_name": "Serve-ivors",
+        "wins": 86,
+        "losses": 58
+    },
+    "4": {
+        "team_name": "Thunderballz",
+        "wins": 85,
+        "losses": 59
+    },
+    "5": {
+        "team_name": "Court Jesters",
+        "wins": 71,
+        "losses": 73
+    },
+    "6": {
+        "team_name": "V",
+        "wins": 71,
+        "losses": 73
+    },
+    "7": {
+        "team_name": "Setsy and we know it",
+        "wins": 48,
+        "losses": 96
+    },
+    "8": {
+        "team_name": "Speed Bumps",
+        "wins": 36,
+        "losses": 41
+    },
+    "9": {
+        "team_name": "That Team",
+        "wins": 31,
+        "losses": 113
+    }
+}

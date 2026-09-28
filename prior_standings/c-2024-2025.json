@@ -1,0 +1,62 @@
+{
+    "1": {
+        "team_name": "V-Ballin'",
+        "wins": 107,
+        "losses": 25
+    },
+    "2": {
+        "team_name": "Victoria's Secret",
+        "wins": 99,
+        "losses": 33
+    },
+    "3": {
+        "team_name": "Stranger Swings",
+        "wins": 99,
+        "losses": 33
+    },
+    "4": {
+        "team_name": "Screamin' Eagles",
+        "wins": 82,
+        "losses": 44
+    },
+    "5": {
+        "team_name": "Vipers",
+        "wins": 76,
+        "losses": 50
+    },
+    "6": {
+        "team_name": "Sloppy Sets",
+        "wins": 61,
+        "losses": 61
+    },
+    "7": {
+        "team_name": "Notorious D.I.G.",
+        "wins": 52,
+        "losses": 80
+    },
+    "8": {
+        "team_name": "Isotopes",
+        "wins": 48,
+        "losses": 84
+    },
+    "9": {
+        "team_name": "Serves You Right",
+        "wins": 45,
+        "losses": 86
+    },
+    "10": {
+        "team_name": "Who Gives a Hit",
+        "wins": 41,
+        "losses": 91
+    },
+    "11": {
+        "team_name": "Vertically Challenged",
+        "wins": 35,
+        "losses": 97
+    },
+    "12": {
+        "team_name": "Blockbusters",
+        "wins": 27,
+        "losses": 93
+    }
+}

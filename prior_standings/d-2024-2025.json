@@ -1,0 +1,62 @@
+{
+    "1": {
+        "team_name": "Hit List",
+        "wins": 90,
+        "losses": 48
+    },
+    "2": {
+        "team_name": "Where's Carl",
+        "wins": 85,
+        "losses": 47
+    },
+    "3": {
+        "team_name": "Consensual Sets",
+        "wins": 84,
+        "losses": 54
+    },
+    "4": {
+        "team_name": "Sets Addicts",
+        "wins": 77,
+        "losses": 55
+    },
+    "5": {
+        "team_name": "Volleybulls",
+        "wins": 77,
+        "losses": 55
+    },
+    "6": {
+        "team_name": "Hits and Runs",
+        "wins": 77,
+        "losses": 61
+    },
+    "7": {
+        "team_name": "Balls Deep",
+        "wins": 67,
+        "losses": 65
+    },
+    "8": {
+        "team_name": "Thunderballz",
+        "wins": 65,
+        "losses": 73
+    },
+    "9": {
+        "team_name": "Hits and Giggles",
+        "wins": 61,
+        "losses": 71
+    },
+    "10": {
+        "team_name": "Court Jesters",
+        "wins": 58,
+        "losses": 74
+    },
+    "11": {
+        "team_name": "The Naturals",
+        "wins": 26,
+        "losses": 40
+    },
+    "12": {
+        "team_name": "That Team",
+        "wins": 34,
+        "losses": 104
+    }
+}
