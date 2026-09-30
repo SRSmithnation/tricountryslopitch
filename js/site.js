@@ -39,7 +39,9 @@ function standings(teams, games) {
 function initNav() {
   const nav = document.querySelector('.nav');
   if (!nav) return;
-  const f = () => nav.classList.toggle('nav--compact', window.scrollY > 40);
+  const setH = () => document.documentElement.style.setProperty('--navh', nav.offsetHeight + 'px');
+  const f = () => { nav.classList.toggle('nav--compact', window.scrollY > 40); setH(); };
+  addEventListener('resize', setH);
   f(); addEventListener('scroll', f, { passive: true });
 }
 
@@ -81,7 +83,35 @@ function initContactLinks() {
   }).catch(() => {});
 }
 
-document.addEventListener('DOMContentLoaded', () => { initNav(); initRegistrationYear(); initContactLinks(); });
+/* Mobile menu — delegated from document so it cannot miss the element,
+   and independent of when this script runs. */
+function initMenu() {
+  const close = () => {
+    document.body.classList.remove('menu-open');
+    document.getElementById('nav-toggle')?.setAttribute('aria-expanded', 'false');
+  };
+  document.addEventListener('click', e => {
+    const btn = e.target.closest?.('#nav-toggle');
+    if (btn) {
+      e.preventDefault();
+      const open = !document.body.classList.contains('menu-open');
+      document.body.classList.toggle('menu-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      return;
+    }
+    if (e.target.closest?.('#nav-menu a')) close();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  addEventListener('resize', () => { if (innerWidth > 880) close(); });
+}
+
+function boot() {
+  [initNav, initMenu, initRegistrationYear, initContactLinks].forEach(fn => {
+    try { fn(); } catch (err) { console.error('init failed:', fn.name, err); }
+  });
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+else boot();
 
 
 /* ------------------------------------------------------------------

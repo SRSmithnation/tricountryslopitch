@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rules | Tri-County Slo-Pitch League</title>
+<meta name="description" content="How the Tri-County Slo-Pitch League plays: Slo-Pitch Ontario rules, league format, registration and score reporting.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="canonical" href="https://tricountyslopitch.ca/rules.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tri-County Slo-Pitch League">
+<meta property="og:title" content="Rules | Tri-County Slo-Pitch League">
+<meta property="og:description" content="How the Tri-County Slo-Pitch League plays: Slo-Pitch Ontario rules, league format, registration and score reporting.">
+<meta property="og:url" content="https://tricountyslopitch.ca/rules.html">
+<meta property="og:image" content="https://tricountyslopitch.ca/img/logo/banner-hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;650&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<nav class="nav nav--compact">
+  <div class="wrap nav__in">
+    <a class="nav__brand" href="index.html">
+      <img src="img/logo/logo-crest.png" alt="" class="nav__crest">
+      <img src="favicon.svg" alt="" class="nav__mark">
+      <span class="nav__word">Tri-County <strong>Slo-Pitch</strong></span></a>
+    <button class="nav__toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__links" id="nav-menu">
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="standings.html">Standings</a></li>
+      <li><a href="teams.html">Teams</a></li>
+      <li><a href="venues.html">Venues</a></li>
+      <li><a href="rules.html" aria-current="page">Rules</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="seasons.html">Seasons</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="sect">
+  <div class="wrap wrap--narrow">
+    <div class="sect__head"><div><h2>Rules</h2><p class="sub">How the league plays</p></div></div>
+
+    <div class="notice">
+      <strong>Some league-specific rules are still being rebuilt.</strong>
+      The league's previous website was shut down and its rules document was lost with it.
+      The sections below are accurate; anything marked <em>to be confirmed</em> is being restored.
+    </div>
+
+    <h3 class="subhead">Governing rules</h3>
+    <p class="lede">The Tri-County Slo-Pitch League is a member of <b>Slo-Pitch Ontario</b>. Play follows the
+      SPO rulebook except where the league has agreed its own variations.</p>
+    <div class="linkgrid">
+      <a class="linkcard" href="https://www.slopitch.org/pages/handbook-and-rulebook" target="_blank" rel="noopener">
+        <b>SPO Handbook &amp; Rulebook</b><span>The full rules of play</span></a>
+      <a class="linkcard" href="https://www.slopitch.org/pages/login" target="_blank" rel="noopener">
+        <b>SPO Registry</b><span>Team and player registration</span></a>
+      <a class="linkcard" href="https://www.slopitch.org/resources" target="_blank" rel="noopener">
+        <b>SPO Forms</b><span>Rosters, waivers and resources</span></a>
+      <a class="linkcard" href="https://www.slopitch.org/" target="_blank" rel="noopener">
+        <b>Slo-Pitch Ontario</b><span>Governing body</span></a>
+    </div>
+
+    <h3 class="subhead">League format</h3>
+    <ul class="ruleset">
+      <li><b>Division</b> Sunday Co-Ed</li>
+      <li><b>When</b> Sunday mornings, May through August</li>
+      <li><b>Where</b> Diamonds across Kitchener and Waterloo &mdash; see <a href="venues.html">Venues</a></li>
+      <li><b>Teams</b> 7 in the 2026 season</li>
+      <li><b>Season length</b> 42 regular-season games across 10 game days</li>
+      <li><b>Game length</b> 7 innings, no set time limit &mdash; games usually run about 1&frac12; hours</li>
+      <li><b>Batting order</b> Alternating, male then female, through the lineup</li>
+      <li><b>Playoffs</b> Split into A and B divisions after the regular season, finals in late August</li>
+    </ul>
+
+    <h3 class="subhead">Player registration</h3>
+    <p class="lede">All players must appear on an SPO Registered Roster. Everyone listed should read the
+      release and indemnity form that accompanies the roster. Rosters are managed through the <a href="https://www.slopitch.org/pages/login" target="_blank" rel="noopener">SPO registry</a>.</p>
+
+    <h3 class="subhead">Reporting scores</h3>
+    <p class="lede">Both teams report the final score after each game. Where both reports agree, the result is
+      marked confirmed. Where they disagree, the score is held back until the convenor settles it.</p>
+    <p><a class="btn btn--gold btn--sm" id="report-link" href="#" target="_blank" rel="noopener">Report a score</a></p>
+
+    <h3 class="subhead">To be confirmed</h3>
+    <ul class="ruleset ruleset--todo">
+      <li>Co-ed ratio required on the field</li>
+      <li>Home-run limits and the mercy rule</li>
+      <li>Bat restrictions and the approved bat list</li>
+      <li>Courtesy runners and substitutions</li>
+      <li>Rain-out and rescheduling policy</li>
+      <li>Umpire fees and who pays</li>
+    </ul>
+  </div>
+</section>
+
+<script>
+config().then(c => { if (c.score_form) document.getElementById('report-link').href = c.score_form; });
+</script>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <img class="foot__crest" src="img/logo/logo-crest.png" alt="Tri-County Slo-Pitch League crest">
+    <div class="foot__col"><h3>Tri-County Slo-Pitch</h3><p>Adult recreational co-ed slo-pitch<br>Kitchener &amp; Waterloo, Ontario</p></div>
+    <div class="foot__col"><h3>League</h3><p><a href="schedule.html">Schedule</a><br><a href="standings.html">Standings</a><br><a href="rules.html">Rules</a><br><a href="venues.html">Venues</a><br><a href="faq.html">FAQ</a></p></div>
+    <div class="foot__col"><h3>Join</h3><p>Register for the <b data-reg-year>2027</b> season.<br><a data-contact href="join.html">Get in touch</a></p></div>
+  </div>
+  <div class="wrap foot__base"><small>&copy; <span data-reg-year>2027</span> Tri-County Slo-Pitch League</small></div>
+</footer>
+<script src="js/site.js"></script>
+</body>
+</html>
