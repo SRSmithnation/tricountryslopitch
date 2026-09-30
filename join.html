@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Get in Touch | Tri-County Slo-Pitch League</title>
+<meta name="description" content="Contact the Tri-County Slo-Pitch League about joining, schedules or the website.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;650&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<nav class="nav nav--compact">
+  <div class="wrap nav__in">
+    <a class="nav__brand" href="index.html">
+      <img src="img/logo/logo-crest.png" alt="" class="nav__crest">
+      <img src="favicon.svg" alt="" class="nav__mark">
+      <span class="nav__word">Tri-County <strong>Slo-Pitch</strong></span></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="standings.html">Standings</a></li>
+      <li><a href="teams.html">Teams</a></li>
+      <li><a href="seasons.html">Seasons</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="sect">
+  <div class="wrap wrap--narrow">
+    <div class="sect__head">
+      <div><h2>Get in Touch</h2><p class="sub">Joining the league, a question about a game, or an issue with the site</p></div>
+    </div>
+
+    <div class="card card--pad">
+      <form id="contact-form" class="form">
+        <div class="form__row">
+          <label class="field">
+            <span>Your name <b>*</b></span>
+            <input type="text" name="name" required autocomplete="name">
+          </label>
+          <label class="field">
+            <span>Email <b>*</b></span>
+            <input type="email" name="email" required autocomplete="email">
+          </label>
+        </div>
+        <div class="form__row">
+          <label class="field">
+            <span>Team <small>(if you have one)</small></span>
+            <input type="text" name="team">
+          </label>
+          <label class="field">
+            <span>What's this about? <b>*</b></span>
+            <select name="topic" required>
+              <option value="">Choose one…</option>
+              <option>Joining the league</option>
+              <option>Question about a game or schedule</option>
+              <option>Reporting a score problem</option>
+              <option>Website issue</option>
+              <option>Something else</option>
+            </select>
+          </label>
+        </div>
+        <label class="field">
+          <span>Message <b>*</b></span>
+          <textarea name="message" rows="6" required placeholder="Tell us a bit about what you need…"></textarea>
+        </label>
+        <input type="text" name="hp" tabindex="-1" autocomplete="off"
+               style="position:absolute;left:-9999px;width:1px;height:1px" aria-hidden="true">
+        <div class="form__actions">
+          <button type="submit" class="btn btn--gold">Send message</button>
+          <span class="form__note" id="form-note"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <img class="foot__crest" src="img/logo/logo-crest.png" alt="Tri-County Slo-Pitch League crest">
+    <div class="foot__col"><h3>Tri-County Slo-Pitch</h3><p>Adult recreational co-ed slo-pitch<br>Kitchener &amp; Waterloo, Ontario</p></div>
+    <div class="foot__col"><h3>League</h3><p><a href="schedule.html">Schedule</a><br><a href="standings.html">Standings</a><br><a href="teams.html">Teams</a><br><a href="seasons.html">Seasons</a></p></div>
+    <div class="foot__col"><h3>Join</h3><p>Register for the <b data-reg-year>2027</b> season.<br><a data-contact href="join.html">Get in touch</a></p></div>
+  </div>
+  <div class="wrap foot__base"><small>&copy; <span data-reg-year>2027</span> Tri-County Slo-Pitch League</small></div>
+</footer>
+<script src="js/site.js"></script>
+<script>
+/* Posts the form to a Google Apps Script endpoint which emails the league.
+   No address appears anywhere in this page's source. */
+const form = document.getElementById('contact-form');
+const note = document.getElementById('form-note');
+const btn  = form.querySelector('button[type=submit]');
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const cfg = await config();
+  const v = n => (form.elements[n]?.value || '').trim();
+  const payload = { name:v('name'), email:v('email'), team:v('team'),
+                    topic:v('topic'), message:v('message'), hp:v('hp') };
+
+  if (!cfg.contact_endpoint) {
+    note.textContent = 'The contact form is not connected yet. Please try again later.';
+    note.className = 'form__note form__note--err';
+    return;
+  }
+
+  btn.disabled = true;
+  note.className = 'form__note';
+  note.textContent = 'Sending…';
+  try {
+    await fetch(cfg.contact_endpoint, {
+      method: 'POST',
+      mode: 'no-cors',                       // Apps Script sends no CORS headers
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+    form.reset();
+    note.textContent = 'Thanks — your message has been sent.';
+    note.className = 'form__note form__note--ok';
+  } catch (err) {
+    note.textContent = 'Something went wrong sending that. Please try again.';
+    note.className = 'form__note form__note--err';
+  } finally {
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>

@@ -2,13 +2,13 @@
   "year": 2026,
   "division": "Sunday Co-Ed",
   "teams": [
-    "Balls Deep",
-    "Chok it and Stroke it",
-    "Cobras",
-    "Crew 2.0",
-    "Kraus Krew",
     "Misfits",
-    "Pithogs"
+    "Pithogs",
+    "Cobras",
+    "Balls Deep",
+    "Crew 2.0",
+    "Chok it and Stroke it",
+    "Kraus Krew"
   ],
   "games": [
     {
@@ -683,5 +683,14 @@
     }
   ],
   "complete": false,
-  "note": "Full schedule from the league's own export. Scores were held in LeagueLineup and have not been recovered."
+  "note": "Full schedule from the league's own export. Scores were held in LeagueLineup and have not been recovered.",
+  "team_numbers": {
+    "Misfits": 1,
+    "Pithogs": 2,
+    "Cobras": 3,
+    "Balls Deep": 4,
+    "Crew 2.0": 5,
+    "Chok it and Stroke it": 6,
+    "Kraus Krew": 7
+  }
 }

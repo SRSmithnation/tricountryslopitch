@@ -2,3 +2,6 @@
 *.swp
 Thumbs.db
 desktop.ini
+
+# setup script holds the league email address — keep local
+apps-script/

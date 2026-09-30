@@ -65,7 +65,23 @@ function initRegistrationYear() {
   seasonMeta().then(m => els.forEach(el => el.textContent = m.current)).catch(() => {});
 }
 
-document.addEventListener('DOMContentLoaded', () => { initNav(); initRegistrationYear(); });
+/* Contact links: use the Google Form if one is configured,
+   otherwise fall back to a mailto: so the link is never dead. */
+function initContactLinks() {
+  const els = document.querySelectorAll('[data-contact]');
+  if (!els.length) return;
+  config().then(c => {
+    const href = c.contact_form ? c.contact_form
+               : (c.contact_email ? 'mailto:' + c.contact_email : null);
+    if (!href) return;
+    els.forEach(el => {
+      el.href = href;
+      if (/^https?:/i.test(href)) { el.target = '_blank'; el.rel = 'noopener'; }
+    });
+  }).catch(() => {});
+}
+
+document.addEventListener('DOMContentLoaded', () => { initNav(); initRegistrationYear(); initContactLinks(); });
 
 
 /* ------------------------------------------------------------------
@@ -130,9 +146,12 @@ function loadSeason(year) {
           reports.get(id).set(who, { a, h, status: r.Status || 'Final', at: r.Timestamp || '' });
         });
 
-        let confirmed = 0, unconfirmed = 0, disputed = 0, overridden = 0;
+        let confirmed = 0, unconfirmed = 0, disputed = 0, overridden = 0, locked = 0;
         d.games.forEach(g => {
           const id = String(g.id);
+          /* scores already recorded in the repo (from league score sheets)
+             are official and cannot be overwritten by captain reports */
+          if (g.verify === 'official' && g.home_score != null) { locked++; return; }
           if (admin.has(id)) {
             const v = admin.get(id);
             g.away_score = v.a; g.home_score = v.h; g.status = v.status;
@@ -148,7 +167,7 @@ function loadSeason(year) {
           if (byTeam.size >= 2) { g.verify = 'confirmed'; confirmed++; }
           else { g.verify = 'unconfirmed'; unconfirmed++; }
         });
-        return { ...d, scoreSource: 'sheet', stats: { confirmed, unconfirmed, disputed, overridden } };
+        return { ...d, scoreSource: 'sheet', stats: { confirmed, unconfirmed, disputed, overridden, locked } };
       });
     }));
   });
@@ -166,8 +185,8 @@ function verifyBadge(g) {
   const v = VERIFY[g.verify];
   return v ? `<span class="vbadge ${v[1]}" title="${v[2]}">${v[0]}</span>` : '';
 }
-function scoreCell(g) {
+function scoreCell(g, showBadge = true) {
   if (g.verify === 'disputed') return '<span class="vbadge v-disputed" title="Teams reported different scores">Disputed</span>';
   if (g.away_score == null || g.home_score == null) return '';
-  return `<span class="score">${g.away_score}&ndash;${g.home_score}</span>${verifyBadge(g)}`;
+  return `<span class="score">${g.away_score}&ndash;${g.home_score}</span>${showBadge ? verifyBadge(g) : ''}`;
 }
