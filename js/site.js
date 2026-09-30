@@ -214,20 +214,28 @@ function loadSeason(year) {
 
 
 /* Verification badge for a game's score provenance */
+/* Only the exceptions get a badge. An official or confirmed score is the
+   expected case, so badging it everywhere carries no information. */
 const VERIFY = {
-  official:    ['Official',    'v-official',  'Entered by the league'],
-  confirmed:   ['Confirmed',   'v-confirmed', 'Reported by both teams and matching'],
-  unconfirmed: ['Unconfirmed', 'v-unconf',    'Reported by one team only'],
+  unconfirmed: ['Unconfirmed', 'v-unconf',    'Reported by one team only — not yet confirmed'],
   disputed:    ['Disputed',    'v-disputed',  'Teams reported different scores — not published']
+};
+const VERIFY_TITLE = {
+  official:  'Entered by the league',
+  confirmed: 'Reported by both teams and matching'
 };
 function verifyBadge(g) {
   const v = VERIFY[g.verify];
   return v ? `<span class="vbadge ${v[1]}" title="${v[2]}">${v[0]}</span>` : '';
 }
+function verifyTitle(g) {
+  const t = VERIFY_TITLE[g.verify];
+  return t ? ` title="${t}"` : '';
+}
 function scoreCell(g, showBadge = true) {
   if (g.verify === 'disputed') return '<span class="vbadge v-disputed" title="Teams reported different scores">Disputed</span>';
   if (g.away_score == null || g.home_score == null) return '';
-  return `<span class="score">${g.away_score}&ndash;${g.home_score}</span>${showBadge ? verifyBadge(g) : ''}`;
+  return `<span class="score"${verifyTitle(g)}>${g.away_score}&ndash;${g.home_score}</span>${showBadge ? verifyBadge(g) : ''}`;
 }
 
 

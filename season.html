@@ -69,7 +69,7 @@
     <img class="foot__crest" src="img/logo/logo-crest.png" alt="Tri-County Slo-Pitch League crest">
     <div class="foot__col"><h3>Tri-County Slo-Pitch</h3><p>Adult recreational co-ed slo-pitch<br>Kitchener &amp; Waterloo, Ontario</p></div>
     <div class="foot__col"><h3>League</h3><p><a href="index.html">Home</a><br><a href="seasons.html">Seasons</a></p></div>
-    <div class="foot__col"><h3>Join</h3><p>Register for the <b data-reg-year>2027</b> season.<br><a data-contact href="join.html">Get in touch</a></p></div>
+    <div class="foot__col"><h3>Join</h3><p>Register for the <b data-reg-year>2027</b> season.<br><a data-contact href="contact.html">Get in touch</a></p></div>
   </div>
   <div class="wrap foot__base"><small>&copy; <span data-reg-year>2027</span> Tri-County Slo-Pitch League</small></div>
 </footer>
@@ -123,7 +123,7 @@ loadSeason(year)
           <div class="day__time">
             <span class="gid" title="Game ID">#${g.id}</span>
             <span class="day__clock">${esc((g.time||'').toUpperCase())}</span>
-            ${has ? `<span class="day__score">${g.away_score}&ndash;${g.home_score}</span>` : ''}
+            ${has ? `<span class="day__score"${verifyTitle(g)}>${g.away_score}&ndash;${g.home_score}</span>` : ''}
           </div>
           <div>
             <div class="day__match">${esc(g.away)}${aw?'<span class="win-badge">W</span>':''}<span class="vs">at</span>${esc(g.home)}${hw?'<span class="win-badge">W</span>':''}</div>
