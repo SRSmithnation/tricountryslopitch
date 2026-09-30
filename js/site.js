@@ -40,7 +40,16 @@ function initNav() {
   const nav = document.querySelector('.nav');
   if (!nav) return;
   const setH = () => document.documentElement.style.setProperty('--navh', nav.offsetHeight + 'px');
-  const f = () => { nav.classList.toggle('nav--compact', window.scrollY > 40); setH(); };
+  /* Hysteresis: compact past 72px, expand again only under 24px. A single
+     threshold makes the class flip-flop when you hover right on it. */
+  let compact = false;
+  const f = () => {
+    const y = window.scrollY;
+    if (!compact && y > 72) compact = true;
+    else if (compact && y < 24) compact = false;
+    nav.classList.toggle('nav--compact', compact);
+    setH();
+  };
   addEventListener('resize', setH);
   f(); addEventListener('scroll', f, { passive: true });
 }
@@ -219,4 +228,15 @@ function scoreCell(g, showBadge = true) {
   if (g.verify === 'disputed') return '<span class="vbadge v-disputed" title="Teams reported different scores">Disputed</span>';
   if (g.away_score == null || g.home_score == null) return '';
   return `<span class="score">${g.away_score}&ndash;${g.home_score}</span>${showBadge ? verifyBadge(g) : ''}`;
+}
+
+
+/* Per-game score-report link, with the Game ID prefilled.
+   Falls back to the plain form if no prefill base is configured. */
+function reportUrl(cfg, game) {
+  const f = cfg.score_form_fields || {};
+  if (cfg.score_form_prefill && f.game_id) {
+    return `${cfg.score_form_prefill}&${f.game_id}=${encodeURIComponent(game.id)}`;
+  }
+  return cfg.score_form || '#';
 }

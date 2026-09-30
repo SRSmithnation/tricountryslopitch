@@ -32,16 +32,17 @@ a:hover{color:var(--navy)}
 .nav--compact .nav__in{height:66px}
 .nav__brand{display:flex;align-items:center;gap:12px;color:#fff;font-size:22px;
   font-weight:600;text-transform:uppercase;white-space:nowrap}
-/* full crest: visible at rest, fades out when compact */
-.nav__crest{height:78px;width:auto;display:block;
-  filter:drop-shadow(0 6px 18px rgba(0,0,0,.45));
-  transition:height .28s cubic-bezier(.4,0,.2,1),opacity .18s,margin .28s}
-.nav--compact .nav__crest{height:0;opacity:0;margin-right:-12px;pointer-events:none}
-
-/* shield mark: hidden at rest, appears when compact */
-.nav__mark{height:0;width:auto;display:block;opacity:0;
-  transition:height .28s cubic-bezier(.4,0,.2,1),opacity .22s .06s}
-.nav--compact .nav__mark{height:32px;opacity:1}
+/* Both logos live in one fixed-size box and crossfade.
+   Neither affects layout, so the wordmark cannot shift mid-transition. */
+.nav__marks{position:relative;display:block;flex:0 0 auto;
+  width:78px;height:78px;transition:width .28s cubic-bezier(.4,0,.2,1),height .28s cubic-bezier(.4,0,.2,1)}
+.nav--compact .nav__marks{width:32px;height:32px}
+.nav__crest,.nav__mark{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain;transition:opacity .2s ease}
+.nav__crest{opacity:1;filter:drop-shadow(0 6px 18px rgba(0,0,0,.45))}
+.nav__mark{opacity:0}
+.nav--compact .nav__crest{opacity:0}
+.nav--compact .nav__mark{opacity:1}
 
 .nav__word{font-size:26px;font-weight:600;letter-spacing:.02em;
   transition:font-size .28s cubic-bezier(.4,0,.2,1)}
@@ -166,7 +167,7 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
   .nav__links{display:none}
   .nav__in{height:80px}
   .nav--compact .nav__in{height:60px}
-  .nav__crest{height:58px}
+  .nav__marks{width:58px;height:58px}
   .nav__word{font-size:21px}
   .foot__in{grid-template-columns:1fr;gap:28px;text-align:center;justify-items:center}
   .foot__crest{height:104px}
@@ -331,3 +332,5 @@ body.menu-open .nav__toggle span:nth-child(3){transform:translateY(-7px) rotate(
   .nav__links a[aria-current=page]{border-bottom-color:var(--gold);background:rgba(193,162,93,.1)}
   body.menu-open{overflow:hidden}
 }
+.report{font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap}
+.report:hover{color:var(--gold)}

@@ -41,7 +41,12 @@
 
 <nav class="nav">
   <div class="wrap nav__in">
-    <a class="nav__brand" href="#"><img src="img/logo/logo-crest.png" alt="" class="nav__crest"><img src="favicon.svg" alt="" class="nav__mark"><span class="nav__word">Tri-County <strong>Slo-Pitch</strong></span></a>
+    <a class="nav__brand" href="index.html">
+      <span class="nav__marks">
+        <img src="img/logo/logo-crest.png" alt="" class="nav__crest">
+        <img src="favicon.svg" alt="" class="nav__mark">
+      </span>
+      <span class="nav__word">Tri-County <strong>Slo-Pitch</strong></span></a>
     <button class="nav__toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
       <span></span><span></span><span></span>
     </button>
@@ -187,7 +192,7 @@ loadSeason().then(season=>{
   };
 
   const upcoming = all.filter(d=>d.dt>=today).slice(0,3);
-  const recent   = all.filter(d=>d.dt< today).slice(-3).reverse();
+  const recent   = all.filter(d=>d.dt< today).slice(-2).reverse();
 
   document.getElementById('days-upcoming').innerHTML = upcoming.map(block).join('');
   seasonMeta().then(m => {

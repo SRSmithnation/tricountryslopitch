@@ -28,8 +28,10 @@
 <nav class="nav nav--compact">
   <div class="wrap nav__in">
     <a class="nav__brand" href="index.html">
-      <img src="img/logo/logo-crest.png" alt="" class="nav__crest">
-      <img src="favicon.svg" alt="" class="nav__mark">
+      <span class="nav__marks">
+        <img src="img/logo/logo-crest.png" alt="" class="nav__crest">
+        <img src="favicon.svg" alt="" class="nav__mark">
+      </span>
       <span class="nav__word">Tri-County <strong>Slo-Pitch</strong></span></a>
     <button class="nav__toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
       <span></span><span></span><span></span>
@@ -74,8 +76,8 @@
 <script src="js/site.js"></script>
 
 <script>
-config().then(c=>{ if(c.score_form) document.getElementById('report-link').href=c.score_form; });
-let SEASON = null;
+config().then(c=>{ CFG=c; if(c.score_form) document.getElementById('report-link').href=c.score_form; });
+let SEASON = null, CFG = {};
 const render = () => {
   const pick = document.getElementById('team-filter').value;
   const games = SEASON.games.filter(g => !pick || g.home === pick || g.away === pick);
