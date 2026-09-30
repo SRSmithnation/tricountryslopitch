@@ -57,8 +57,7 @@
 <script src="js/site.js"></script>
 
 <script>
-fetch('data/seasons.json').then(r=>r.json()).then(l=>fetch(`data/seasons/${Math.max(...l.map(s=>s.year))}.json`))
-  .then(r=>r.json()).then(d=>{
+loadSeason().then(d=>{
     document.getElementById('sub').textContent = `${d.year} ${d.division}`;
     const rows = standings(d.teams, d.games);
     const played = d.games.filter(g=>g.home_score!=null).length;

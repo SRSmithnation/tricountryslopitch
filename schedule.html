@@ -77,8 +77,7 @@ const render = () => {
   document.getElementById('sub').textContent =
     `${SEASON.year} ${SEASON.division} · ${games.length} game${games.length===1?'':'s'} · ${days.length} game day${days.length===1?'':'s'}`;
 };
-fetch('data/seasons.json').then(r=>r.json()).then(l=>fetch(`data/seasons/${Math.max(...l.map(s=>s.year))}.json`))
-  .then(r=>r.json()).then(d=>{
+loadSeason().then(d=>{
     SEASON = d;
     document.getElementById('team-filter').insertAdjacentHTML('beforeend',
       d.teams.map(t=>`<option value="${esc(t)}">${esc(t)}</option>`).join(''));

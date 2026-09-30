@@ -66,3 +66,62 @@ function initRegistrationYear() {
 }
 
 document.addEventListener('DOMContentLoaded', () => { initNav(); initRegistrationYear(); });
+
+
+/* ------------------------------------------------------------------
+   Season loading.
+   Source of truth is the JSON in this repo. If a published Google
+   Sheet is configured, its scores are merged in on top (matched on
+   game ID). If the sheet is unreachable or malformed, the page still
+   renders from JSON — the site never depends on Google being up.
+------------------------------------------------------------------- */
+function parseCsv(text) {
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"' && text[i + 1] === '"') { cell += '"'; i++; }
+      else if (c === '"') q = false;
+      else cell += c;
+    } else if (c === '"') q = true;
+    else if (c === ',') { row.push(cell); cell = ''; }
+    else if (c === '\n') { row.push(cell); rows.push(row); row = []; cell = ''; }
+    else if (c !== '\r') cell += c;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  const head = (rows.shift() || []).map(h => h.trim());
+  return rows.filter(r => r.some(v => v.trim()))
+             .map(r => Object.fromEntries(head.map((h, i) => [h, (r[i] ?? '').trim()])));
+}
+
+const num = v => { const n = Number(String(v).trim()); return Number.isFinite(n) && String(v).trim() !== '' ? n : null; };
+
+let _config = null;
+const config = () => _config ||= fetch('data/config.json').then(r => r.json()).catch(() => ({}));
+
+function loadSeason(year) {
+  return config().then(cfg => {
+    const target = year || null;
+    const base = target
+      ? Promise.resolve(target)
+      : fetch('data/seasons.json').then(r => r.json()).then(l => Math.max(...l.map(s => s.year)));
+    return base.then(y => fetch(`data/seasons/${y}.json`).then(r => r.json()).then(d => {
+      const live = cfg.scores_csv && (!target || +target === +cfg.current_season);
+      if (!live) return { ...d, scoreSource: 'repo' };
+      return fetch(cfg.scores_csv).then(r => { if (!r.ok) throw 0; return r.text(); })
+        .then(txt => {
+          const byId = new Map(parseCsv(txt).map(r => [String(r.ID), r]));
+          let merged = 0;
+          d.games.forEach(g => {
+            const r = byId.get(String(g.id)); if (!r) return;
+            const a = num(r['Away Score']), h = num(r['Home Score']);
+            if (a !== null && h !== null) { g.away_score = a; g.home_score = h; merged++; }
+            if (r.Status) g.status = r.Status;
+            if (r.Notes) g.notes = r.Notes;
+          });
+          return { ...d, scoreSource: 'sheet', merged };
+        })
+        .catch(() => ({ ...d, scoreSource: 'repo-fallback' }));
+    }));
+  });
+}

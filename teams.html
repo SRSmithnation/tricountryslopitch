@@ -49,8 +49,7 @@
 <script src="js/site.js"></script>
 
 <script>
-fetch('data/seasons.json').then(r=>r.json()).then(l=>fetch(`data/seasons/${Math.max(...l.map(s=>s.year))}.json`))
-  .then(r=>r.json()).then(d=>{
+loadSeason().then(d=>{
     document.getElementById('sub').textContent = `${d.year} ${d.division} · ${d.teams.length} teams`;
     const st = standings(d.teams, d.games);
     const rank = Object.fromEntries(st.map((x,i)=>[x.team, x.gp?i+1:null]));

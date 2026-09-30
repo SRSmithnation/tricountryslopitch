@@ -59,7 +59,7 @@
 <script>
 const year = (new URLSearchParams(location.search).get('y') || '2026').replace(/\D/g,'');
 
-fetch(`data/seasons/${year}.json`).then(r=>{ if(!r.ok) throw new Error('not found'); return r.json(); })
+loadSeason(year)
 .then(d=>{
   document.title = `${d.year} Season | Tri-County Slo-Pitch League`;
   document.getElementById('title').textContent = `${d.year} Season`;

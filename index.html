@@ -112,7 +112,8 @@
 
 <script>
 
-fetch('data/schedule-2026.json').then(r=>r.json()).then(g=>{
+loadSeason().then(season=>{
+  const g = season.games;
   document.getElementById('s-games').textContent = g.length;
   document.getElementById('s-venues').textContent = new Set(g.map(x=>x.venue)).size;
   const today = new Date(); today.setHours(0,0,0,0);
