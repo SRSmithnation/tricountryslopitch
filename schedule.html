@@ -96,8 +96,8 @@ const render = () => {
           <${tag} class="day__row"${attrs}>
             <div class="day__time">
               <span class="day__clock">${esc((g.time||'').toUpperCase())}</span>
-              ${has ? `<span class="day__score">${g.away_score}&ndash;${g.home_score}</span>` : ''}
               <span class="gid" title="Game ID">#${g.id}</span>
+              ${has ? `<span class="day__score">${g.away_score}&ndash;${g.home_score}</span>` : ''}
             </div>
             <div>
               <div class="day__match">${stripNo(g.away)}${has&&g.away_score>g.home_score?'<span class="win-badge">W</span>':''}<span class="vs">at</span>${stripNo(g.home)}${has&&g.home_score>g.away_score?'<span class="win-badge">W</span>':''}</div>

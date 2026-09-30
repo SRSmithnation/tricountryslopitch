@@ -347,6 +347,7 @@ a.day__row:hover{background:#fbfaf6;color:inherit}
 .day__game--report a.day__row{position:relative}
 .day__game--report a.day__row:hover::after{opacity:1}
 .day__clock{font-size:12.5px;font-weight:700;color:var(--muted);letter-spacing:.02em}
+.day__time .gid{margin:1px 0 2px}
 .day__score{font-family:"Barlow Condensed",sans-serif;font-size:27px;font-weight:700;
   line-height:1;color:var(--navy);font-variant-numeric:tabular-nums;letter-spacing:.01em}
 .day__cta{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
