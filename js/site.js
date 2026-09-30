@@ -101,27 +101,73 @@ const config = () => _config ||= fetch('data/config.json').then(r => r.json()).c
 
 function loadSeason(year) {
   return config().then(cfg => {
-    const target = year || null;
-    const base = target
-      ? Promise.resolve(target)
+    const base = year
+      ? Promise.resolve(year)
       : fetch('data/seasons.json').then(r => r.json()).then(l => Math.max(...l.map(s => s.year)));
     return base.then(y => fetch(`data/seasons/${y}.json`).then(r => r.json()).then(d => {
-      const live = cfg.scores_csv && (!target || +target === +cfg.current_season);
-      if (!live) return { ...d, scoreSource: 'repo' };
-      return fetch(cfg.scores_csv).then(r => { if (!r.ok) throw 0; return r.text(); })
-        .then(txt => {
-          const byId = new Map(parseCsv(txt).map(r => [String(r.ID), r]));
-          let merged = 0;
-          d.games.forEach(g => {
-            const r = byId.get(String(g.id)); if (!r) return;
-            const a = num(r['Away Score']), h = num(r['Home Score']);
-            if (a !== null && h !== null) { g.away_score = a; g.home_score = h; merged++; }
-            if (r.Status) g.status = r.Status;
-            if (r.Notes) g.notes = r.Notes;
-          });
-          return { ...d, scoreSource: 'sheet', merged };
-        })
-        .catch(() => ({ ...d, scoreSource: 'repo-fallback' }));
+      const isCurrent = !year || +year === +cfg.current_season;
+      if (!isCurrent || !cfg.scores_csv) return { ...d, scoreSource: 'repo' };
+
+      const get = url => url ? fetch(url).then(r => { if (!r.ok) throw 0; return r.text(); }).catch(() => null) : Promise.resolve(null);
+      return Promise.all([get(cfg.scores_csv), get(cfg.responses_csv)]).then(([gTxt, rTxt]) => {
+        if (!gTxt && !rTxt) return { ...d, scoreSource: 'repo-fallback' };
+
+        /* 1. admin overrides from the Games tab — always win */
+        const admin = new Map();
+        if (gTxt) parseCsv(gTxt).forEach(r => {
+          const a = num(r['Away Score']), h = num(r['Home Score']);
+          if (a !== null && h !== null) admin.set(String(r.ID), { a, h, status: r.Status || 'Final' });
+        });
+
+        /* 2. captain reports, newest per reporting team */
+        const reports = new Map();
+        if (rTxt) parseCsv(rTxt).forEach(r => {
+          const id = String(r['Game ID'] || '').trim();
+          const a = num(r['Away Score']), h = num(r['Home Score']);
+          if (!id || a === null || h === null) return;
+          const who = (r['Reporting Team'] || r['Your Team'] || '').trim() || '(unnamed)';
+          if (!reports.has(id)) reports.set(id, new Map());
+          reports.get(id).set(who, { a, h, status: r.Status || 'Final', at: r.Timestamp || '' });
+        });
+
+        let confirmed = 0, unconfirmed = 0, disputed = 0, overridden = 0;
+        d.games.forEach(g => {
+          const id = String(g.id);
+          if (admin.has(id)) {
+            const v = admin.get(id);
+            g.away_score = v.a; g.home_score = v.h; g.status = v.status;
+            g.verify = 'official'; overridden++; return;
+          }
+          const byTeam = reports.get(id);
+          if (!byTeam || !byTeam.size) return;
+          const vals = [...byTeam.values()];
+          const distinct = new Set(vals.map(v => `${v.a}-${v.h}`));
+          if (distinct.size > 1) { g.verify = 'disputed'; g.reports = vals; disputed++; return; }
+          const v = vals[0];
+          g.away_score = v.a; g.home_score = v.h; g.status = v.status;
+          if (byTeam.size >= 2) { g.verify = 'confirmed'; confirmed++; }
+          else { g.verify = 'unconfirmed'; unconfirmed++; }
+        });
+        return { ...d, scoreSource: 'sheet', stats: { confirmed, unconfirmed, disputed, overridden } };
+      });
     }));
   });
+}
+
+
+/* Verification badge for a game's score provenance */
+const VERIFY = {
+  official:    ['Official',    'v-official',  'Entered by the league'],
+  confirmed:   ['Confirmed',   'v-confirmed', 'Reported by both teams and matching'],
+  unconfirmed: ['Unconfirmed', 'v-unconf',    'Reported by one team only'],
+  disputed:    ['Disputed',    'v-disputed',  'Teams reported different scores — not published']
+};
+function verifyBadge(g) {
+  const v = VERIFY[g.verify];
+  return v ? `<span class="vbadge ${v[1]}" title="${v[2]}">${v[0]}</span>` : '';
+}
+function scoreCell(g) {
+  if (g.verify === 'disputed') return '<span class="vbadge v-disputed" title="Teams reported different scores">Disputed</span>';
+  if (g.away_score == null || g.home_score == null) return '';
+  return `<span class="score">${g.away_score}&ndash;${g.home_score}</span>${verifyBadge(g)}`;
 }

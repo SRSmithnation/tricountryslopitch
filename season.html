@@ -103,7 +103,7 @@ loadSeason(year)
         <div class="day__time">${esc((g.time||'').toUpperCase())}</div>
         <div>
           <div class="day__match">${esc(g.away)}${aw?'<span class="win-badge">W</span>':''}<span class="vs">at</span>${esc(g.home)}${hw?'<span class="win-badge">W</span>':''}</div>
-          <div class="day__venue">${esc(g.venue||'')}${has?` &middot; <span class="score">${g.away_score}&ndash;${g.home_score}</span>`:''}</div>
+          <div class="day__venue">${[esc(g.venue||''), scoreCell(g)].filter(Boolean).join(' &middot; ')}</div>
         </div></li>`;
     }).join('');
     return `<article class="day"><div class="day__head">

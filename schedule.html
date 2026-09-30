@@ -34,10 +34,14 @@
   <div class="wrap">
     <div class="sect__head">
       <div><h2>Schedule</h2><p class="sub" id="sub"></p></div>
-      <label class="filter">Team
-        <select id="team-filter"><option value="">All teams</option></select>
-      </label>
+      <div class="head-tools">
+        <label class="filter">Team
+          <select id="team-filter"><option value="">All teams</option></select>
+        </label>
+        <a class="btn btn--sm btn--gold" id="report-link" href="#" target="_blank" rel="noopener">Report a score</a>
+      </div>
     </div>
+    <p class="hint">Reporting a score? Use the <b>#number</b> shown beside each game as the Game ID.</p>
     <div class="days" id="days"></div>
   </div>
 </section>
@@ -54,6 +58,7 @@
 <script src="js/site.js"></script>
 
 <script>
+config().then(c=>{ if(c.score_form) document.getElementById('report-link').href=c.score_form; });
 let SEASON = null;
 const render = () => {
   const pick = document.getElementById('team-filter').value;
@@ -68,10 +73,10 @@ const render = () => {
       <ul class="day__games">${gs.map(g => {
         const has = g.home_score != null && g.away_score != null;
         return `<li class="day__game">
-          <div class="day__time">${esc((g.time||'').toUpperCase())}</div>
+          <div class="day__time">${esc((g.time||'').toUpperCase())}<span class="gid" title="Game ID — use this in the score form">#${g.id}</span></div>
           <div>
             <div class="day__match">${stripNo(g.away)}${has&&g.away_score>g.home_score?'<span class="win-badge">W</span>':''}<span class="vs">at</span>${stripNo(g.home)}${has&&g.home_score>g.away_score?'<span class="win-badge">W</span>':''}</div>
-            <div class="day__venue">${[esc(g.venue), has?`<span class="score">${g.away_score}&ndash;${g.home_score}</span>`:''].filter(Boolean).join(' &middot; ')}</div>
+            <div class="day__venue">${[esc(g.venue||''), scoreCell(g)].filter(Boolean).join(' &middot; ')}</div>
           </div></li>`; }).join('')}</ul>
     </article>`).join('') : `<div class="empty"><strong>No games</strong>Nothing scheduled for that selection.</div>`;
   document.getElementById('sub').textContent =

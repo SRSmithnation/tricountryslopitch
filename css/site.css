@@ -208,3 +208,21 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
 .teamcard__foot{display:flex;align-items:center;justify-content:space-between;gap:10px;
   padding:13px 18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
 .teamcard__foot a{font-weight:650;white-space:nowrap}
+
+/* schedule page tools */
+.head-tools{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.btn--sm{padding:10px 18px;font-size:12.5px}
+.gid{display:inline-block;margin-left:8px;font-size:11px;font-weight:700;color:var(--muted);
+  background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:1px 5px;
+  font-variant-numeric:tabular-nums}
+.hint{margin:-10px 0 24px;font-size:13.5px;color:var(--muted)}
+.hint b{color:var(--navy)}
+@media (max-width:640px){ .head-tools{width:100%;justify-content:space-between} }
+
+/* score verification badges */
+.vbadge{display:inline-block;margin-left:7px;font-size:10.5px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.07em;padding:2px 7px;border-radius:999px;vertical-align:1px}
+.v-official {background:var(--gold);color:var(--navy)}
+.v-confirmed{background:#e6f4ea;color:#166b35;border:1px solid #bfe3cb}
+.v-unconf   {background:#f1f3f7;color:#5b6b85;border:1px solid #e0e5ee}
+.v-disputed {background:#fdecec;color:#9b2222;border:1px solid #f4cccc}

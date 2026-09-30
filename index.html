@@ -131,7 +131,7 @@ loadSeason().then(season=>{
           <div class="day__time">${esc(x.time.toUpperCase())}</div>
           <div>
             <div class="day__match">${clean(x.away)}${x.away_score>x.home_score?'<span class="win-badge">W</span>':''}<span class="vs">at</span>${clean(x.home)}${x.home_score>x.away_score?'<span class="win-badge">W</span>':''}</div>
-            <div class="day__venue">${[showVenue?esc(x.venue):'', (x.away_score!=null&&x.home_score!=null)?`<span class="score">${x.away_score}&ndash;${x.home_score}</span>`:''].filter(Boolean).join(' &middot; ')}</div>
+            <div class="day__venue">${[showVenue?esc(x.venue):'', scoreCell(x)].filter(Boolean).join(' &middot; ')}</div>
           </div>
         </li>`).join('');
     return `<article class="day"><div class="day__head">

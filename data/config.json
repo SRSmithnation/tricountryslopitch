@@ -1,4 +1,6 @@
 {
   "current_season": 2026,
-  "scores_csv": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRm45WcUvtNDCJJUiJDt1C-Nk1nFmAUErAFeHGMDQ1KHschdh40v85Uj9HhUhSi9UcPs2XVFmAl828p/pub?gid=0&single=true&output=csv"
+  "scores_csv": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRm45WcUvtNDCJJUiJDt1C-Nk1nFmAUErAFeHGMDQ1KHschdh40v85Uj9HhUhSi9UcPs2XVFmAl828p/pub?gid=0&single=true&output=csv",
+  "score_form": "https://forms.gle/QBJNoubmbqfp6mVs8",
+  "responses_csv": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRm45WcUvtNDCJJUiJDt1C-Nk1nFmAUErAFeHGMDQ1KHschdh40v85Uj9HhUhSi9UcPs2XVFmAl828p/pub?gid=1496442190&single=true&output=csv"
 }
