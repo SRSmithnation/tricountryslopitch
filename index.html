@@ -4,13 +4,38 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Tri-County Slo-Pitch League | Kitchener, Ontario</title>
-<meta name="description" content="Adult recreational co-ed slo-pitch league in Kitchener, Ontario. Schedules, standings and teams for the 2026 season.">
+<meta name="description" content="Tri-County Slo-Pitch League — adult recreational co-ed slo-pitch in Kitchener and Waterloo, Ontario. Schedules, standings and team information.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;650&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://tricountyslopitch.ca/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tri-County Slo-Pitch League">
+<meta property="og:title" content="Tri-County Slo-Pitch League | Kitchener, Ontario">
+<meta property="og:description" content="Tri-County Slo-Pitch League — adult recreational co-ed slo-pitch in Kitchener and Waterloo, Ontario. Schedules, standings and team information.">
+<meta property="og:url" content="https://tricountyslopitch.ca/">
+<meta property="og:image" content="https://tricountyslopitch.ca/img/logo/banner-hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tri-County Slo-Pitch League | Kitchener, Ontario">
+<meta name="twitter:description" content="Tri-County Slo-Pitch League — adult recreational co-ed slo-pitch in Kitchener and Waterloo, Ontario. Schedules, standings and team information.">
+<meta name="twitter:image" content="https://tricountyslopitch.ca/img/logo/banner-hero.png">
 <link rel="stylesheet" href="css/site.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SportsOrganization",
+ "name":"Tri-County Slo-Pitch League",
+ "alternateName":"Tri-County Slopitch",
+ "sport":"Softball",
+ "url":"https://tricountyslopitch.ca/",
+ "logo":"https://tricountyslopitch.ca/img/logo/logo-crest.png",
+ "image":"https://tricountyslopitch.ca/img/logo/banner-hero.png",
+ "description":"Adult recreational co-ed slo-pitch league playing Sunday mornings in Kitchener and Waterloo, Ontario.",
+ "areaServed":{"@type":"Place","name":"Kitchener-Waterloo, Ontario, Canada"},
+ "location":{"@type":"Place","name":"Kitchener, Ontario, Canada",
+   "address":{"@type":"PostalAddress","addressLocality":"Kitchener","addressRegion":"ON","addressCountry":"CA"}},
+ "foundingDate":"2013"}
+</script>
 </head>
 <body>
 
@@ -73,7 +98,10 @@
 
 <section class="sect sect--alt" id="standings">
   <div class="wrap">
-    <div class="sect__head"><div><h2>Standings</h2><p class="sub">2026 regular season</p></div></div>
+    <div class="sect__head">
+      <div><h2>Standings</h2><p class="sub" id="std-sub"></p></div>
+      <a class="link-more" href="standings.html">Full standings &rarr;</a>
+    </div>
     <div class="card">
       <table>
         <thead><tr><th style="width:56px">#</th><th>Team</th><th class="num">W</th><th class="num">L</th><th class="num">PCT</th></tr></thead>
@@ -114,6 +142,20 @@
 
 loadSeason().then(season=>{
   const g = season.games;
+
+  // --- standings, top 5, from real scores ---
+  const rows = standings(season.teams, g);
+  const played = g.filter(x => x.home_score != null).length;
+  const sub = document.getElementById('std-sub');
+  if (sub) sub.textContent = played
+    ? `${season.year} regular season · ${played} of ${g.length} games recorded`
+    : `${season.year} regular season · no scores recorded yet`;
+  document.getElementById('standings-body').innerHTML = rows.slice(0,5).map((x,i)=>`
+    <tr><td>${x.gp?`<span class="rank">${i+1}</span>`:'<span class="dash">&ndash;</span>'}</td>
+      <td class="team-name">${esc(x.team)}</td>
+      <td class="num">${x.gp?x.w:'<span class="dash">&ndash;</span>'}</td>
+      <td class="num">${x.gp?x.l:'<span class="dash">&ndash;</span>'}</td>
+      <td class="num pct">${x.gp?x.pct.toFixed(3).replace(/^0/,''):'<span class="dash">&ndash;</span>'}</td></tr>`).join('');
   document.getElementById('s-games').textContent = g.length;
   document.getElementById('s-venues').textContent = new Set(g.map(x=>x.venue)).size;
   const today = new Date(); today.setHours(0,0,0,0);
@@ -167,17 +209,6 @@ fetch('teams/sunday-coed.json').then(r=>r.json()).then(t=>{
     <div class="team"><div class="team__no">${esc(k)}</div><div class="team__name">${esc(t[k])}</div></div>`).join('');
 });
 
-fetch('data/standings.csv').then(r=>r.text()).then(txt=>{
-  const rows = txt.trim().split(/\r?\n/).slice(2).map(l=>l.split(','))
-    .map(c=>({name:(c[0]||'').trim(), w:+c[1]||0, l:+c[2]||0}))
-    .map(t=>({...t, pct:(t.w+t.l)?t.w/(t.w+t.l):0}))
-    .sort((a,b)=>b.pct-a.pct || b.w-a.w || a.name.localeCompare(b.name));
-  document.getElementById('standings-body').innerHTML = rows.map((t,i)=>`
-    <tr><td><span class="rank">${i+1}</span></td>
-      <td class="team-name">${esc(t.name)}</td>
-      <td class="num">${t.w}</td><td class="num">${t.l}</td>
-      <td class="num pct">${t.pct.toFixed(3).replace(/^0/,'')}</td></tr>`).join('');
-});
 
 const navEl = document.querySelector('.nav');
 const onScroll = () => navEl.classList.toggle('nav--compact', window.scrollY > 40);

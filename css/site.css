@@ -43,7 +43,10 @@ a:hover{color:var(--navy)}
 .nav__word{font-size:26px;font-weight:600;letter-spacing:.02em;
   transition:font-size .28s cubic-bezier(.4,0,.2,1)}
 .nav--compact .nav__word{font-size:22px}
-.nav__word strong{color:var(--gold-light);font-weight:700}
+.nav__word strong{color:var(--gold-light);font-weight:700;transition:color .18s}
+/* the global a:hover turns links navy — wrong on a navy bar, so opt the brand out */
+.nav__brand,.nav__brand:hover,.nav__brand:focus{color:#fff}
+.nav__brand:hover .nav__word strong{color:var(--gold)}
 .nav__links{display:flex;gap:26px;margin-left:auto;list-style:none;padding:0}
 .nav__links a{color:rgba(255,255,255,.78);font-size:14px;font-weight:600;
   text-transform:uppercase;letter-spacing:.06em;padding:6px 0;border-bottom:2px solid transparent}

@@ -17,7 +17,7 @@ class SubpageTitle extends HTMLElement {
         websiteTitle.style.fontWeight = "bold";
         websiteTitle.style.fontSize = "xx-large";
         websiteTitle.style.fontStyle = "italic";
-        websiteTitle.textContent = "Kitchener Co-ed Volleyball League";
+        websiteTitle.textContent = "Tri-County Slo-Pitch League";
         const homeLink = document.createElement("a");
         homeLink.style.fontWeight = "bolder";
         homeLink.style.fontStyle = "italic";
