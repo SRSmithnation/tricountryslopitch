@@ -59,7 +59,7 @@
         <a class="btn btn--sm btn--gold" id="report-link" href="#" target="_blank" rel="noopener">Report a score</a>
       </div>
     </div>
-    <p class="hint">Reporting a score? Use the <b>#number</b> shown beside each game as the Game ID.</p>
+    <p class="hint">Played a game with no score yet? <b>Click the game</b> to report it &mdash; the game number is filled in for you.</p>
     <div class="days" id="days"></div>
   </div>
 </section>
@@ -96,7 +96,7 @@ const render = () => {
           <${tag} class="day__row"${attrs}>
             <div class="day__time">
               <span class="day__clock">${esc((g.time||'').toUpperCase())}</span>
-              ${has ? `<span class="day__score">${g.away_score}&ndash;${g.home_score}</span>` : '<span class="day__cta">Report score</span>'}
+              ${has ? `<span class="day__score">${g.away_score}&ndash;${g.home_score}</span>` : ''}
               <span class="gid" title="Game ID">#${g.id}</span>
             </div>
             <div>
