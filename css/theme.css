@@ -1,0 +1,49 @@
+/* Tri-County Slo-Pitch League — palette sampled from the league logo */
+:root {
+  --tc-navy:       #0F264F;
+  --tc-blue:       #214B6E;
+  --tc-gold:       #C1A25D;
+  --tc-cream:      #D4C7A2;
+  --tc-white:      #FFFFFF;
+
+  /* map the palette onto Pico's design tokens */
+  --pico-primary:                 var(--tc-navy);
+  --pico-primary-background:      var(--tc-navy);
+  --pico-primary-hover:           var(--tc-blue);
+  --pico-primary-hover-background: var(--tc-blue);
+  --pico-primary-focus:           rgba(193, 162, 93, 0.35);
+  --pico-primary-inverse:         var(--tc-white);
+
+  --pico-font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --pico-border-radius: 6px;
+  --pico-spacing: 1rem;
+}
+
+/* header / nav */
+.tc-header { background: var(--tc-navy); padding: 1rem 0; }
+.tc-header img { height: 64px; width: auto; display: block; }
+.tc-header nav a { color: var(--tc-cream); text-decoration: none; font-weight: 600; }
+.tc-header nav a:hover,
+.tc-header nav a[aria-current="page"] { color: var(--tc-gold); }
+
+/* section headings */
+h1, h2, h3 { color: var(--tc-navy); }
+h2 { border-bottom: 3px solid var(--tc-gold); padding-bottom: .3rem; }
+
+/* tables: navy head, gold accent, zebra rows */
+table { font-size: .95rem; }
+thead th {
+  background: var(--tc-navy);
+  color: var(--tc-white);
+  border-bottom: 3px solid var(--tc-gold);
+}
+tbody tr:nth-child(even) { background: rgba(212, 199, 162, 0.18); }
+tbody tr:hover { background: rgba(193, 162, 93, 0.28); }
+
+/* small helpers */
+.tc-badge {
+  background: var(--tc-gold); color: var(--tc-navy);
+  border-radius: 4px; padding: .15rem .5rem;
+  font-weight: 700; font-size: .8rem;
+}
+footer { border-top: 1px solid var(--tc-cream); color: var(--tc-blue); }
