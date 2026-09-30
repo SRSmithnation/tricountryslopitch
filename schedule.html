@@ -95,8 +95,8 @@ const render = () => {
         return `<li class="day__game${has ? '' : ' day__game--report'}">
           <${tag} class="day__row"${attrs}>
             <div class="day__time">
-              <span class="day__clock">${esc((g.time||'').toUpperCase())}</span>
               <span class="gid" title="Game ID">#${g.id}</span>
+              <span class="day__clock">${esc((g.time||'').toUpperCase())}</span>
               ${has ? `<span class="day__score">${g.away_score}&ndash;${g.home_score}</span>` : ''}
             </div>
             <div>
