@@ -1,0 +1,176 @@
+{
+  "source": "Photos of handwritten league score sheets, provided 2026-09-30",
+  "note": "Transcribed from images. 'Stroke'/'Choke'/'Chocke' = Chok it and Stroke it. 'KK' = Kraus Krew. 'Crew' = Crew 2.0.",
+  "days": [
+    {
+      "date": "2026-07-05",
+      "games": [
+        {
+          "a": "Kraus Krew",
+          "as": 10,
+          "b": "Chok it and Stroke it",
+          "bs": 17
+        },
+        {
+          "a": "Crew 2.0",
+          "as": 20,
+          "b": "Misfits",
+          "bs": 16
+        },
+        {
+          "a": "Cobras",
+          "as": 13,
+          "b": "Chok it and Stroke it",
+          "bs": 2
+        },
+        {
+          "a": "Pithogs",
+          "as": 7,
+          "b": "Balls Deep",
+          "bs": 10
+        }
+      ]
+    },
+    {
+      "date": "2026-07-12",
+      "games": [
+        {
+          "a": "Misfits",
+          "as": 13,
+          "b": "Kraus Krew",
+          "bs": 2
+        },
+        {
+          "a": "Pithogs",
+          "as": 13,
+          "b": "Crew 2.0",
+          "bs": 7
+        },
+        {
+          "a": "Kraus Krew",
+          "as": 13,
+          "b": "Cobras",
+          "bs": 14
+        },
+        {
+          "a": "Balls Deep",
+          "as": null,
+          "b": "Crew 2.0",
+          "bs": null,
+          "flag": "no score written"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-19",
+      "games": [
+        {
+          "a": "Cobras",
+          "as": 25,
+          "b": "Misfits",
+          "bs": 8
+        },
+        {
+          "a": "Crew 2.0",
+          "as": 20,
+          "b": "Chok it and Stroke it",
+          "bs": 1
+        },
+        {
+          "a": "Pithogs",
+          "as": 12,
+          "b": "Chok it and Stroke it",
+          "bs": 3
+        },
+        {
+          "a": "Balls Deep",
+          "as": 15,
+          "b": "Kraus Krew",
+          "bs": 6
+        },
+        {
+          "a": "Pithogs",
+          "as": 7,
+          "b": "Cobras",
+          "bs": 8
+        }
+      ]
+    },
+    {
+      "date": "2026-07-26",
+      "games": [
+        {
+          "a": "Chok it and Stroke it",
+          "as": 13,
+          "b": "Crew 2.0",
+          "bs": 5
+        },
+        {
+          "a": "Cobras",
+          "as": 14,
+          "b": "Balls Deep",
+          "bs": 15
+        },
+        {
+          "a": "Misfits",
+          "as": 11,
+          "b": "Kraus Krew",
+          "bs": 4
+        },
+        {
+          "a": "Misfits",
+          "as": 12,
+          "b": "Pithogs",
+          "bs": 12
+        }
+      ]
+    },
+    {
+      "date": "2026-08-08",
+      "games": [
+        {
+          "a": "Balls Deep",
+          "as": 19,
+          "b": "Misfits",
+          "bs": 4
+        },
+        {
+          "a": "Cobras",
+          "as": 7,
+          "b": "Kraus Krew",
+          "bs": 4
+        },
+        {
+          "a": "Balls Deep",
+          "as": 12,
+          "b": "Chok it and Stroke it",
+          "bs": 1
+        },
+        {
+          "a": "Pithogs",
+          "as": 12,
+          "b": "Crew 2.0",
+          "bs": 1
+        }
+      ],
+      "flag": "date identified by matchup set (only Aug 8 contains all four); confirmed by Steph"
+    }
+  ],
+  "playoffs_schedule_only": {
+    "2026-08-16": [
+      "A: Pithogs at Cobras (D2, 10:00)",
+      "A: Misfits at Balls Deep (D2, 11:30)",
+      "B: Crew 2.0 at Chok it and Stroke it (D3, 10:00)",
+      "B: Kraus Krew at Chok it and Stroke it (D3, 11:30)"
+    ],
+    "2026-08-23": [
+      "A: Pithogs at Balls Deep (D2, 10:00)",
+      "A: Misfits at Cobras (D2, 11:30)",
+      "B: Kraus Krew at Crew 2.0 (10:00)",
+      "B Final at 11:30"
+    ],
+    "2026-08-30": [
+      "A Finals 10:00"
+    ]
+  }
+}
