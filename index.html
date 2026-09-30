@@ -177,14 +177,21 @@ loadSeason().then(season=>{
   const block = ({date,games,dt}, showVenue=true) => {
     const wd = dt.toLocaleDateString('en-CA',{weekday:'long'});
     const nice = dt.toLocaleDateString('en-CA',{month:'long',day:'numeric'});
-    const rows = games.map(x=>`
+    const rows = games.map(x=>{
+      const has = x.away_score != null && x.home_score != null;
+      return `
         <li class="day__game">
-          <div class="day__time">${esc(x.time.toUpperCase())}</div>
-          <div>
-            <div class="day__match">${clean(x.away)}${x.away_score>x.home_score?'<span class="win-badge">W</span>':''}<span class="vs">at</span>${clean(x.home)}${x.home_score>x.away_score?'<span class="win-badge">W</span>':''}</div>
-            <div class="day__venue">${[showVenue?esc(x.venue):'', scoreCell(x, false)].filter(Boolean).join(' &middot; ')}</div>
+          <div class="day__row">
+            <div class="day__time">
+              <span class="day__clock">${esc(x.time.toUpperCase())}</span>
+              ${has ? `<span class="day__score">${x.away_score}&ndash;${x.home_score}</span>` : ''}
+            </div>
+            <div>
+              <div class="day__match">${clean(x.away)}${has&&x.away_score>x.home_score?'<span class="win-badge">W</span>':''}<span class="vs">at</span>${clean(x.home)}${has&&x.home_score>x.away_score?'<span class="win-badge">W</span>':''}</div>
+              ${showVenue ? `<div class="day__venue">${esc(x.venue)}</div>` : ''}
+            </div>
           </div>
-        </li>`).join('');
+        </li>`; }).join('');
     return `<article class="day"><div class="day__head">
         <span class="day__date">${esc(wd)}, ${esc(nice)}</span>
         <span class="day__count">${games.length} game${games.length>1?'s':''}</span></div>

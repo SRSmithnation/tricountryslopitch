@@ -334,3 +334,17 @@ body.menu-open .nav__toggle span:nth-child(3){transform:translateY(-7px) rotate(
 }
 .report{font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap}
 .report:hover{color:var(--gold)}
+
+/* clickable game rows + prominent score */
+.day__row{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start;
+  padding:14px 18px;color:inherit;text-decoration:none}
+a.day__row:hover{background:#fbfaf6;color:inherit}
+.day__game{padding:0;display:block}
+.day__game--report a.day__row:hover .day__cta{color:var(--navy);background:var(--gold);border-color:var(--gold)}
+.day__clock{font-size:12.5px;font-weight:700;color:var(--muted);letter-spacing:.02em}
+.day__score{font-family:"Barlow Condensed",sans-serif;font-size:27px;font-weight:700;
+  line-height:1;color:var(--navy);font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.day__cta{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--blue);background:#fff;border:1px solid var(--line);border-radius:999px;
+  padding:3px 8px;transition:.16s;white-space:nowrap}
+@media (max-width:880px){ .day__row{grid-template-columns:72px 1fr;gap:12px} }

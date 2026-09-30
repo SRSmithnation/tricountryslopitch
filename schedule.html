@@ -90,14 +90,20 @@ const render = () => {
       </div>
       <ul class="day__games">${gs.map(g => {
         const has = g.home_score != null && g.away_score != null;
-        return `<li class="day__game">
-          <div class="day__time">${esc((g.time||'').toUpperCase())}<span class="gid" title="Game ID — use this in the score form">#${g.id}</span></div>
-          <div>
-            <div class="day__match">${stripNo(g.away)}${has&&g.away_score>g.home_score?'<span class="win-badge">W</span>':''}<span class="vs">at</span>${stripNo(g.home)}${has&&g.home_score>g.away_score?'<span class="win-badge">W</span>':''}</div>
-            <div class="day__venue">${[esc(g.venue||''), scoreCell(g),
-              has ? '' : `<a class="report" href="${reportUrl(CFG, g)}" target="_blank" rel="noopener" title="Report the score for game ${g.id}">Report score</a>`
-            ].filter(Boolean).join(' &middot; ')}</div>
-          </div></li>`; }).join('')}</ul>
+        const tag = has ? 'div' : 'a';
+        const attrs = has ? '' : ` href="${reportUrl(CFG, g)}" target="_blank" rel="noopener" title="Report the score for game ${g.id}"`;
+        return `<li class="day__game${has ? '' : ' day__game--report'}">
+          <${tag} class="day__row"${attrs}>
+            <div class="day__time">
+              <span class="day__clock">${esc((g.time||'').toUpperCase())}</span>
+              ${has ? `<span class="day__score">${g.away_score}&ndash;${g.home_score}</span>` : '<span class="day__cta">Report score</span>'}
+              <span class="gid" title="Game ID">#${g.id}</span>
+            </div>
+            <div>
+              <div class="day__match">${stripNo(g.away)}${has&&g.away_score>g.home_score?'<span class="win-badge">W</span>':''}<span class="vs">at</span>${stripNo(g.home)}${has&&g.home_score>g.away_score?'<span class="win-badge">W</span>':''}</div>
+              <div class="day__venue">${[esc(g.venue||''), verifyBadge(g)].filter(Boolean).join(' &middot; ')}</div>
+            </div>
+          </${tag}></li>`; }).join('')}</ul>
     </article>`).join('') : `<div class="empty"><strong>No games</strong>Nothing scheduled for that selection.</div>`;
   document.getElementById('sub').textContent =
     `${SEASON.year} ${SEASON.division} · ${games.length} game${games.length===1?'':'s'} · ${days.length} game day${days.length===1?'':'s'}`;

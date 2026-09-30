@@ -119,10 +119,16 @@ loadSeason(year)
       const has = g.home_score!=null && g.away_score!=null;
       const aw = has && g.away_score>g.home_score, hw = has && g.home_score>g.away_score;
       return `<li class="day__game">
-        <div class="day__time">${esc((g.time||'').toUpperCase())}</div>
-        <div>
-          <div class="day__match">${esc(g.away)}${aw?'<span class="win-badge">W</span>':''}<span class="vs">at</span>${esc(g.home)}${hw?'<span class="win-badge">W</span>':''}</div>
-          <div class="day__venue">${[esc(g.venue||''), scoreCell(g)].filter(Boolean).join(' &middot; ')}</div>
+        <div class="day__row">
+          <div class="day__time">
+            <span class="day__clock">${esc((g.time||'').toUpperCase())}</span>
+            ${has ? `<span class="day__score">${g.away_score}&ndash;${g.home_score}</span>` : ''}
+            <span class="gid" title="Game ID">#${g.id}</span>
+          </div>
+          <div>
+            <div class="day__match">${esc(g.away)}${aw?'<span class="win-badge">W</span>':''}<span class="vs">at</span>${esc(g.home)}${hw?'<span class="win-badge">W</span>':''}</div>
+            <div class="day__venue">${[esc(g.venue||''), verifyBadge(g)].filter(Boolean).join(' &middot; ')}</div>
+          </div>
         </div></li>`;
     }).join('');
     return `<article class="day"><div class="day__head">
