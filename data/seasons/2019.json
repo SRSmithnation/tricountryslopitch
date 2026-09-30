@@ -1,0 +1,132 @@
+{
+  "year": 2019,
+  "division": "Sunday Co-Ed E",
+  "teams": [
+    "Motley Crew",
+    "Sweat Sox",
+    "Just A Bit Outside",
+    "Pithogs",
+    "Heffner Heavy Hitters",
+    "Cobra's",
+    "Howling Bandits",
+    "Hit Squad",
+    "Quit Yer Pitchin",
+    "Balls Deep",
+    "Casey's",
+    "Misfits"
+  ],
+  "games": [
+    {
+      "date": "5/12/2019",
+      "time": "11:30 am",
+      "status": "W",
+      "away": "Pithogs",
+      "home": "Casey's",
+      "venue": "Bridgeport Sportsfield #3",
+      "away_score": 11,
+      "home_score": 6
+    },
+    {
+      "date": "5/26/2019",
+      "time": "11:30 am",
+      "status": "L",
+      "away": "Pithogs",
+      "home": "Motley Crew",
+      "venue": "Rittenhouse Park",
+      "away_score": 8,
+      "home_score": 9
+    },
+    {
+      "date": "6/2/2019",
+      "time": "10:00 am",
+      "status": "L",
+      "away": "Howling Bandits",
+      "home": "Pithogs",
+      "venue": "Bridgeport Sportsfield #3",
+      "away_score": 12,
+      "home_score": 9
+    },
+    {
+      "date": "6/9/2019",
+      "time": "10:00 am",
+      "status": "W",
+      "away": "Quit Yer Pitchin",
+      "home": "Pithogs",
+      "venue": "Rittenhouse Park",
+      "away_score": 13,
+      "home_score": 14
+    },
+    {
+      "date": "6/16/2019",
+      "time": "11:30 am",
+      "status": "W",
+      "away": "Heffner Heavy Hitters",
+      "home": "Pithogs",
+      "venue": "Bridgeport Sportsfield #3",
+      "away_score": 10,
+      "home_score": 16
+    },
+    {
+      "date": "6/23/2019",
+      "time": "10:45 am",
+      "status": "L",
+      "away": "Pithogs",
+      "home": "Sweat Sox",
+      "venue": "Bridgeport Sportsfield #2",
+      "away_score": 6,
+      "home_score": 7
+    },
+    {
+      "date": "6/23/2019",
+      "time": "12:00 pm",
+      "status": "L",
+      "away": "Pithogs",
+      "home": "Just A Bit Outside",
+      "venue": "Bridgeport Sportsfield #2",
+      "away_score": 10,
+      "home_score": 11
+    },
+    {
+      "date": "7/7/2019",
+      "time": "11:30 am",
+      "status": "W",
+      "away": "Hit Squad",
+      "home": "Pithogs",
+      "venue": "Bridgeport Sportsfield #3",
+      "away_score": 10,
+      "home_score": 12
+    },
+    {
+      "date": "7/14/2019",
+      "time": "11:30 am",
+      "status": "L",
+      "away": "Cobra's",
+      "home": "Pithogs",
+      "venue": "Bridgeport Sportsfield #3",
+      "away_score": 17,
+      "home_score": 15
+    },
+    {
+      "date": "7/21/2019",
+      "time": "11:30 am",
+      "status": "W",
+      "away": "Pithogs",
+      "home": "Misfits",
+      "venue": "Bridgeport Sportsfield #3",
+      "away_score": 21,
+      "home_score": 4
+    },
+    {
+      "date": "7/28/2019",
+      "time": "10:00 am",
+      "status": "W",
+      "away": "Balls Deep",
+      "home": "Pithogs",
+      "venue": "Bridgeport Sportsfield #2",
+      "away_score": 8,
+      "home_score": 12
+    }
+  ],
+  "complete": false,
+  "note": "Recovered from an archived page filtered to one team, so only Pithogs' games are present. Team list is complete."
+}

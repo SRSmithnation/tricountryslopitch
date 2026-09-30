@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seasons | Tri-County Slo-Pitch League</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;650&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<nav class="nav nav--compact">
+  <div class="wrap nav__in">
+    <a class="nav__brand" href="index.html">
+      <img src="img/logo/logo-crest.png" alt="" class="nav__crest">
+      <img src="favicon.svg" alt="" class="nav__mark">
+      <span class="nav__word">Tri-County <strong>Slo-Pitch</strong></span></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="standings.html">Standings</a></li>
+      <li><a href="teams.html">Teams</a></li>
+      <li><a href="seasons.html" aria-current="page">Seasons</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="sect">
+  <div class="wrap">
+    <div class="sect__head"><div><h2>Seasons</h2><p class="sub">League history, one record per year</p></div></div>
+    <div class="notice" id="notice"></div>
+    <div class="seasons" id="seasons"></div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <img class="foot__crest" src="img/logo/logo-crest.png" alt="Tri-County Slo-Pitch League crest">
+    <div class="foot__col"><h3>Tri-County Slo-Pitch</h3><p>Adult recreational co-ed slo-pitch<br>Kitchener &amp; Waterloo, Ontario</p></div>
+    <div class="foot__col"><h3>League</h3><p><a href="index.html#schedule">Schedule</a><br><a href="index.html#standings">Standings</a><br><a href="seasons.html">Seasons</a></p></div>
+    <div class="foot__col"><h3>Join</h3><p>Register for the <b data-reg-year>2027</b> season.<br><a href="mailto:stephryansmith@gmail.com">Get in touch</a></p></div>
+  </div>
+  <div class="wrap foot__base"><small>&copy; <span data-reg-year>2027</span> Tri-County Slo-Pitch League</small></div>
+</footer>
+<script src="js/site.js"></script>
+
+<script>
+fetch('data/seasons.json').then(r=>r.json()).then(list=>{
+  const partial = list.filter(s=>!s.complete).length;
+  document.getElementById('notice').innerHTML =
+    `<strong>Records are incomplete.</strong> ${partial} of ${list.length} seasons are missing games or scores. `+
+    `The league's previous website was shut down and only some data could be recovered.`;
+  document.getElementById('seasons').innerHTML = list.map(s=>`
+    <a class="season" href="season.html?y=${s.year}">
+      <div class="season__yr">${s.year}</div>
+      <div class="season__div">${esc(s.division)}</div>
+      <div class="season__facts">
+        <div><b>${s.teams}</b>Teams</div>
+        <div><b>${s.games}</b>Games</div>
+        <div><b>${s.with_scores}</b>Scores</div>
+      </div>
+      ${s.complete?'':'<span class="flag">Partial record</span>'}
+    </a>`).join('');
+});
+</script>
+</body>
+</html>

@@ -86,22 +86,27 @@ a:hover{color:var(--navy)}
 .link-more{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--blue);white-space:nowrap}
 .link-more:hover{color:var(--gold)}
 
-/* ---------- game cards ---------- */
-.games{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
-.game{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+/* ---------- day blocks ---------- */
+.days{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:20px}
+.day{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
   box-shadow:var(--shadow);overflow:hidden;transition:.2s}
-.game:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);border-color:rgba(193,162,93,.5)}
-.game__top{display:flex;align-items:center;justify-content:space-between;
-  background:var(--navy);color:#fff;padding:10px 16px;font-size:12px;
-  text-transform:uppercase;letter-spacing:.1em;font-weight:700}
-.game__no{color:var(--gold-light)}
-.game__body{padding:18px 16px}
-.game__teams{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;text-align:center}
-.game__team{font-weight:650;font-size:15px;line-height:1.3}
-.game__at{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
-.game__meta{display:flex;gap:16px;justify-content:center;margin-top:16px;padding-top:14px;
-  border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
-.game__meta b{color:var(--ink);font-weight:600}
+.day:hover{box-shadow:var(--shadow-lg);border-color:rgba(193,162,93,.5)}
+.day__head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  background:var(--navy);color:#fff;padding:13px 18px}
+.day__date{font-family:"Barlow Condensed",sans-serif;font-size:21px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.03em}
+.day__count{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.11em;
+  color:var(--gold-light)}
+.day__games{list-style:none;margin:0;padding:0}
+.day__game{display:grid;grid-template-columns:74px 1fr;gap:14px;align-items:start;
+  padding:14px 18px;border-top:1px solid var(--line)}
+.day__game:first-child{border-top:0}
+.day__game:hover{background:#fbfaf6}
+.day__time{font-size:13px;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums;
+  white-space:nowrap;padding-top:1px}
+.day__match{font-size:15px;font-weight:650;line-height:1.35}
+.day__match .vs{color:var(--muted);font-weight:500;font-size:13px;padding:0 3px}
+.day__venue{font-size:12.5px;color:var(--muted);margin-top:3px}
 
 /* ---------- table ---------- */
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
@@ -153,4 +158,53 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
   .foot__in{grid-template-columns:1fr;gap:28px;text-align:center;justify-items:center}
   .foot__crest{height:104px}
   .sect{padding:52px 0}
+  .days{grid-template-columns:1fr}
+  .day__game{grid-template-columns:64px 1fr;gap:10px}
 }
+
+/* ---------- seasons ---------- */
+.seasons{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.season{display:block;background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:24px;transition:.2s;color:inherit}
+.season:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);border-color:var(--gold);color:inherit}
+.season__yr{font-family:"Barlow Condensed",sans-serif;font-size:46px;font-weight:700;
+  line-height:1;color:var(--navy)}
+.season__div{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.11em;
+  color:var(--gold);margin:6px 0 16px}
+.season__facts{display:flex;gap:20px;font-size:13.5px;color:var(--muted)}
+.season__facts b{display:block;font-size:19px;color:var(--ink);font-weight:650}
+.flag{display:inline-block;margin-top:16px;font-size:11.5px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.08em;padding:4px 10px;border-radius:999px;background:#fdf3e0;color:#8a5a12}
+.notice{background:#fdf3e0;border:1px solid #f0dcb4;border-left:4px solid var(--gold);
+  border-radius:8px;padding:14px 18px;font-size:14.5px;color:#6b4c14;margin-bottom:26px}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:var(--r);
+  padding:44px 24px;text-align:center;color:var(--muted)}
+.empty strong{display:block;font-size:17px;color:var(--ink);margin-bottom:6px}
+.score{font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy);white-space:nowrap}
+.score .w{color:#1a7a3c}
+.win-badge{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;
+  padding:2px 7px;border-radius:4px;background:var(--cream);color:var(--navy);margin-left:7px}
+
+/* ---------- page extras ---------- */
+.filter{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.09em;color:var(--muted);white-space:nowrap}
+.filter select{font:inherit;font-size:14px;font-weight:500;text-transform:none;letter-spacing:0;
+  color:var(--ink);padding:9px 13px;border:1px solid var(--line);border-radius:8px;background:#fff}
+.filter select:focus{outline:2px solid var(--gold);outline-offset:1px}
+.legend{margin-top:14px;font-size:12.5px;color:var(--muted)}
+.dash{color:#aab4c4}
+.teamcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.teamcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow);overflow:hidden;transition:.2s}
+.teamcard:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);border-color:rgba(193,162,93,.55)}
+.teamcard__top{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:var(--navy);color:#fff;padding:14px 18px}
+.teamcard__name{font-weight:650;font-size:16px;line-height:1.25}
+.teamcard__rank{font-family:"Barlow Condensed",sans-serif;font-size:19px;font-weight:700;color:var(--gold-light)}
+.teamcard__stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:18px;text-align:center}
+.teamcard__stats b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:26px;
+  font-weight:700;color:var(--navy);line-height:1}
+.teamcard__stats div{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.teamcard__foot{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:13px 18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.teamcard__foot a{font-weight:650;white-space:nowrap}

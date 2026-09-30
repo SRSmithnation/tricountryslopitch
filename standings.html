@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Standings | Tri-County Slo-Pitch League</title>
+<meta name="description" content="League standings for the Tri-County Slo-Pitch League.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;650&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<nav class="nav nav--compact">
+  <div class="wrap nav__in">
+    <a class="nav__brand" href="index.html">
+      <img src="img/logo/logo-crest.png" alt="" class="nav__crest">
+      <img src="favicon.svg" alt="" class="nav__mark">
+      <span class="nav__word">Tri-County <strong>Slo-Pitch</strong></span></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="standings.html" aria-current="page">Standings</a></li>
+      <li><a href="teams.html">Teams</a></li>
+      <li><a href="seasons.html">Seasons</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="sect">
+  <div class="wrap">
+    <div class="sect__head"><div><h2>Standings</h2><p class="sub" id="sub"></p></div></div>
+    <div class="notice" id="notice" hidden></div>
+    <div class="card">
+      <table>
+        <thead><tr><th style="width:56px">#</th><th>Team</th><th class="num">GP</th><th class="num">W</th><th class="num">L</th>
+          <th class="num">PCT</th><th class="num">RF</th><th class="num">RA</th><th class="num">DIFF</th></tr></thead>
+        <tbody id="body"></tbody>
+      </table>
+    </div>
+    <p class="legend">GP games played &middot; W wins &middot; L losses &middot; PCT win percentage &middot; RF runs for &middot; RA runs against &middot; DIFF run differential</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <img class="foot__crest" src="img/logo/logo-crest.png" alt="Tri-County Slo-Pitch League crest">
+    <div class="foot__col"><h3>Tri-County Slo-Pitch</h3><p>Adult recreational co-ed slo-pitch<br>Kitchener &amp; Waterloo, Ontario</p></div>
+    <div class="foot__col"><h3>League</h3><p><a href="schedule.html">Schedule</a><br><a href="standings.html">Standings</a><br><a href="teams.html">Teams</a><br><a href="seasons.html">Seasons</a></p></div>
+    <div class="foot__col"><h3>Join</h3><p>Register for the <b data-reg-year>2027</b> season.<br><a href="mailto:stephryansmith@gmail.com">Get in touch</a></p></div>
+  </div>
+  <div class="wrap foot__base"><small>&copy; <span data-reg-year>2027</span> Tri-County Slo-Pitch League</small></div>
+</footer>
+<script src="js/site.js"></script>
+
+<script>
+fetch('data/seasons.json').then(r=>r.json()).then(l=>fetch(`data/seasons/${Math.max(...l.map(s=>s.year))}.json`))
+  .then(r=>r.json()).then(d=>{
+    document.getElementById('sub').textContent = `${d.year} ${d.division}`;
+    const rows = standings(d.teams, d.games);
+    const played = d.games.filter(g=>g.home_score!=null).length;
+    if (!played) { const n=document.getElementById('notice'); n.hidden=false;
+      n.innerHTML = `<strong>No scores recorded yet.</strong> Teams are listed below. Standings will calculate automatically once game results are added.`; }
+    document.getElementById('body').innerHTML = rows.map((x,i)=>`
+      <tr><td>${x.gp?`<span class="rank">${i+1}</span>`:'<span class="dash">&ndash;</span>'}</td>
+        <td class="team-name">${esc(x.team)}</td>
+        <td class="num">${x.gp||'<span class="dash">&ndash;</span>'}</td>
+        <td class="num">${x.gp?x.w:'<span class="dash">&ndash;</span>'}</td>
+        <td class="num">${x.gp?x.l:'<span class="dash">&ndash;</span>'}</td>
+        <td class="num pct">${x.gp?x.pct.toFixed(3).replace(/^0/,''):'<span class="dash">&ndash;</span>'}</td>
+        <td class="num">${x.gp?x.rf:'<span class="dash">&ndash;</span>'}</td>
+        <td class="num">${x.gp?x.ra:'<span class="dash">&ndash;</span>'}</td>
+        <td class="num">${x.gp?(x.diff>0?'+':'')+x.diff:'<span class="dash">&ndash;</span>'}</td></tr>`).join('');
+  });
+</script>
+</body></html>

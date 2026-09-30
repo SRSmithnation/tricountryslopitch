@@ -1,0 +1,26 @@
+[
+  {
+    "year": 2026,
+    "division": "Sunday Co-Ed",
+    "teams": 7,
+    "games": 42,
+    "with_scores": 0,
+    "complete": false
+  },
+  {
+    "year": 2020,
+    "division": "Sunday Co-Ed E",
+    "teams": 10,
+    "games": 0,
+    "with_scores": 0,
+    "complete": false
+  },
+  {
+    "year": 2019,
+    "division": "Sunday Co-Ed E",
+    "teams": 12,
+    "games": 11,
+    "with_scores": 11,
+    "complete": false
+  }
+]

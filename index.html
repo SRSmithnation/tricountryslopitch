@@ -19,9 +19,10 @@
     <a class="nav__brand" href="#"><img src="img/logo/logo-crest.png" alt="" class="nav__crest"><img src="favicon.svg" alt="" class="nav__mark"><span class="nav__word">Tri-County <strong>Slo-Pitch</strong></span></a>
     <ul class="nav__links">
       <li><a href="#" aria-current="page">Home</a></li>
-      <li><a href="#schedule">Schedule</a></li>
-      <li><a href="#standings">Standings</a></li>
-      <li><a href="#teams">Teams</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="standings.html">Standings</a></li>
+      <li><a href="teams.html">Teams</a></li>
+      <li><a href="seasons.html">Seasons</a></li>
       <li><a href="#info">Info</a></li>
     </ul>
   </div>
@@ -33,10 +34,10 @@
     <div>
       <span class="eyebrow">Kitchener, Ontario &middot; Est. 2013</span>
       <h1>Sunday Co-Ed<em>Slo-Pitch</em></h1>
-      <p>Adult recreational slo-pitch played Sunday mornings from May through July at diamonds across Kitchener and Waterloo.</p>
+      <p>Adult recreational slo-pitch played Sunday mornings from May through August at diamonds across Kitchener and Waterloo.</p>
       <div class="btns">
         <a class="btn btn--gold" href="#schedule">View Schedule</a>
-        <a class="btn btn--ghost" href="#info">Join the League</a>
+        <a class="btn btn--ghost" href="mailto:stephryansmith@gmail.com">Join the League</a>
       </div>
     </div>
   </div>
@@ -54,10 +55,19 @@
 <section class="sect" id="schedule">
   <div class="wrap">
     <div class="sect__head">
-      <div><h2>Upcoming Games</h2><p class="sub">Next fixtures in the 2026 Sunday Co-Ed season</p></div>
-      <a class="link-more" href="#">Full schedule &rarr;</a>
+      <div><h2>Upcoming Games</h2><p class="sub" id="up-sub">Season schedule</p></div>
+      <a class="link-more" href="season.html?y=2026">Full schedule &rarr;</a>
     </div>
-    <div class="games" id="games"></div>
+    <div class="days" id="days-upcoming"></div>
+  </div>
+</section>
+
+<section class="sect sect--alt" id="results">
+  <div class="wrap">
+    <div class="sect__head">
+      <div><h2>Recent Games</h2><p class="sub" id="rec-sub">Most recent days played</p></div>
+    </div>
+    <div class="days" id="days-recent"></div>
   </div>
 </section>
 
@@ -89,40 +99,64 @@
     </div>
     <div class="foot__col">
       <h3>League</h3>
-      <p><a href="#schedule">Schedule</a><br><a href="#standings">Standings</a><br><a href="#teams">Teams</a></p>
+      <p><a href="schedule.html">Schedule</a><br><a href="standings.html">Standings</a><br><a href="teams.html">Teams</a><br><a href="seasons.html">Seasons</a></p>
     </div>
     <div class="foot__col">
       <h3>Join</h3>
-      <p>Registering full teams for the<br>2026 season. <a href="#">Get in touch</a></p>
+      <p>Register for the <b data-reg-year>2027</b> season.<br><a href="mailto:stephryansmith@gmail.com">Get in touch</a></p>
     </div>
   </div>
-  <div class="wrap foot__base"><small>&copy; 2026 Tri-County Slo-Pitch League</small></div>
+  <div class="wrap foot__base"><small>&copy; <span data-reg-year>2027</span> Tri-County Slo-Pitch League</small></div>
 </footer>
+<script src="js/site.js"></script>
 
 <script>
-const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const clean = t => esc(String(t).replace(/^#?\d+\s*/,''));
-const fmtDate = d => {
-  const [m,dd] = d.split('/');
-  const M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return `${M[+m-1]} ${+dd}`;
-};
 
 fetch('data/schedule-2026.json').then(r=>r.json()).then(g=>{
   document.getElementById('s-games').textContent = g.length;
   document.getElementById('s-venues').textContent = new Set(g.map(x=>x.venue)).size;
-  document.getElementById('games').innerHTML = g.slice(0,6).map(x=>`
-    <article class="game">
-      <div class="game__top"><span>${esc(fmtDate(x.date))}</span><span class="game__no">Game ${x.game}</span></div>
-      <div class="game__body">
-        <div class="game__teams">
-          <div class="game__team">${clean(x.away)}</div>
-          <div class="game__at">at</div>
-          <div class="game__team">${clean(x.home)}</div>
-        </div>
-        <div class="game__meta"><span><b>${esc(x.time)}</b></span><span>${esc(x.venue)}</span></div>
-      </div>
-    </article>`).join('');
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  const days = new Map();
+  g.forEach(x => { if(!days.has(x.date)) days.set(x.date, []); days.get(x.date).push(x); });
+  const all = [...days.entries()].map(([date,games])=>({date, games, dt:toDate(date)}))
+                                 .sort((a,b)=>a.dt-b.dt);
+
+  const block = ({date,games,dt}, showVenue=true) => {
+    const wd = dt.toLocaleDateString('en-CA',{weekday:'long'});
+    const nice = dt.toLocaleDateString('en-CA',{month:'long',day:'numeric'});
+    const rows = games.map(x=>`
+        <li class="day__game">
+          <div class="day__time">${esc(x.time.toUpperCase())}</div>
+          <div>
+            <div class="day__match">${clean(x.away)}${x.away_score>x.home_score?'<span class="win-badge">W</span>':''}<span class="vs">at</span>${clean(x.home)}${x.home_score>x.away_score?'<span class="win-badge">W</span>':''}</div>
+            <div class="day__venue">${[showVenue?esc(x.venue):'', (x.away_score!=null&&x.home_score!=null)?`<span class="score">${x.away_score}&ndash;${x.home_score}</span>`:''].filter(Boolean).join(' &middot; ')}</div>
+          </div>
+        </li>`).join('');
+    return `<article class="day"><div class="day__head">
+        <span class="day__date">${esc(wd)}, ${esc(nice)}</span>
+        <span class="day__count">${games.length} game${games.length>1?'s':''}</span></div>
+      <ul class="day__games">${rows}</ul></article>`;
+  };
+
+  const upcoming = all.filter(d=>d.dt>=today).slice(0,3);
+  const recent   = all.filter(d=>d.dt< today).slice(-3).reverse();
+
+  document.getElementById('days-upcoming').innerHTML = upcoming.map(block).join('');
+  seasonMeta().then(m => {
+    const sub = document.getElementById('up-sub');
+    if (upcoming.length) { sub.textContent = `${m.latest} Sunday Co-Ed season`; }
+    else {
+      sub.textContent = `${m.current} season — schedule to be announced`;
+      document.getElementById('days-upcoming').innerHTML =
+        `<div class="empty"><strong>The ${m.latest} season has finished</strong>
+          The ${m.current} schedule will be posted here. <a href="seasons.html">Browse past seasons</a></div>`;
+    }
+  });
+
+  document.getElementById('days-recent').innerHTML = recent.length
+    ? recent.map(d=>block(d,false)).join('')
+    : `<div class="empty"><strong>No games played yet</strong>Check back once the season is underway.</div>`;
 });
 
 fetch('teams/sunday-coed.json').then(r=>r.json()).then(t=>{
