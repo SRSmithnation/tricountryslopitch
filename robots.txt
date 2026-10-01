@@ -2,8 +2,6 @@ User-agent: *
 Allow: /
 
 # working files, not content
-Disallow: /demos/
 Disallow: /reference/
-Disallow: /sheet-templates/
 
 Sitemap: https://tricountyslopitch.ca/sitemap.xml

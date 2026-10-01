@@ -160,6 +160,12 @@
 loadSeason().then(season=>{
   const g = season.games;
 
+  // --- teams, from the season payload ---
+  const tnums = season.team_numbers || {};
+  document.getElementById('s-teams').textContent = season.teams.length;
+  document.getElementById('teams').innerHTML = season.teams.map(t=>`
+    <div class="team"><div class="team__no">${esc(tnums[t] ?? '')}</div><div class="team__name">${esc(t)}</div></div>`).join('');
+
   // --- standings, top 5, from real scores ---
   const rows = standings(season.teams, g);
   const played = g.filter(x => x.home_score != null).length;
@@ -226,12 +232,6 @@ loadSeason().then(season=>{
     : `<div class="empty"><strong>No games played yet</strong>Check back once the season is underway.</div>`;
 });
 
-fetch('teams/sunday-coed.json').then(r=>r.json()).then(t=>{
-  const ks = Object.keys(t).sort((a,b)=>a-b);
-  document.getElementById('s-teams').textContent = ks.length;
-  document.getElementById('teams').innerHTML = ks.map(k=>`
-    <div class="team"><div class="team__no">${esc(k)}</div><div class="team__name">${esc(t[k])}</div></div>`).join('');
-});
 
 
 const navEl = document.querySelector('.nav');
