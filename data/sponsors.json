@@ -1,0 +1,19 @@
+{
+  "note": "Recovered from the league's previous website (2019). Relationships are NOT confirmed for the current season — treat as leads until contacted.",
+  "status": "unconfirmed",
+  "league": [
+    { "name": "Full Pawtential Dog Training", "what": "Dog training services",
+      "where": "Kitchener, ON", "phone": "519-240-5220", "since": 2019, "confirmed": false },
+    { "name": "Molinara Wine Making", "what": "All your wine making needs — see Ron the Wine Man",
+      "where": "421 Greenbrook Dr, Kitchener, ON", "phone": "519-579-6556", "since": 2019, "confirmed": false },
+    { "name": "Changing Colours with Charlie", "what": "Painting and repair",
+      "where": "Kitchener, ON", "phone": "226-748-3535", "since": 2019, "confirmed": false }
+  ],
+  "team": [
+    { "name": "\"I Know A Guy\" Handyman Service", "what": "Handyman services",
+      "where": "Kitchener, ON", "phone": "519-573-6960", "team": "Misfits", "since": 2019, "confirmed": false }
+  ],
+  "former": [
+    { "name": "Hacks Tap and Grill", "what": "Closed", "since": 2019, "closed": true }
+  ]
+}

@@ -4,16 +4,16 @@
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://docs.google.com https://script.google.com https://*.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; form-action 'self' https://docs.google.com; base-uri 'self'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Venues | Tri-County Slo-Pitch League</title>
-<meta name="description" content="Ball diamonds used by the Tri-County Slo-Pitch League in Kitchener and Waterloo, with directions and municipal field-condition links.">
+<title>Sponsors | Tri-County Slo-Pitch League</title>
+<meta name="description" content="Businesses that support the Tri-County Slo-Pitch League in Kitchener and Waterloo, and how to become a sponsor.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="canonical" href="https://tricountyslopitch.ca/venues.html">
+<link rel="canonical" href="https://tricountyslopitch.ca/sponsors.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tri-County Slo-Pitch League">
-<meta property="og:title" content="Venues | Tri-County Slo-Pitch League">
-<meta property="og:description" content="Ball diamonds used by the Tri-County Slo-Pitch League in Kitchener and Waterloo, with directions and municipal field-condition links.">
-<meta property="og:url" content="https://tricountyslopitch.ca/venues.html">
+<meta property="og:title" content="Sponsors | Tri-County Slo-Pitch League">
+<meta property="og:description" content="Businesses that support the Tri-County Slo-Pitch League, and how to become a sponsor.">
+<meta property="og:url" content="https://tricountyslopitch.ca/sponsors.html">
 <meta property="og:image" content="https://tricountyslopitch.ca/img/logo/banner-hero.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,60 +46,74 @@
       <li><a href="schedule.html">Schedule</a></li>
       <li><a href="standings.html">Standings</a></li>
       <li><a href="teams.html">Teams</a></li>
-      <li><a href="venues.html" aria-current="page">Venues</a></li>
+      <li><a href="venues.html">Venues</a></li>
       <li><a href="rules.html">Rules</a></li>
       <li><a href="faq.html">FAQ</a></li>
-      <li><a href="sponsors.html">Sponsors</a></li>
       <li><a href="seasons.html">Seasons</a></li>
+      <li><a href="sponsors.html" aria-current="page">Sponsors</a></li>
     </ul>
   </div>
 </nav>
 
 <section class="sect">
   <div class="wrap">
-    <div class="sect__head"><div><h2>Venues</h2><p class="sub" id="sub">Diamonds used by the league</p></div></div>
-
-    <h3 class="subhead">This season</h3>
-    <div class="teamcards" id="current-venues"></div>
-
-    <h3 class="subhead">Field conditions</h3>
-    <p class="lede">Before heading out, check whether diamonds are open. Kitchener posts live field conditions; Waterloo and Cambridge publish closures through their parks and sports pages.</p>
-    <div class="linkgrid">
-      <a class="linkcard" href="https://app2.kitchener.ca/fieldconditions/" target="_blank" rel="noopener">
-        <b>City of Kitchener</b><span>Live field conditions</span></a>
-      <a class="linkcard" href="https://www.waterloo.ca/parks-and-trails/" target="_blank" rel="noopener">
-        <b>City of Waterloo</b><span>Parks &amp; trails</span></a>
-      <a class="linkcard" href="https://www.cambridge.ca/recreation-culture/sports/" target="_blank" rel="noopener">
-        <b>City of Cambridge</b><span>Sports &amp; facilities</span></a>
+    <div class="sect__head">
+      <div><h2>Sponsors</h2><p class="sub">Local businesses that support the league</p></div>
+      <a class="btn btn--sm btn--gold" data-contact href="contact.html">Become a sponsor</a>
     </div>
+
+    <div class="notice" id="notice" hidden></div>
+
+    <h3 class="subhead">League sponsors</h3>
+    <div class="linkgrid" id="league"></div>
+
+    <h3 class="subhead">Team sponsors</h3>
+    <div class="linkgrid" id="team"></div>
+
+    <h3 class="subhead">Sponsoring the league</h3>
+    <p class="lede">Sponsorship keeps diamond permits, balls and umpires paid for, and keeps player
+      fees down. In return your business is in front of every player, every Sunday, all season.</p>
+    <ul class="ruleset">
+      <li><b>Team sponsor</b> Your name attached to one team, listed on this page and on that team's page</li>
+      <li><b>League sponsor</b> Listed across the site, named in league communications, visible to every team</li>
+      <li><b>In kind</b> Covering jerseys, balls, or hosting the end-of-season gathering</li>
+    </ul>
+    <p class="hint">Interested, or sponsored us before and want to continue?
+      <a data-contact href="contact.html">Get in touch</a>.</p>
   </div>
 </section>
 
 <script>
-const maps = q => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q + ', Kitchener Waterloo, Ontario');
-
-loadSeason().then(season => {
-  const counts = {};
-  season.games.forEach(g => counts[g.venue] = (counts[g.venue]||0)+1);
-  const list = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-  document.getElementById('sub').textContent =
-    `${season.year} season · ${list.length} diamond${list.length===1?'':'s'} in use`;
-  document.getElementById('current-venues').innerHTML = list.map(([v,n])=>`
-    <article class="teamcard">
-      <div class="teamcard__top"><span class="teamcard__name">${esc(v)}</span></div>
-      <div class="teamcard__stats"><div><b>${n}</b>Games</div></div>
-      <div class="teamcard__foot">Kitchener, ON
-        <a href="${maps(v)}" target="_blank" rel="noopener">Directions &rarr;</a></div>
-    </article>`).join('');
+fetch('data/sponsors.json').then(r=>r.json()).then(d=>{
+  if (d.status === 'unconfirmed') {
+    const n = document.getElementById('notice');
+    n.hidden = false;
+    n.innerHTML = '<strong>This list is being rebuilt.</strong> These businesses supported the league ' +
+      'through its previous website. We are confirming who is continuing for the coming season.';
+  }
+  const card = s => `
+    <div class="linkcard">
+      <b>${esc(s.name)}</b>
+      <span>${esc(s.what || '')}</span>
+      ${s.team ? `<span class="sponsor__team">Sponsors ${esc(s.team)}</span>` : ''}
+      <span class="sponsor__meta">${[esc(s.where||''), esc(s.phone||'')].filter(Boolean).join(' &middot; ')}</span>
+    </div>`;
+  const put = (id, list) => {
+    const el = document.getElementById(id);
+    el.innerHTML = (list && list.length)
+      ? list.map(card).join('')
+      : '<div class="empty"><strong>No sponsors listed yet</strong>Could your business be the first?</div>';
+  };
+  put('league', d.league);
+  put('team', d.team);
 });
 </script>
-
 
 <footer class="foot">
   <div class="wrap foot__in">
     <img class="foot__crest" src="img/logo/logo-crest.png" alt="Tri-County Slo-Pitch League crest">
     <div class="foot__col"><h3>Tri-County Slo-Pitch</h3><p>Adult recreational co-ed slo-pitch<br>Kitchener &amp; Waterloo, Ontario</p></div>
-    <div class="foot__col"><h3>League</h3><p><a href="schedule.html">Schedule</a><br><a href="standings.html">Standings</a><br><a href="rules.html">Rules</a><br><a href="venues.html">Venues</a><br><a href="faq.html">FAQ</a><br><a href="sponsors.html">Sponsors</a></p></div>
+    <div class="foot__col"><h3>League</h3><p><a href="schedule.html">Schedule</a><br><a href="standings.html">Standings</a><br><a href="rules.html">Rules</a><br><a href="venues.html">Venues</a><br><a href="faq.html">FAQ</a></p></div>
     <div class="foot__col"><h3>Join</h3><p>Register for the <b data-reg-year>2027</b> season.<br><a data-contact href="contact.html">Get in touch</a></p></div>
   </div>
   <div class="wrap foot__base"><small>&copy; <span data-reg-year>2027</span> Tri-County Slo-Pitch League</small></div>

@@ -4,7 +4,7 @@
   "score_form": "https://forms.gle/QBJNoubmbqfp6mVs8",
   "responses_csv": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRm45WcUvtNDCJJUiJDt1C-Nk1nFmAUErAFeHGMDQ1KHschdh40v85Uj9HhUhSi9UcPs2XVFmAl828p/pub?gid=1496442190&single=true&output=csv",
   "contact_form": "contact.html",
-  "contact_endpoint": "https://script.google.com/macros/s/AKfycbyJ7I19Ou0OStqHLjUB-c_cT4FpVa-jo-4eUHmzSK_6PMad9OCptt6OwF_l9Yy7JSNL/exec",
+  "contact_endpoint": "https://script.google.com/macros/s/AKfycbwXHOs9-fI8DI38_uun9e45NoD--VaTfJivNw3vtRN4pwNb6EL3cWb0NTFs642ZwtQV/exec",
   "score_form_prefill": "https://docs.google.com/forms/d/e/1FAIpQLScT_kiG4R0LnpWNrZoieC5RrPyfpADjA7Wmqbz4DgZRIYc4hQ/viewform?usp=pp_url",
   "score_form_fields": {
     "game_id": "entry.790579520",
