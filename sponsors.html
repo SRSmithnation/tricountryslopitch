@@ -65,19 +65,46 @@
     <div class="notice" id="notice" hidden></div>
 
     <h3 class="subhead">League sponsors</h3>
-    <div class="linkgrid" id="league"></div>
+    <div class="sponsors" id="league"></div>
 
     <h3 class="subhead">Team sponsors</h3>
-    <div class="linkgrid" id="team"></div>
+    <div class="sponsors" id="team"></div>
 
     <h3 class="subhead">Sponsoring the league</h3>
     <p class="lede">Sponsorship keeps diamond permits, balls and umpires paid for, and keeps player
       fees down. In return your business is in front of every player, every Sunday, all season.</p>
-    <ul class="ruleset">
-      <li><b>Team sponsor</b> Your name attached to one team, listed on this page and on that team's page</li>
-      <li><b>League sponsor</b> Listed across the site, named in league communications, visible to every team</li>
-      <li><b>In kind</b> Covering jerseys, balls, or hosting the end-of-season gathering</li>
-    </ul>
+    <div class="tiers">
+      <div class="tier">
+        <div class="tier__name">Team sponsor</div>
+        <div class="tier__price">$300<span>/ season</span></div>
+        <ul>
+          <li>Your name on one team's shirts</li>
+          <li>Logo and listing on this page</li>
+          <li>Named alongside that team all season</li>
+        </ul>
+      </div>
+      <div class="tier tier--feature">
+        <div class="tier__name">League sponsor</div>
+        <div class="tier__price">$600<span>/ season</span></div>
+        <ul>
+          <li>Logo across the website</li>
+          <li>Named in league communications</li>
+          <li>Visible to every team, every week</li>
+          <li>Banner at the diamonds if you supply one</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div class="tier__name">In kind</div>
+        <div class="tier__price">By arrangement</div>
+        <ul>
+          <li>Cover shirts, balls or trophies</li>
+          <li>Host the end-of-season gathering</li>
+          <li>Same recognition as a cash sponsor</li>
+        </ul>
+      </div>
+    </div>
+    <p class="lede">Sponsorship pays for end-of-season awards and keeps a buffer against rained-out
+      seasons and rising diamond permits, so player fees stay where they are.</p>
     <p class="hint">Interested, or sponsored us before and want to continue?
       <a data-contact href="contact.html">Get in touch</a>.</p>
   </div>
@@ -91,13 +118,23 @@ fetch('data/sponsors.json').then(r=>r.json()).then(d=>{
     n.innerHTML = '<strong>This list is being rebuilt.</strong> These businesses supported the league ' +
       'through its previous website. We are confirming who is continuing for the coming season.';
   }
-  const card = s => `
-    <div class="linkcard">
-      <b>${esc(s.name)}</b>
-      <span>${esc(s.what || '')}</span>
-      ${s.team ? `<span class="sponsor__team">Sponsors ${esc(s.team)}</span>` : ''}
-      <span class="sponsor__meta">${[esc(s.where||''), esc(s.phone||'')].filter(Boolean).join(' &middot; ')}</span>
-    </div>`;
+  const initials = n => esc(String(n).replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/)
+                        .filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join(''));
+  const card = s => {
+    const inner = `
+      <div class="sponsor__logo">${s.logo
+        ? `<img src="${esc(s.logo)}" alt="${esc(s.name)}" loading="lazy">`
+        : `<span class="sponsor__mono">${initials(s.name)}</span>`}</div>
+      <div class="sponsor__body">
+        <b>${esc(s.name)}</b>
+        <span>${esc(s.what || '')}</span>
+        ${s.team ? `<span class="sponsor__team">Sponsors ${esc(s.team)}</span>` : ''}
+        <span class="sponsor__meta">${[esc(s.where||''), esc(s.phone||'')].filter(Boolean).join(' &middot; ')}</span>
+      </div>`;
+    return s.url
+      ? `<a class="sponsor" href="${esc(s.url)}" target="_blank" rel="noopener">${inner}</a>`
+      : `<div class="sponsor">${inner}</div>`;
+  };
   const put = (id, list) => {
     const el = document.getElementById(id);
     el.innerHTML = (list && list.length)

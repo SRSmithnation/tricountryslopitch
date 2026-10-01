@@ -357,3 +357,26 @@ a.day__row:hover{background:#fbfaf6;color:inherit}
 .sponsor__team{display:block;font-size:12px;font-weight:700;color:var(--gold);
   text-transform:uppercase;letter-spacing:.06em;margin-top:6px}
 .sponsor__meta{display:block;font-size:12.5px;color:var(--muted);margin-top:8px}
+
+/* ---------- sponsors ---------- */
+.sponsors{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.sponsor{display:flex;gap:16px;align-items:center;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r);padding:16px;box-shadow:var(--shadow);transition:.18s;color:inherit}
+a.sponsor:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:var(--shadow-lg);color:inherit}
+.sponsor__logo{flex:0 0 68px;height:68px;display:grid;place-items:center;border-radius:10px;
+  background:linear-gradient(145deg,var(--navy),var(--blue));overflow:hidden}
+.sponsor__logo img{width:100%;height:100%;object-fit:contain;background:#fff;padding:6px}
+.sponsor__mono{font-family:"Barlow Condensed",sans-serif;font-size:26px;font-weight:700;color:var(--gold-light)}
+.sponsor__body b{display:block;font-size:15.5px;color:var(--navy);line-height:1.3}
+.sponsor__body > span{display:block;font-size:13px;color:var(--muted);margin-top:3px}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:20px 0 24px}
+.tier{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:22px 20px;box-shadow:var(--shadow)}
+.tier--feature{border-color:var(--gold);box-shadow:var(--shadow-lg)}
+.tier__name{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.11em;color:var(--gold)}
+.tier__price{font-family:"Barlow Condensed",sans-serif;font-size:40px;font-weight:700;
+  color:var(--navy);line-height:1;margin:6px 0 14px}
+.tier__price span{font-family:"Inter",sans-serif;font-size:13px;font-weight:500;color:var(--muted);margin-left:5px}
+.tier ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.tier li{font-size:14px;line-height:1.5;padding-left:18px;position:relative;color:#3d4a60}
+.tier li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
