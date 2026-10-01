@@ -137,6 +137,27 @@
   </div>
 </section>
 
+
+<section class="signup">
+  <div class="wrap signup__in">
+    <div class="signup__copy">
+      <h2>Get the weekly update</h2>
+      <p>Last Sunday's results, where the standings sit, and next week's first pitch.
+        One short email during the season.</p>
+    </div>
+    <form class="signup__form" id="home-sub">
+      <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
+      <input type="text" name="hp" tabindex="-1" autocomplete="off"
+             style="position:absolute;left:-9999px;width:1px;height:1px" aria-hidden="true">
+      <button class="btn btn--gold" type="submit">Sign up</button>
+      <label class="signup__check">
+        <input type="checkbox" name="consent" required>
+        <span>Yes, email me league updates. I can unsubscribe any time.</span>
+      </label>
+      <span class="form__note" id="home-sub-note"></span>
+    </form>
+  </div>
+</section>
 <footer class="foot" id="info">
   <div class="wrap foot__in">
     <img class="foot__crest" src="img/logo/logo-crest.png" alt="Tri-County Slo-Pitch League crest">
@@ -240,6 +261,33 @@ const navEl = document.querySelector('.nav');
 const onScroll = () => navEl.classList.toggle('nav--compact', window.scrollY > 40);
 onScroll();
 addEventListener('scroll', onScroll, {passive:true});
+
+const hs = document.getElementById('home-sub');
+const hn = document.getElementById('home-sub-note');
+hs.addEventListener('submit', async e => {
+  e.preventDefault();
+  const cfg = await config();
+  if (!cfg.subscribe_endpoint) {
+    hn.textContent = 'Sign-up is not connected yet.'; hn.className = 'form__note form__note--err'; return;
+  }
+  const btn = hs.querySelector('button');
+  btn.disabled = true; hn.className = 'form__note'; hn.textContent = 'Signing you up…';
+  try {
+    await fetch(cfg.subscribe_endpoint, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ email: hs.elements.email.value.trim(),
+                             hp: hs.elements.hp.value.trim(),
+                             consent: hs.elements.consent.checked, source: 'homepage' })
+    });
+    hs.reset();
+    hn.textContent = "You're on the list. See you Sunday.";
+    hn.className = 'form__note form__note--ok';
+  } catch (err) {
+    hn.textContent = 'Something went wrong. Please try again.';
+    hn.className = 'form__note form__note--err';
+  } finally { btn.disabled = false; }
+});
 </script>
 </body>
 </html>

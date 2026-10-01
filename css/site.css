@@ -401,3 +401,22 @@ a.sponsor:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:v
 @media (max-width:640px){ .strip .wrap{justify-content:center;text-align:center} }
 .check{display:flex;gap:11px;align-items:flex-start;font-size:14px;line-height:1.5;color:#3d4a60}
 .check input{margin-top:3px;width:17px;height:17px;flex:0 0 auto;accent-color:var(--navy)}
+
+/* ---------- homepage sign-up band ---------- */
+.signup{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:44px 0}
+.signup__in{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.signup__copy h2{font-family:"Barlow Condensed",sans-serif;font-size:32px;font-weight:700;
+  text-transform:uppercase;color:#fff;margin:0 0 8px;border:0}
+.signup__copy p{margin:0;color:rgba(255,255,255,.82);font-size:15px;max-width:44ch}
+.signup__form{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}
+.signup__form input[type=email]{font:inherit;font-size:15px;padding:13px 15px;border-radius:8px;
+  border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;width:100%}
+.signup__form input[type=email]::placeholder{color:rgba(255,255,255,.55)}
+.signup__form input[type=email]:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.16)}
+.signup__check{grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;
+  font-size:12.5px;line-height:1.5;color:rgba(255,255,255,.78)}
+.signup__check input{margin-top:2px;width:16px;height:16px;flex:0 0 auto;accent-color:var(--gold)}
+.signup .form__note{grid-column:1/-1;color:#fff}
+.signup .form__note--ok{color:#9fe3b6}
+.signup .form__note--err{color:#f3b0b0}
+@media (max-width:880px){ .signup__in{grid-template-columns:1fr;gap:24px} }
