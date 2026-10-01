@@ -164,7 +164,21 @@ function loadSeason(year) {
       if (!isCurrent || !cfg.scores_csv) return { ...d, scoreSource: 'repo' };
 
       const get = url => url ? fetch(url).then(r => { if (!r.ok) throw 0; return r.text(); }).catch(() => null) : Promise.resolve(null);
-      return Promise.all([get(cfg.scores_csv), get(cfg.responses_csv)]).then(([gTxt, rTxt]) => {
+      return Promise.all([get(cfg.scores_csv), get(cfg.responses_csv), get(cfg.teams_csv)]).then(([gTxt, rTxt, tTxt]) => {
+        /* Teams from the sheet when published, so adding a team means
+           typing a row rather than editing JSON. Repo data is the fallback. */
+        if (tTxt) {
+          const rows = parseCsv(tTxt)
+            .filter(r => (r.Team || '').trim())
+            .map(r => ({ name: (r.Team || '').trim(), no: num(r['#']) }));
+          if (rows.length) {
+            rows.sort((a, b) => (a.no ?? 999) - (b.no ?? 999) || a.name.localeCompare(b.name));
+            d.teams = rows.map(r => r.name);
+            d.team_numbers = {};
+            rows.forEach((r, i) => d.team_numbers[r.name] = r.no ?? i + 1);
+            d.teamSource = 'sheet';
+          }
+        }
         if (!gTxt && !rTxt) return { ...d, scoreSource: 'repo-fallback' };
 
         /* 1. admin overrides from the Games tab — always win */
