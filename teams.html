@@ -26,6 +26,7 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B4KTYY907V"></script>
 <script>
+const SPONSORS = {};
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -77,7 +78,7 @@
 <script src="js/site.js"></script>
 
 <script>
-loadSeason().then(d=>{
+Promise.resolve().then(()=>fetch('data/sponsors.json').then(r=>r.json()).then(sp=>{(sp.team||[]).forEach(x=>{ if(x.team) SPONSORS[x.team]=x; });}).catch(()=>{})).then(()=>loadSeason()).then(d=>{
     document.getElementById('sub').textContent = `${d.year} ${d.division} · ${d.teams.length} teams`;
     const st = standings(d.teams, d.games);
     const rank = Object.fromEntries(st.map((x,i)=>[x.team, x.gp?i+1:null]));
@@ -96,6 +97,10 @@ loadSeason().then(d=>{
           <div><b>${s.gp?s.w:'&ndash;'}</b>Won</div>
           <div><b>${s.gp?s.l:'&ndash;'}</b>Lost</div>
         </div>
+        ${SPONSORS[t] ? `<div class="teamcard__sponsor">
+          ${SPONSORS[t].logo ? `<img src="${esc(SPONSORS[t].logo)}" alt="">` : ''}
+          <span>Sponsored by <b>${esc(SPONSORS[t].name)}</b></span>
+        </div>` : ''}
         <div class="teamcard__foot">
           ${gs.length?`${gs.length} fixture${gs.length>1?'s':''} in ${d.year}`:'No fixtures'}
           <a href="schedule.html">View schedule &rarr;</a>

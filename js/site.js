@@ -114,8 +114,30 @@ function initMenu() {
   addEventListener('resize', () => { if (innerWidth > 880) close(); });
 }
 
+/* League sponsors appear as a small strip above the footer on every page. */
+function initSponsorStrip() {
+  const foot = document.querySelector('.foot');
+  if (!foot) return;
+  fetch('data/sponsors.json').then(r => r.json()).then(d => {
+    const list = (d.league || []);
+    if (!list.length) return;
+    const items = list.map(s => {
+      const inner = s.logo
+        ? `<img src="${esc(s.logo)}" alt="${esc(s.name)}" loading="lazy">`
+        : `<span>${esc(s.name)}</span>`;
+      return s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${inner}</a>` : `<span class="strip__item">${inner}</span>`;
+    }).join('');
+    foot.insertAdjacentHTML('beforebegin',
+      `<aside class="strip"><div class="wrap">
+         <span class="strip__label">Supported by</span>
+         <div class="strip__logos">${items}</div>
+         <a class="strip__cta" href="sponsors.html">Sponsor the league &rarr;</a>
+       </div></aside>`);
+  }).catch(() => {});
+}
+
 function boot() {
-  [initNav, initMenu, initRegistrationYear, initContactLinks].forEach(fn => {
+  [initNav, initMenu, initRegistrationYear, initContactLinks, initSponsorStrip].forEach(fn => {
     try { fn(); } catch (err) { console.error('init failed:', fn.name, err); }
   });
 }

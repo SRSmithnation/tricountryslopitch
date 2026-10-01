@@ -380,3 +380,21 @@ a.sponsor:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:v
 .tier ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .tier li{font-size:14px;line-height:1.5;padding-left:18px;position:relative;color:#3d4a60}
 .tier li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+
+/* team card sponsor line */
+.teamcard__sponsor{display:flex;align-items:center;gap:10px;padding:11px 18px;
+  border-top:1px solid var(--line);background:#fbfaf6;font-size:12.5px;color:var(--muted)}
+.teamcard__sponsor img{width:26px;height:26px;object-fit:contain;border-radius:5px;background:#fff}
+.teamcard__sponsor b{color:var(--navy);font-weight:650}
+
+/* league sponsor strip */
+.strip{background:#fff;border-top:1px solid var(--line);padding:20px 0}
+.strip .wrap{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.strip__label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.strip__logos{display:flex;align-items:center;gap:18px;flex-wrap:wrap;flex:1 1 auto}
+.strip__logos img{height:40px;width:auto;max-width:130px;object-fit:contain;
+  filter:grayscale(1);opacity:.72;transition:.18s}
+.strip__logos a:hover img{filter:none;opacity:1}
+.strip__logos span{font-size:14px;font-weight:650;color:var(--navy)}
+.strip__cta{font-size:12.5px;font-weight:700;white-space:nowrap}
+@media (max-width:640px){ .strip .wrap{justify-content:center;text-align:center} }
