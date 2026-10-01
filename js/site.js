@@ -168,9 +168,10 @@ function loadSeason(year) {
         /* Teams from the sheet when published, so adding a team means
            typing a row rather than editing JSON. Repo data is the fallback. */
         if (tTxt) {
+          const canon = d.teams.slice();          // names already known from the repo
           const rows = parseCsv(tTxt)
             .filter(r => (r.Team || '').trim())
-            .map(r => ({ name: (r.Team || '').trim(), no: num(r['#']) }));
+            .map(r => ({ name: canonicalTeam(r.Team, canon).name, no: num(r['#']) }));
           if (rows.length) {
             rows.sort((a, b) => (a.no ?? 999) - (b.no ?? 999) || a.name.localeCompare(b.name));
             d.teams = rows.map(r => r.name);
@@ -261,4 +262,63 @@ function reportUrl(cfg, game) {
     return `${cfg.score_form_prefill}&${f.game_id}=${encodeURIComponent(game.id)}`;
   }
   return cfg.score_form || '#';
+}
+
+
+/* ------------------------------------------------------------------
+   Team-name safety.
+   Names typed into the spreadsheet are free text, so a typo could
+   invent a team. These map a typed name back to the canonical one
+   from the repo data, and only accept a genuinely new name when it
+   is not close to an existing team.
+------------------------------------------------------------------- */
+function normalizeName(s) {
+  return String(s || '')
+    .toLowerCase()
+    .replace(/^#?\d+\s*/, '')      // leading team number
+    .replace(/[^a-z0-9]+/g, ' ')    // punctuation to spaces
+    .trim()
+    .replace(/\s+/g, ' ');
+}
+
+function editDistance(a, b) {
+  if (a === b) return 0;
+  const m = a.length, n = b.length;
+  if (!m || !n) return m || n;
+  let prev = Array.from({ length: n + 1 }, (_, i) => i);
+  for (let i = 1; i <= m; i++) {
+    const cur = [i];
+    for (let j = 1; j <= n; j++) {
+      cur[j] = Math.min(
+        prev[j] + 1,
+        cur[j - 1] + 1,
+        prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
+      );
+    }
+    prev = cur;
+  }
+  return prev[n];
+}
+
+/* Returns {name, matched, typo} — matched is the canonical name when the
+   input is an exact or near match, otherwise the input is treated as new. */
+function canonicalTeam(input, known) {
+  const raw = String(input || '').trim();
+  if (!raw) return { name: raw, matched: null, typo: false };
+  const n = normalizeName(raw);
+  for (const k of known) {
+    if (normalizeName(k) === n) return { name: k, matched: k, typo: normalizeName(raw) !== normalizeName(k) };
+  }
+  // allow 1 edit per 6 characters, min 1, max 3
+  const budget = Math.max(1, Math.min(3, Math.floor(n.length / 6)));
+  let best = null, bestD = Infinity;
+  for (const k of known) {
+    const d = editDistance(n, normalizeName(k));
+    if (d < bestD) { bestD = d; best = k; }
+  }
+  if (best && bestD <= budget) {
+    console.warn(`Team name "${raw}" looks like a typo for "${best}" — using "${best}".`);
+    return { name: best, matched: best, typo: true };
+  }
+  return { name: raw, matched: null, typo: false };
 }

@@ -43,6 +43,13 @@ Scores appear on the site within about 5 minutes (Google caches the sheet).
 
 To settle a dispute: type the correct score in the **Games** tab. That wins.
 
+### Typos in team names
+
+Team names typed into the spreadsheet are checked against the names the site
+already knows. A close match is corrected automatically, so "Cobas" is read as
+"Cobras". A name that is not close to any existing team is treated as a genuinely
+new team, which is how you add one. Corrections are logged in the browser console.
+
 ### Add or rename a team
 
 Edit the **Teams** tab of the spreadsheet: `#`, `Team`, `Division`.
