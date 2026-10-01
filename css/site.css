@@ -159,14 +159,7 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
   font-size:12.5px;color:rgba(255,255,255,.5)}
 
 @media (max-width:880px){
-  /* On a phone a 3.3:1 banner can only show a sliver of itself, so instead of
-     a bad crop the hero becomes a navy field with the crest as a watermark. */
   .hero{aspect-ratio:auto;min-height:0}
-  .hero__bg{display:none}
-  .hero::before{content:"";position:absolute;inset:0;z-index:1;
-    background:url("../img/logo/logo-crest.png") no-repeat right -18px center;
-    background-size:auto 100%;opacity:.14}
-  .hero::after{background:linear-gradient(160deg,rgba(15,38,79,.97) 0%,rgba(21,50,95,.93) 60%,rgba(33,75,110,.9) 100%)}
   .hero__in{padding:56px 0 64px;text-align:center}
   .hero p{margin-inline:auto}
   .btns{justify-content:center}
