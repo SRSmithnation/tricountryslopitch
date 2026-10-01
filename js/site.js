@@ -213,12 +213,21 @@ function loadSeason(year) {
           }
           const byTeam = reports.get(id);
           if (!byTeam || !byTeam.size) return;
-          const vals = [...byTeam.values()];
+          /* A game can only be reported by the two teams playing it. This stops
+             an unrelated submission manufacturing a confirmation, or forcing a
+             dispute on a score that both real teams already agreed. */
+          const playing = [g.home, g.away].map(normalizeName);
+          const valid = [...byTeam.entries()].filter(([who]) =>
+            playing.includes(normalizeName(who)));
+          const ignored = byTeam.size - valid.length;
+          if (ignored) console.warn(`Game ${g.id}: ignored ${ignored} report(s) from teams not in this game.`);
+          if (!valid.length) return;
+          const vals = valid.map(([, v]) => v);
           const distinct = new Set(vals.map(v => `${v.a}-${v.h}`));
           if (distinct.size > 1) { g.verify = 'disputed'; g.reports = vals; disputed++; return; }
           const v = vals[0];
           g.away_score = v.a; g.home_score = v.h; g.status = v.status;
-          if (byTeam.size >= 2) { g.verify = 'confirmed'; confirmed++; }
+          if (valid.length >= 2) { g.verify = 'confirmed'; confirmed++; }
           else { g.verify = 'unconfirmed'; unconfirmed++; }
         });
         return { ...d, scoreSource: 'sheet', stats: { confirmed, unconfirmed, disputed, overridden, locked } };

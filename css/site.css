@@ -164,8 +164,8 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
   .hero{aspect-ratio:auto;min-height:0}
   .hero__bg{display:none}
   .hero::before{content:"";position:absolute;inset:0;z-index:1;
-    background:url("../img/logo/logo-crest.png") no-repeat right -40px center;
-    background-size:auto 115%;opacity:.13}
+    background:url("../img/logo/logo-crest.png") no-repeat right -18px center;
+    background-size:auto 62%;opacity:.14}
   .hero::after{background:linear-gradient(160deg,rgba(15,38,79,.97) 0%,rgba(21,50,95,.93) 60%,rgba(33,75,110,.9) 100%)}
   .hero__in{padding:56px 0 64px;text-align:center}
   .hero p{margin-inline:auto}
