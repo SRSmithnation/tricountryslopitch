@@ -79,6 +79,45 @@ The site updates in about two minutes.
 
 ---
 
+## Score reporting
+
+Clicking a game with no score opens a panel on the site. A captain enters the
+two scores, picks which team they are reporting as, and enters their team code.
+
+A score still needs **both** teams to report the same result before it is shown
+as confirmed. One report shows as unconfirmed. Two that disagree show as
+disputed and no score is published. Anything you type into the Games tab
+overrides all of it.
+
+### Turning it on
+
+The panel only appears once an endpoint is configured. Until then, clicking a
+game opens the old Google Form instead, so nothing breaks.
+
+1. Open the league spreadsheet, Extensions > Apps Script
+2. Paste in `apps-script/score-endpoint.gs`
+3. Deploy > New deployment > Web app, execute as **Me**, access **Anyone**
+4. Copy the `/exec` URL into `src/data/config.json` as `score_endpoint`
+
+### Team codes
+
+Add a tab named **Captains** with two columns, `Team` and `Code`, one row per
+team. Pick any short code, for example `cobras26`.
+
+The codes live only in the spreadsheet. They are never in the website code, so
+nobody can read them by viewing the page source. The check happens on Google's
+side, and a wrong code is rejected with a message in the panel.
+
+Give each captain only their own code. If a code leaks, change it in the
+Captains tab and it stops working immediately.
+
+### What this does and does not stop
+
+It stops a stranger with the web address entering scores, which was the gap
+before. It does not stop someone who has been given a code from entering a
+wrong score for their own team. That is what the two-team confirmation is for,
+and you can always correct anything from the Games tab.
+
 ## Making changes safely (branches and pull requests)
 
 Small content edits can go straight to `main` from the GitHub web editor.

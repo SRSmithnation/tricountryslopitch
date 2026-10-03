@@ -18,7 +18,10 @@ const render = () => {
       <ul class="day__games">${gs.map(g => {
         const has = g.home_score != null && g.away_score != null;
         const tag = has ? 'div' : 'a';
-        const attrs = has ? '' : ` href="${reportUrl(CFG, g)}" target="_blank" rel="noopener" title="Report the score for game ${g.id}"`;
+        const useModal = !has && CFG && CFG.score_endpoint;
+        const attrs = has ? ''
+          : useModal ? ` href="#" data-report="${esc(String(g.id))}" title="Report the score for game ${g.id}"`
+          : ` href="${reportUrl(CFG, g)}" target="_blank" rel="noopener" title="Report the score for game ${g.id}"`;
         return `<li class="day__game${has ? '' : ' day__game--report'}">
           <${tag} class="day__row"${attrs}>
             <div class="day__time">
@@ -42,3 +45,12 @@ loadSeason().then(d=>{
     document.getElementById('team-filter').addEventListener('change', render);
     render();
   });
+
+document.addEventListener('click', e => {
+  const link = e.target.closest('[data-report]');
+  if (!link) return;
+  e.preventDefault();
+  const id = link.getAttribute('data-report');
+  const game = SEASON && SEASON.games.find(g => String(g.id) === id);
+  if (game) openScoreModal(game, CFG, link);
+});
