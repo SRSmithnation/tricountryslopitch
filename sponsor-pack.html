@@ -55,7 +55,7 @@
     <img src="img/logo/logo-crest.png" alt="">
     <div>
       <h1>Sponsor the<em>Tri-County Slo-Pitch League</em></h1>
-      <p>Adult recreational co-ed slo-pitch &middot; Kitchener &amp; Waterloo, Ontario &middot; since 2013</p>
+      <p>Adult recreational co-ed slo-pitch &middot; Kitchener &amp; Waterloo, Ontario </p>
     </div>
   </div>
 
@@ -65,10 +65,10 @@
       end-of-season awards, and keeps player fees affordable.</p>
 
     <div class="facts">
-      <div class="fact"><b id="f-teams">7</b><span>Teams</span></div>
-      <div class="fact"><b id="f-players">~90</b><span>Players</span></div>
-      <div class="fact"><b id="f-games">42</b><span>Games</span></div>
-      <div class="fact"><b>13</b><span>Seasons</span></div>
+      <div class="fact"><b id="f-teams">&ndash;</b><span>Teams</span></div>
+      <div class="fact"><b id="f-games">&ndash;</b><span>Games</span></div>
+      <div class="fact"><b id="f-days">&ndash;</b><span>Game days</span></div>
+      <div class="fact"><b id="f-span">&ndash;</b><span>Season</span></div>
     </div>
 
     <h2>Sponsorship options</h2>
@@ -109,15 +109,6 @@
   </div>
 </div>
 
-<script>
-fetch('data/seasons.json').then(r=>r.json()).then(l=>{
-  const latest=Math.max(...l.map(s=>s.year));
-  return fetch(`data/seasons/${latest}.json`).then(r=>r.json());
-}).then(d=>{
-  document.getElementById('f-teams').textContent=d.teams.length;
-  document.getElementById('f-games').textContent=d.games.length;
-  document.getElementById('f-players').textContent='~'+(d.teams.length*13);
-}).catch(()=>{});
-</script>
+<script src="js/pages/sponsor-pack.js"></script>
 </body>
 </html>

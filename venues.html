@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://docs.google.com https://script.google.com https://*.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; form-action 'self' https://docs.google.com; base-uri 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://docs.google.com https://script.google.com https://*.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; form-action 'self' https://docs.google.com; base-uri 'self'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Venues | Tri-County Slo-Pitch League</title>
 <meta name="description" content="Ball diamonds used by the Tri-County Slo-Pitch League in Kitchener and Waterloo, with directions and municipal field-condition links.">
@@ -22,12 +22,6 @@
 <link rel="stylesheet" href="css/site.css">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B4KTYY907V"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-B4KTYY907V');
-</script>
 </head>
 <body>
 
@@ -75,24 +69,6 @@
   </div>
 </section>
 
-<script>
-const maps = q => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q + ', Kitchener Waterloo, Ontario');
-
-loadSeason().then(season => {
-  const counts = {};
-  season.games.forEach(g => counts[g.venue] = (counts[g.venue]||0)+1);
-  const list = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-  document.getElementById('sub').textContent =
-    `${season.year} season · ${list.length} diamond${list.length===1?'':'s'} in use`;
-  document.getElementById('current-venues').innerHTML = list.map(([v,n])=>`
-    <article class="teamcard">
-      <div class="teamcard__top"><span class="teamcard__name">${esc(v)}</span></div>
-      <div class="teamcard__stats"><div><b>${n}</b>Games</div></div>
-      <div class="teamcard__foot">Kitchener, ON
-        <a href="${maps(v)}" target="_blank" rel="noopener">Directions &rarr;</a></div>
-    </article>`).join('');
-});
-</script>
 
 
 <footer class="foot">
@@ -105,5 +81,6 @@ loadSeason().then(season => {
   <div class="wrap foot__base"><small>&copy; <span data-reg-year>2027</span> Tri-County Slo-Pitch League</small></div>
 </footer>
 <script src="js/site.js"></script>
+<script src="js/pages/venues.js"></script>
 </body>
 </html>

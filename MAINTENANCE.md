@@ -79,6 +79,36 @@ The site updates in about two minutes.
 
 ---
 
+## Making changes safely (branches and pull requests)
+
+Small content edits can go straight to `main` from the GitHub web editor.
+Anything that touches code should go through a branch and a pull request, so the
+automated checks run before it reaches the live site.
+
+```bash
+git checkout -b change-the-thing     # start a branch
+# ... make changes, test at localhost:8000 ...
+git add -A && git commit -m "what changed"
+git push -u origin change-the-thing
+gh pr create --fill                  # or open the PR on github.com
+```
+
+The checks run automatically on the pull request and must pass:
+
+| Check | Catches |
+|---|---|
+| JavaScript syntax | a typo that would break a page |
+| JSON parses | a broken data file |
+| Internal links resolve | a renamed or deleted file still linked |
+| Season data is coherent | duplicate game ids, a game naming a team that does not exist |
+| No secrets committed | an API key or token slipping in |
+
+Merge the pull request once they are green. Merging deploys.
+
+**Only one deployment runs at a time.** Pushing several times in quick succession
+makes them collide and fail with "in progress deployment". Batch changes into one
+push and wait for the previous deploy to finish.
+
 ## Publishing a sheet tab
 
 The site can only read tabs that are **published to the web**.

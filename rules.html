@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://docs.google.com https://script.google.com https://*.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; form-action 'self' https://docs.google.com; base-uri 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://docs.google.com https://script.google.com https://*.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; form-action 'self' https://docs.google.com; base-uri 'self'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Rules | Tri-County Slo-Pitch League</title>
 <meta name="description" content="How the Tri-County Slo-Pitch League plays: Play Slo-Pitch rules, league format, registration and score reporting.">
@@ -22,12 +22,6 @@
 <link rel="stylesheet" href="css/site.css">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B4KTYY907V"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-B4KTYY907V');
-</script>
 </head>
 <body>
 
@@ -130,9 +124,6 @@
   </div>
 </section>
 
-<script>
-config().then(c => { if (c.score_form) document.getElementById('report-link').href = c.score_form; });
-</script>
 
 <footer class="foot">
   <div class="wrap foot__in">
@@ -144,5 +135,6 @@ config().then(c => { if (c.score_form) document.getElementById('report-link').hr
   <div class="wrap foot__base"><small>&copy; <span data-reg-year>2027</span> Tri-County Slo-Pitch League</small></div>
 </footer>
 <script src="js/site.js"></script>
+<script src="js/pages/rules.js"></script>
 </body>
 </html>
