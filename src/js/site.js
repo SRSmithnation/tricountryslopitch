@@ -285,3 +285,127 @@ function canonicalTeam(input, known) {
   }
   return { name: raw, matched: null, typo: false };
 }
+
+function scoreModal() {
+  let el = document.getElementById('score-modal');
+  if (el) return el;
+  el = document.createElement('div');
+  el.id = 'score-modal';
+  el.className = 'modal';
+  el.setAttribute('hidden', '');
+  el.innerHTML = `
+    <div class="modal__back" data-close></div>
+    <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="sm-title">
+      <button class="modal__x" type="button" data-close aria-label="Close">&times;</button>
+      <h3 class="modal__title" id="sm-title">Report a score</h3>
+      <p class="modal__sub" id="sm-sub"></p>
+      <form class="modal__form" id="sm-form" novalidate>
+        <div class="smrow">
+          <label class="smfield"><span id="sm-away-name"></span>
+            <input type="number" id="sm-away" inputmode="numeric" min="0" max="99" required></label>
+          <label class="smfield"><span id="sm-home-name"></span>
+            <input type="number" id="sm-home" inputmode="numeric" min="0" max="99" required></label>
+        </div>
+        <label class="smfield"><span>Reporting as</span>
+          <select id="sm-team" required></select></label>
+        <label class="smfield"><span>Team code</span>
+          <input type="password" id="sm-code" autocomplete="off" required
+                 placeholder="Given to captains"></label>
+        <input type="text" id="sm-hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="modal__note" id="sm-note"></p>
+        <div class="modal__actions">
+          <button type="button" class="btn btn--ghost btn--sm" data-close>Cancel</button>
+          <button type="submit" class="btn btn--gold btn--sm" id="sm-send">Submit score</button>
+        </div>
+      </form>
+    </div>`;
+  document.body.appendChild(el);
+  el.addEventListener('click', e => { if (e.target.closest('[data-close]')) closeScoreModal(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !el.hasAttribute('hidden')) closeScoreModal();
+  });
+  return el;
+}
+
+function closeScoreModal() {
+  const el = document.getElementById('score-modal');
+  if (!el) return;
+  el.setAttribute('hidden', '');
+  document.body.classList.remove('modal-open');
+  if (el._opener && el._opener.focus) el._opener.focus();
+}
+
+function openScoreModal(game, cfg, opener) {
+  const el = scoreModal();
+  el._opener = opener || null;
+  const $ = id => el.querySelector(id);
+  $('#sm-sub').textContent = `Game ${game.id} · ${game.away} at ${game.home}`;
+  $('#sm-away-name').textContent = game.away;
+  $('#sm-home-name').textContent = game.home;
+  $('#sm-away').value = '';
+  $('#sm-home').value = '';
+  $('#sm-code').value = '';
+  $('#sm-hp').value = '';
+  $('#sm-note').textContent = '';
+  $('#sm-note').className = 'modal__note';
+  $('#sm-send').disabled = false;
+  $('#sm-team').innerHTML = [game.away, game.home]
+    .map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join('');
+  el.removeAttribute('hidden');
+  document.body.classList.add('modal-open');
+  setTimeout(() => $('#sm-away').focus(), 30);
+
+  const form = $('#sm-form');
+  form.onsubmit = async ev => {
+    ev.preventDefault();
+    const note = $('#sm-note');
+    const away = $('#sm-away').value.trim();
+    const home = $('#sm-home').value.trim();
+    const team = $('#sm-team').value;
+    const code = $('#sm-code').value.trim();
+    const bad = v => v === '' || !/^\d{1,2}$/.test(v);
+    if (bad(away) || bad(home)) {
+      note.textContent = 'Enter both scores as whole numbers from 0 to 99.';
+      note.className = 'modal__note modal__note--err';
+      return;
+    }
+    if (!code) {
+      note.textContent = 'Enter your team code. Ask the league if you do not have one.';
+      note.className = 'modal__note modal__note--err';
+      return;
+    }
+    if ($('#sm-hp').value) { closeScoreModal(); return; }
+    $('#sm-send').disabled = true;
+    note.textContent = 'Sending…';
+    note.className = 'modal__note';
+    const payload = {
+      game_id: String(game.id), away_score: away, home_score: home,
+      status: 'Final', team, code
+    };
+    try {
+      const res = await fetch(cfg.score_endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+      let data = null;
+      try { data = await res.json(); } catch (e) { data = null; }
+      if (data && data.ok === false) {
+        note.textContent = data.error || 'That was not accepted.';
+        note.className = 'modal__note modal__note--err';
+        $('#sm-send').disabled = false;
+        return;
+      }
+      note.textContent = data
+        ? 'Thanks. Your score has been recorded and will show once the other team confirms it.'
+        : 'Sent. If your code was correct it will appear shortly, usually within ten minutes.';
+      note.className = 'modal__note modal__note--ok';
+      form.querySelectorAll('input,select,button[type=submit]').forEach(i => i.disabled = true);
+      setTimeout(closeScoreModal, 2600);
+    } catch (err) {
+      note.textContent = 'Could not reach the league server. Please try again.';
+      note.className = 'modal__note modal__note--err';
+      $('#sm-send').disabled = false;
+    }
+  };
+}
