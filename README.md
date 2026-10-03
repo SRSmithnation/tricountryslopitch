@@ -63,6 +63,10 @@ Pushing to `main` deploys automatically, usually within two minutes.
 **Full instructions, including what to do when something breaks, are in
 [docs/MAINTENANCE.md](docs/MAINTENANCE.md).**
 
+**Picking this up cold?** Read [docs/PROJECT-BRIEF.md](docs/PROJECT-BRIEF.md)
+first. It explains what this is, the constraints, the decisions already made
+and the mistakes already made.
+
 ## Where things live
 
 | Path | What it is |
