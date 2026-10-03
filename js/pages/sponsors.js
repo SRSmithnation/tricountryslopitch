@@ -37,10 +37,6 @@ fetch('data/sponsors.json').then(r=>r.json()).then(d=>{
   put('team', d.team);
 });
 
-/* Sponsors render in one of two shapes:
-   - banner  : wide artwork (roughly 2:1 or wider), shown full width
-   - logo    : squarish mark, shown in a tile beside the name
-   Nothing renders when there are no sponsors, so the page stays clean. */
 fetch('data/sponsors.json').then(r => r.json()).then(d => {
   const league = d.league || [], team = d.team || [];
   if (!league.length && !team.length) return;

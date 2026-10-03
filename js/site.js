@@ -1,4 +1,3 @@
-/* Shared helpers + chrome for the Tri-County Slo-Pitch site */
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const stripNo = t => esc(String(t ?? '').replace(/^#?\d+\s*/, ''));
 const clean = stripNo;   /* alias */
@@ -6,7 +5,6 @@ const toDate = d => { const p = String(d).split('/'); return new Date(p[2].lengt
 const fmtDay = dt => dt.toLocaleDateString('en-CA', { weekday: 'long' });
 const fmtDate = dt => dt.toLocaleDateString('en-CA', { month: 'long', day: 'numeric' });
 
-/* group a games array into date-ordered day buckets */
 function byDay(games) {
   const m = new Map();
   games.forEach(g => { if (!m.has(g.date)) m.set(g.date, []); m.get(g.date).push(g); });
@@ -15,7 +13,6 @@ function byDay(games) {
     .sort((a, b) => a.dt - b.dt);
 }
 
-/* standings computed from real scores only */
 function standings(teams, games) {
   const t = {};
   const seed = n => t[n] ||= { team: n, w: 0, l: 0, tie: 0, rf: 0, ra: 0 };
@@ -32,20 +29,15 @@ function standings(teams, games) {
   return Object.values(t)
     .map(x => ({ ...x, gp: x.w + x.l + x.tie, diff: x.rf - x.ra,
                  pct: (x.w + x.l + x.tie) ? (x.w + x.tie / 2) / (x.w + x.l + x.tie) : 0 }))
-    /* Rank on win percentage, not games played. Teams with a game in hand must
-       not drop below teams with more losses. Teams yet to play sort last. */
     .sort((a, b) => (b.gp ? 1 : 0) - (a.gp ? 1 : 0)
                  || b.pct - a.pct || b.diff - a.diff || b.w - a.w
                  || a.team.localeCompare(b.team));
 }
 
-/* shrink-on-scroll header */
 function initNav() {
   const nav = document.querySelector('.nav');
   if (!nav) return;
   const setH = () => document.documentElement.style.setProperty('--navh', nav.offsetHeight + 'px');
-  /* Hysteresis: compact past 72px, expand again only under 24px. A single
-     threshold makes the class flip-flop when you hover right on it. */
   let compact = false;
   const f = () => {
     const y = window.scrollY;
@@ -58,9 +50,6 @@ function initNav() {
   f(); addEventListener('scroll', f, { passive: true });
 }
 
-/* Season year rule, in ONE place:
-   once today passes the 2nd game day of the latest season, the
-   "current/registration" season rolls to the next year. */
 let _seasonMeta = null;
 function seasonMeta() {
   return _seasonMeta ||= fetch('data/seasons.json').then(r => r.json()).then(list => {
@@ -80,8 +69,6 @@ function initRegistrationYear() {
   seasonMeta().then(m => els.forEach(el => el.textContent = m.current)).catch(() => {});
 }
 
-/* Contact links: use the Google Form if one is configured,
-   otherwise fall back to a mailto: so the link is never dead. */
 function initContactLinks() {
   const els = document.querySelectorAll('[data-contact]');
   if (!els.length) return;
@@ -96,8 +83,6 @@ function initContactLinks() {
   }).catch(() => {});
 }
 
-/* Mobile menu — delegated from document so it cannot miss the element,
-   and independent of when this script runs. */
 function initMenu() {
   const close = () => {
     document.body.classList.remove('menu-open');
@@ -126,14 +111,6 @@ function boot() {
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
 else boot();
 
-
-/* ------------------------------------------------------------------
-   Season loading.
-   Source of truth is the JSON in this repo. If a published Google
-   Sheet is configured, its scores are merged in on top (matched on
-   game ID). If the sheet is unreachable or malformed, the page still
-   renders from JSON — the site never depends on Google being up.
-------------------------------------------------------------------- */
 function parseCsv(text) {
   const rows = []; let row = [], cell = '', q = false;
   for (let i = 0; i < text.length; i++) {
@@ -169,8 +146,6 @@ function loadSeason(year) {
 
       const get = url => url ? fetch(url).then(r => { if (!r.ok) throw 0; return r.text(); }).catch(() => null) : Promise.resolve(null);
       return Promise.all([get(cfg.scores_csv), get(cfg.responses_csv), get(cfg.teams_csv)]).then(([gTxt, rTxt, tTxt]) => {
-        /* Teams from the sheet when published, so adding a team means
-           typing a row rather than editing JSON. Repo data is the fallback. */
         if (tTxt) {
           const canon = d.teams.slice();          // names already known from the repo
           const rows = parseCsv(tTxt)
@@ -186,14 +161,12 @@ function loadSeason(year) {
         }
         if (!gTxt && !rTxt) return { ...d, scoreSource: 'repo-fallback' };
 
-        /* 1. admin overrides from the Games tab — always win */
         const admin = new Map();
         if (gTxt) parseCsv(gTxt).forEach(r => {
           const a = num(r['Away Score']), h = num(r['Home Score']);
           if (a !== null && h !== null) admin.set(String(r.ID), { a, h, status: r.Status || 'Final' });
         });
 
-        /* 2. captain reports, newest per reporting team */
         const reports = new Map();
         if (rTxt) parseCsv(rTxt).forEach(r => {
           const id = String(r['Game ID'] || '').trim();
@@ -207,8 +180,6 @@ function loadSeason(year) {
         let confirmed = 0, unconfirmed = 0, disputed = 0, overridden = 0, locked = 0;
         d.games.forEach(g => {
           const id = String(g.id);
-          /* scores already recorded in the repo (from league score sheets)
-             are official and cannot be overwritten by captain reports */
           if (g.verify === 'official' && g.home_score != null) { locked++; return; }
           if (admin.has(id)) {
             const v = admin.get(id);
@@ -217,9 +188,6 @@ function loadSeason(year) {
           }
           const byTeam = reports.get(id);
           if (!byTeam || !byTeam.size) return;
-          /* A game can only be reported by the two teams playing it. This stops
-             an unrelated submission manufacturing a confirmation, or forcing a
-             dispute on a score that both real teams already agreed. */
           const playing = [g.home, g.away].map(normalizeName);
           const valid = [...byTeam.entries()].filter(([who]) =>
             playing.includes(normalizeName(who)));
@@ -240,10 +208,6 @@ function loadSeason(year) {
   });
 }
 
-
-/* Verification badge for a game's score provenance */
-/* Only the exceptions get a badge. An official or confirmed score is the
-   expected case, so badging it everywhere carries no information. */
 const VERIFY = {
   unconfirmed: ['Unconfirmed', 'v-unconf',    'Reported by one team only — not yet confirmed'],
   disputed:    ['Disputed',    'v-disputed',  'Teams reported different scores — not published']
@@ -266,9 +230,6 @@ function scoreCell(g, showBadge = true) {
   return `<span class="score"${verifyTitle(g)}>${g.away_score}&ndash;${g.home_score}</span>${showBadge ? verifyBadge(g) : ''}`;
 }
 
-
-/* Per-game score-report link, with the Game ID prefilled.
-   Falls back to the plain form if no prefill base is configured. */
 function reportUrl(cfg, game) {
   const f = cfg.score_form_fields || {};
   if (cfg.score_form_prefill && f.game_id) {
@@ -277,14 +238,6 @@ function reportUrl(cfg, game) {
   return cfg.score_form || '#';
 }
 
-
-/* ------------------------------------------------------------------
-   Team-name safety.
-   Names typed into the spreadsheet are free text, so a typo could
-   invent a team. These map a typed name back to the canonical one
-   from the repo data, and only accept a genuinely new name when it
-   is not close to an existing team.
-------------------------------------------------------------------- */
 function normalizeName(s) {
   return String(s || '')
     .toLowerCase()
@@ -313,8 +266,6 @@ function editDistance(a, b) {
   return prev[n];
 }
 
-/* Returns {name, matched, typo} — matched is the canonical name when the
-   input is an exact or near match, otherwise the input is treated as new. */
 function canonicalTeam(input, known) {
   const raw = String(input || '').trim();
   if (!raw) return { name: raw, matched: null, typo: false };
@@ -322,7 +273,6 @@ function canonicalTeam(input, known) {
   for (const k of known) {
     if (normalizeName(k) === n) return { name: k, matched: k, typo: normalizeName(raw) !== normalizeName(k) };
   }
-  // allow 1 edit per 6 characters, min 1, max 3
   const budget = Math.max(1, Math.min(3, Math.floor(n.length / 6)));
   let best = null, bestD = Infinity;
   for (const k of known) {

@@ -6,13 +6,11 @@ window.dataLayer = window.dataLayer || [];
 loadSeason().then(season=>{
   const g = season.games;
 
-  // --- teams, from the season payload ---
   const tnums = season.team_numbers || {};
   document.getElementById('s-teams').textContent = season.teams.length;
   document.getElementById('teams').innerHTML = season.teams.map(t=>`
     <div class="team"><div class="team__no">${esc(tnums[t] ?? '')}</div><div class="team__name">${esc(t)}</div></div>`).join('');
 
-  // --- standings, top 5, from real scores ---
   const rows = standings(season.teams, g);
   const played = g.filter(x => x.home_score != null).length;
   const sub = document.getElementById('std-sub');
@@ -77,8 +75,6 @@ loadSeason().then(season=>{
     ? recent.map(d=>block(d,false)).join('')
     : `<div class="empty"><strong>No games played yet</strong>Check back once the season is underway.</div>`;
 });
-
-
 
 const navEl = document.querySelector('.nav');
 const onScroll = () => navEl.classList.toggle('nav--compact', window.scrollY > 40);

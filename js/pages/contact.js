@@ -3,8 +3,6 @@ window.dataLayer = window.dataLayer || [];
   gtag('js', new Date());
   gtag('config', 'G-B4KTYY907V');
 
-/* Posts the form to a Google Apps Script endpoint which emails the league.
-   No address appears anywhere in this page's source. */
 const form = document.getElementById('contact-form');
 const note = document.getElementById('form-note');
 const btn  = form.querySelector('button[type=submit]');
@@ -28,7 +26,7 @@ form.addEventListener('submit', async e => {
   try {
     await fetch(cfg.contact_endpoint, {
       method: 'POST',
-      mode: 'no-cors',                       // Apps Script sends no CORS headers
+      mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(payload)
     });
