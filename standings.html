@@ -23,7 +23,6 @@
 <meta name="twitter:description" content="Current standings for the Tri-County Slo-Pitch League — wins, losses, win percentage and run differential for every team.">
 <meta name="twitter:image" content="https://tricountyslopitch.ca/img/logo/banner-hero.png">
 <link rel="stylesheet" href="css/site.css">
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B4KTYY907V"></script>
 </head>
 <body>
@@ -64,6 +63,21 @@
       </table>
     </div>
     <p class="legend">GP games played &middot; W wins &middot; L losses &middot; PCT win percentage &middot; RF runs for &middot; RA runs against &middot; DIFF run differential</p>
+
+    <h3 class="subhead" id="h2h">Head to head</h3>
+    <p class="lede">Each team's record against every other team. Read across the row.</p>
+    <div class="card h2h-wrap"><table class="h2h"><thead id="h2h-head"></thead><tbody id="h2h-body"></tbody></table></div>
+    <p class="legend">Green is a winning record, red a losing one. A dash means they have not played yet.</p>
+
+    <h3 class="subhead" id="charts">Season charts</h3>
+    <div class="chart">
+      <div class="chart__title">Position after each game day</div>
+      <div id="chart-pos"></div>
+    </div>
+    <div class="chart">
+      <div class="chart__title">Runs for and against</div>
+      <div id="chart-runs"></div>
+    </div>
   </div>
 </section>
 

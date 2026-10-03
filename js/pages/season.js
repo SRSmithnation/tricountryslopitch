@@ -13,7 +13,6 @@ loadSeason(year)
   if (d.note) { const n=document.getElementById('notice'); n.hidden=false;
     n.innerHTML = `<strong>Incomplete record.</strong> ${esc(d.note)}`; }
 
-  // --- standings computed from actual scores ---
   const played = d.games.filter(g=>g.home_score!=null && g.away_score!=null);
   const tbl = {};
   const seed = t => tbl[t] ||= {t, w:0, l:0, rf:0, ra:0};
@@ -35,7 +34,6 @@ loadSeason(year)
     : `<tr><td colspan="7"><div class="empty"><strong>No scores recorded</strong>
         Teams for this season are listed below, but no game results were recovered.</div></td></tr>`;
 
-  // --- results grouped by day ---
   const days = new Map();
   d.games.forEach(g=>{ if(!days.has(g.date)) days.set(g.date,[]); days.get(g.date).push(g); });
   document.getElementById('days').innerHTML = days.size ? [...days.entries()].map(([date,gs])=>{

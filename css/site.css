@@ -1,4 +1,3 @@
-/* ===== Tri-County Slo-Pitch League ===== */
 :root{
   --navy:#0F264F; --navy-800:#15325f; --blue:#214B6E;
   --gold:#C1A25D; --gold-light:#D9BE7C; --cream:#D4C7A2;
@@ -19,21 +18,18 @@ h1,h2,h3,.stat__num,.rank,.nav__brand{
   letter-spacing:.01em; line-height:1.05; margin:0;
 }
 .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:24px}
-/* nav spans wider than the page container so the logo sits further left
-   and the menu further right, with more space between them */
+
 .nav__in.wrap{max-width:1440px;padding-left:20px;padding-right:20px}
 a{color:var(--blue);text-decoration:none}
 a:hover{color:var(--navy)}
 
-/* ---------- nav ---------- */
 .nav{position:sticky;top:0;z-index:50;background:rgba(15,38,79,.94);backdrop-filter:blur(12px);
   border-bottom:1px solid rgba(193,162,93,.28)}
 .nav__in{display:flex;align-items:center;gap:40px;height:104px;transition:height .28s cubic-bezier(.4,0,.2,1)}
 .nav--compact .nav__in{height:66px}
 .nav__brand{display:flex;align-items:center;gap:12px;color:#fff;font-size:22px;
   font-weight:600;text-transform:uppercase;white-space:nowrap}
-/* Both logos live in one fixed-size box and crossfade.
-   Neither affects layout, so the wordmark cannot shift mid-transition. */
+
 .nav__marks{position:relative;display:block;flex:0 0 auto;
   width:78px;height:78px;transition:width .28s cubic-bezier(.4,0,.2,1),height .28s cubic-bezier(.4,0,.2,1)}
 .nav--compact .nav__marks{width:32px;height:32px}
@@ -48,7 +44,7 @@ a:hover{color:var(--navy)}
   transition:font-size .28s cubic-bezier(.4,0,.2,1)}
 .nav--compact .nav__word{font-size:22px}
 .nav__word strong{color:var(--gold-light);font-weight:700;transition:color .18s}
-/* the global a:hover turns links navy — wrong on a navy bar, so opt the brand out */
+
 .nav__brand,.nav__brand:hover,.nav__brand:focus{color:#fff}
 .nav__brand:hover .nav__word strong{color:var(--gold)}
 .nav__links{display:flex;gap:24px;margin-left:auto;padding-left:72px;list-style:none;padding-right:0;margin-bottom:0;margin-top:0}
@@ -57,11 +53,9 @@ a:hover{color:var(--navy)}
 .nav__links a:hover{color:#fff}
 .nav__links a[aria-current=page]{color:var(--gold-light);border-bottom-color:var(--gold)}
 
-/* ---------- hero ---------- */
 .hero{position:relative;background:var(--navy);color:#fff;overflow:hidden;
-  /* box follows the banner's shape, so the image scales with the window
-     instead of being cropped. min-height keeps text readable when narrow. */
-  aspect-ratio:1274/388; min-height:340px;
+
+  min-height:clamp(340px,30vw,388px);
   display:grid; align-items:center}
 .hero::after{content:"";position:absolute;inset:0;
   background:linear-gradient(105deg,rgba(15,38,79,.97) 0%,rgba(15,38,79,.86) 45%,rgba(33,75,110,.62) 100%)}
@@ -81,14 +75,12 @@ a:hover{color:var(--navy)}
 .btn--ghost{border:1.5px solid rgba(255,255,255,.35);color:#fff}
 .btn--ghost:hover{border-color:var(--gold);color:var(--gold-light)}
 
-/* ---------- stats strip ---------- */
 .stats{background:var(--navy-800);border-top:1px solid rgba(193,162,93,.22)}
 .stats__in{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:26px 0}
 .stat{text-align:center;color:#fff}
 .stat__num{font-size:40px;font-weight:700;color:var(--gold-light)}
 .stat__lbl{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.62);margin-top:2px}
 
-/* ---------- sections ---------- */
 .sect{padding:72px 0}
 .sect--alt{background:#fff}
 .sect__head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:30px}
@@ -97,7 +89,6 @@ a:hover{color:var(--navy)}
 .link-more{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--blue);white-space:nowrap}
 .link-more:hover{color:var(--gold)}
 
-/* ---------- day blocks ---------- */
 .days{display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:20px}
 .day{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
   box-shadow:var(--shadow);overflow:hidden;transition:.2s}
@@ -116,12 +107,12 @@ a:hover{color:var(--navy)}
 .day__time{display:flex;flex-direction:column;align-items:flex-start;gap:5px;
   font-size:13px;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums;
   white-space:nowrap;padding-top:1px;min-width:0}
-.day__match{font-size:14.5px;font-weight:650;line-height:1.35;
+.day__row>*,.day__game>*{min-width:0}
+.day__match{font-size:14.5px;font-weight:650;line-height:1.35;min-width:0;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .day__match .vs{color:var(--muted);font-weight:500;font-size:13px;padding:0 3px}
 .day__venue{font-size:12.5px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-/* ---------- table ---------- */
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
   box-shadow:var(--shadow);overflow:hidden}
 table{width:100%;border-collapse:collapse}
@@ -136,7 +127,6 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
 .team-name{font-weight:650}
 .pct{font-variant-numeric:tabular-nums;color:var(--muted)}
 
-/* ---------- team chips ---------- */
 .teams{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
 .team{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);
   border-radius:var(--r);padding:16px;box-shadow:var(--shadow);transition:.2s}
@@ -146,7 +136,6 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
   font-size:21px;font-weight:700}
 .team__name{font-weight:650;line-height:1.3}
 
-/* ---------- footer ---------- */
 .foot{background:var(--navy);color:rgba(255,255,255,.7);padding:56px 0 0}
 .foot__in{display:grid;grid-template-columns:auto repeat(3,1fr);gap:40px;align-items:start;padding-bottom:44px}
 .foot__crest{height:132px;width:auto;filter:drop-shadow(0 10px 28px rgba(0,0,0,.4))}
@@ -158,17 +147,26 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
 .foot__base{border-top:1px solid rgba(255,255,255,.12);padding:18px 24px;
   font-size:12.5px;color:rgba(255,255,255,.5)}
 
-@media (max-width:880px){
-  .hero{aspect-ratio:auto;min-height:0}
-  .hero__in{padding:56px 0 64px;text-align:center}
-  .hero p{margin-inline:auto}
-  .btns{justify-content:center}
-    .stats__in{grid-template-columns:repeat(2,1fr);gap:20px}
+@media (max-width:1180px){
+  .nav__links{gap:18px;font-size:13px;padding-left:32px}
+  .nav__word{font-size:17px;letter-spacing:.02em}
+  .nav__marks{width:62px;height:62px}
+  .nav__in{gap:18px}
+}
+
+@media (max-width:1060px){
   .nav__links{display:none}
   .nav__in{height:80px}
   .nav--compact .nav__in{height:60px}
   .nav__marks{width:58px;height:58px}
   .nav__word{font-size:21px}
+}
+
+@media (max-width:880px){
+  .hero__in{padding:56px 0 64px;text-align:center}
+  .hero p{margin-inline:auto}
+  .btns{justify-content:center}
+  .stats__in{grid-template-columns:repeat(2,1fr);gap:20px}
   .foot__in{grid-template-columns:1fr;gap:28px;text-align:center;justify-items:center}
   .foot__crest{height:104px}
   .sect{padding:52px 0}
@@ -178,7 +176,6 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
   .day__match{font-size:14px}
 }
 
-/* ---------- seasons ---------- */
 .seasons{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
 .season{display:block;background:var(--card);border:1px solid var(--line);border-radius:var(--r);
   box-shadow:var(--shadow);padding:24px;transition:.2s;color:inherit}
@@ -201,7 +198,6 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
 .win-badge{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;
   padding:2px 7px;border-radius:4px;background:var(--cream);color:var(--navy);margin-left:7px}
 
-/* ---------- page extras ---------- */
 .filter{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;
   text-transform:uppercase;letter-spacing:.09em;color:var(--muted);white-space:nowrap}
 .filter select{font:inherit;font-size:14px;font-weight:500;text-transform:none;letter-spacing:0;
@@ -226,7 +222,6 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
   padding:13px 18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
 .teamcard__foot a{font-weight:650;white-space:nowrap}
 
-/* schedule page tools */
 .head-tools{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .btn--sm{padding:10px 18px;font-size:12.5px}
 .gid{display:inline-block;margin:0;font-size:10.5px;font-weight:700;color:var(--muted);
@@ -236,7 +231,6 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
 .hint b{color:var(--navy)}
 @media (max-width:640px){ .head-tools{width:100%;justify-content:space-between} }
 
-/* score verification badges */
 .vbadge{display:inline-block;margin-left:7px;font-size:10.5px;font-weight:700;
   text-transform:uppercase;letter-spacing:.07em;padding:2px 7px;border-radius:999px;vertical-align:1px}
 .v-official {background:var(--gold);color:var(--navy)}
@@ -244,7 +238,6 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
 .v-unconf   {background:#f1f3f7;color:#5b6b85;border:1px solid #e0e5ee}
 .v-disputed {background:#fdecec;color:#9b2222;border:1px solid #f4cccc}
 
-/* ---------- contact form ---------- */
 .wrap--narrow{max-width:760px}
 .card--pad{padding:28px}
 .form{display:grid;gap:20px}
@@ -272,7 +265,6 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
 .teamcard__top{gap:12px}
 .teamcard__name{flex:1 1 auto}
 
-/* ---------- content pages ---------- */
 .subhead{font-family:"Barlow Condensed",sans-serif;font-size:26px;font-weight:700;
   text-transform:uppercase;letter-spacing:.02em;color:var(--navy);
   margin:38px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--gold)}
@@ -306,7 +298,6 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
 .faq p{margin:0;padding:16px 20px;font-size:15px;line-height:1.7;color:#3d4a60}
 .faq em{color:var(--muted)}
 
-/* ---------- mobile menu ---------- */
 .nav__toggle{display:none;margin-left:auto;background:none;border:0;cursor:pointer;
   padding:10px;width:44px;height:44px;flex-direction:column;justify-content:center;gap:5px;
   position:relative;z-index:60;-webkit-tap-highlight-color:transparent}
@@ -316,7 +307,7 @@ body.menu-open .nav__toggle span:nth-child(1){transform:translateY(7px) rotate(4
 body.menu-open .nav__toggle span:nth-child(2){opacity:0}
 body.menu-open .nav__toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-@media (max-width:880px){
+@media (max-width:1060px){
   .nav__toggle{display:flex}
   .nav__links{
     display:flex;position:fixed;inset:0 0 auto 0;top:var(--navh,80px);
@@ -336,7 +327,6 @@ body.menu-open .nav__toggle span:nth-child(3){transform:translateY(-7px) rotate(
 .report{font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap}
 .report:hover{color:var(--gold)}
 
-/* clickable game rows + prominent score */
 .day__row{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start;
   padding:14px 18px;color:inherit;text-decoration:none}
 a.day__row:hover{background:#fbfaf6;color:inherit}
@@ -359,7 +349,6 @@ a.day__row:hover{background:#fbfaf6;color:inherit}
   text-transform:uppercase;letter-spacing:.06em;margin-top:6px}
 .sponsor__meta{display:block;font-size:12.5px;color:var(--muted);margin-top:8px}
 
-/* ---------- sponsors ---------- */
 .sponsors{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
 .sponsor{display:flex;gap:16px;align-items:center;background:var(--card);border:1px solid var(--line);
   border-radius:var(--r);padding:16px;box-shadow:var(--shadow);transition:.18s;color:inherit}
@@ -382,13 +371,11 @@ a.sponsor:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:v
 .tier li{font-size:14px;line-height:1.5;padding-left:18px;position:relative;color:#3d4a60}
 .tier li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
 
-/* team card sponsor line */
 .teamcard__sponsor{display:flex;align-items:center;gap:10px;padding:11px 18px;
   border-top:1px solid var(--line);background:#fbfaf6;font-size:12.5px;color:var(--muted)}
 .teamcard__sponsor img{width:26px;height:26px;object-fit:contain;border-radius:5px;background:#fff}
 .teamcard__sponsor b{color:var(--navy);font-weight:650}
 
-/* league sponsor strip */
 .strip{background:#fff;border-top:1px solid var(--line);padding:20px 0}
 .strip .wrap{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
 .strip__label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
@@ -402,7 +389,6 @@ a.sponsor:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:v
 .check{display:flex;gap:11px;align-items:flex-start;font-size:14px;line-height:1.5;color:#3d4a60}
 .check input{margin-top:3px;width:17px;height:17px;flex:0 0 auto;accent-color:var(--navy)}
 
-/* ---------- homepage sign-up band ---------- */
 .signup{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:44px 0}
 .signup__in{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
 .signup__copy h2{font-family:"Barlow Condensed",sans-serif;font-size:32px;font-weight:700;
@@ -421,17 +407,20 @@ a.sponsor:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:v
 .signup .form__note--err{color:#f3b0b0}
 @media (max-width:880px){ .signup__in{grid-template-columns:1fr;gap:24px} }
 
-/* wide sponsor banners */
 .sbanner{margin:0 0 14px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
   box-shadow:var(--shadow);background:#fff}
 .sbanner img{display:block;width:100%;height:auto}
 .sbanner__cap{display:block;padding:9px 16px;border-top:1px solid var(--line);
   font-size:12.5px;color:var(--muted);background:#fbfaf6}
 
-/* fees */
 .feebox{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border-radius:var(--r);
   padding:30px;text-align:center;box-shadow:var(--shadow-lg)}
 .feebox__amount{font-family:"Barlow Condensed",sans-serif;font-size:68px;font-weight:700;
   line-height:1;color:var(--gold-light)}
 .feebox__per{font-size:13px;text-transform:uppercase;letter-spacing:.14em;
   color:rgba(255,255,255,.78);margin-top:8px}
+
+.sect__head{flex-wrap:wrap}
+.head-tools,.filter{max-width:100%;flex-wrap:wrap;min-width:0}
+.filter select,select,input,textarea{max-width:100%}
+.nav__in,.wrap{min-width:0}
