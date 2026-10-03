@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://docs.google.com https://script.google.com https://*.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; form-action 'self' https://docs.google.com; base-uri 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://docs.google.com https://script.google.com https://*.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; form-action 'self' https://docs.google.com; base-uri 'self'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Schedule | Tri-County Slo-Pitch League</title>
 <meta name="description" content="Full game schedule for the Tri-County Slo-Pitch League in Kitchener, Ontario. Dates, times, diamonds and results by game day.">
@@ -25,12 +25,6 @@
 <link rel="stylesheet" href="css/site.css">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B4KTYY907V"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-B4KTYY907V');
-</script>
 </head>
 <body>
 
@@ -85,46 +79,6 @@
   <div class="wrap foot__base"><small>&copy; <span data-reg-year>2027</span> Tri-County Slo-Pitch League</small></div>
 </footer>
 <script src="js/site.js"></script>
+<script src="js/pages/schedule.js"></script>
 
-<script>
-let SEASON = null, CFG = {};
-config().then(c=>{ CFG=c; if(c.score_form) document.getElementById('report-link').href=c.score_form; });
-const render = () => {
-  const pick = document.getElementById('team-filter').value;
-  const games = SEASON.games.filter(g => !pick || g.home === pick || g.away === pick);
-  const days = byDay(games);
-  document.getElementById('days').innerHTML = days.length ? days.map(({games:gs, dt}) => `
-    <article class="day">
-      <div class="day__head">
-        <span class="day__date">${esc(fmtDay(dt))}, ${esc(fmtDate(dt))}</span>
-        <span class="day__count">${gs.length} game${gs.length>1?'s':''}</span>
-      </div>
-      <ul class="day__games">${gs.map(g => {
-        const has = g.home_score != null && g.away_score != null;
-        const tag = has ? 'div' : 'a';
-        const attrs = has ? '' : ` href="${reportUrl(CFG, g)}" target="_blank" rel="noopener" title="Report the score for game ${g.id}"`;
-        return `<li class="day__game${has ? '' : ' day__game--report'}">
-          <${tag} class="day__row"${attrs}>
-            <div class="day__time">
-              <span class="gid" title="Game ID">#${g.id}</span>
-              <span class="day__clock">${esc((g.time||'').toUpperCase())}</span>
-              ${has ? `<span class="day__score"${verifyTitle(g)}>${g.away_score}&ndash;${g.home_score}</span>` : ''}
-            </div>
-            <div>
-              <div class="day__match">${stripNo(g.away)}${has&&g.away_score>g.home_score?'<span class="win-badge">W</span>':''}<span class="vs">at</span>${stripNo(g.home)}${has&&g.home_score>g.away_score?'<span class="win-badge">W</span>':''}</div>
-              <div class="day__venue">${[esc(g.venue||''), verifyBadge(g)].filter(Boolean).join(' &middot; ')}</div>
-            </div>
-          </${tag}></li>`; }).join('')}</ul>
-    </article>`).join('') : `<div class="empty"><strong>No games</strong>Nothing scheduled for that selection.</div>`;
-  document.getElementById('sub').textContent =
-    `${SEASON.year} ${SEASON.division} · ${games.length} game${games.length===1?'':'s'} · ${days.length} game day${days.length===1?'':'s'}`;
-};
-loadSeason().then(d=>{
-    SEASON = d;
-    document.getElementById('team-filter').insertAdjacentHTML('beforeend',
-      d.teams.map(t=>`<option value="${esc(t)}">${esc(t)}</option>`).join(''));
-    document.getElementById('team-filter').addEventListener('change', render);
-    render();
-  });
-</script>
 </body></html>

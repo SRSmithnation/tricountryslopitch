@@ -1,0 +1,80 @@
+name: checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+
+      - name: JavaScript syntax
+        run: |
+          fail=0
+          for f in js/*.js js/pages/*.js; do
+            node --check "$f" || { echo "::error file=$f::syntax error"; fail=1; }
+          done
+          exit $fail
+
+      - name: JSON is parseable
+        run: |
+          fail=0
+          for f in data/*.json data/seasons/*.json data/source/*.json; do
+            node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" \
+              || { echo "::error file=$f::invalid JSON"; fail=1; }
+          done
+          exit $fail
+
+      - name: Internal links and assets resolve
+        run: |
+          node - <<'JS'
+          const fs = require('fs');
+          let bad = 0;
+          for (const f of fs.readdirSync('.').filter(n => n.endsWith('.html'))) {
+            const html = fs.readFileSync(f, 'utf8');
+            for (const m of html.matchAll(/(?:href|src)="(?!https?:|mailto:|#|data:)([^"#?]+)/g)) {
+              const p = m[1];
+              if (p.includes('${')) continue;            // template literal, runtime only
+              if (!fs.existsSync(p)) { console.log(`::error file=${f}::missing ${p}`); bad++; }
+            }
+          }
+          if (bad) process.exit(1);
+          console.log('all internal references resolve');
+          JS
+
+      - name: Season data is coherent
+        run: |
+          node - <<'JS'
+          const fs = require('fs');
+          const index = JSON.parse(fs.readFileSync('data/seasons.json','utf8'));
+          let bad = 0;
+          for (const s of index) {
+            const path = `data/seasons/${s.year}.json`;
+            if (!fs.existsSync(path)) { console.log(`::error::${path} listed but missing`); bad++; continue; }
+            const d = JSON.parse(fs.readFileSync(path,'utf8'));
+            const ids = d.games.map(g => g.id);
+            if (new Set(ids).size !== ids.length) { console.log(`::error::${s.year} has duplicate game ids`); bad++; }
+            for (const g of d.games) {
+              for (const side of ['home','away']) {
+                if (!d.teams.includes(g[side])) {
+                  console.log(`::error::${s.year} game ${g.id}: "${g[side]}" is not in the team list`); bad++;
+                }
+              }
+            }
+          }
+          if (bad) process.exit(1);
+          console.log('season data is coherent');
+          JS
+
+      - name: No secrets committed
+        run: |
+          if grep -rInE 'gh[pousr]_[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{30,}|BEGIN [A-Z ]*PRIVATE KEY' \
+               --include='*.html' --include='*.js' --include='*.json' --include='*.css' . ; then
+            echo "::error::possible secret committed"; exit 1
+          fi
+          echo "no secrets found"

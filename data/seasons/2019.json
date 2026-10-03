@@ -24,7 +24,9 @@
       "home": "Casey's",
       "venue": "Bridgeport Sportsfield #3",
       "away_score": 11,
-      "home_score": 6
+      "home_score": 6,
+      "id": 1,
+      "iso": "2019-05-12"
     },
     {
       "date": "5/26/2019",
@@ -34,7 +36,9 @@
       "home": "Motley Crew",
       "venue": "Rittenhouse Park",
       "away_score": 8,
-      "home_score": 9
+      "home_score": 9,
+      "id": 2,
+      "iso": "2019-05-26"
     },
     {
       "date": "6/2/2019",
@@ -44,7 +48,9 @@
       "home": "Pithogs",
       "venue": "Bridgeport Sportsfield #3",
       "away_score": 12,
-      "home_score": 9
+      "home_score": 9,
+      "id": 3,
+      "iso": "2019-06-02"
     },
     {
       "date": "6/9/2019",
@@ -54,7 +60,9 @@
       "home": "Pithogs",
       "venue": "Rittenhouse Park",
       "away_score": 13,
-      "home_score": 14
+      "home_score": 14,
+      "id": 4,
+      "iso": "2019-06-09"
     },
     {
       "date": "6/16/2019",
@@ -64,7 +72,9 @@
       "home": "Pithogs",
       "venue": "Bridgeport Sportsfield #3",
       "away_score": 10,
-      "home_score": 16
+      "home_score": 16,
+      "id": 5,
+      "iso": "2019-06-16"
     },
     {
       "date": "6/23/2019",
@@ -74,7 +84,9 @@
       "home": "Sweat Sox",
       "venue": "Bridgeport Sportsfield #2",
       "away_score": 6,
-      "home_score": 7
+      "home_score": 7,
+      "id": 6,
+      "iso": "2019-06-23"
     },
     {
       "date": "6/23/2019",
@@ -84,7 +96,9 @@
       "home": "Just A Bit Outside",
       "venue": "Bridgeport Sportsfield #2",
       "away_score": 10,
-      "home_score": 11
+      "home_score": 11,
+      "id": 7,
+      "iso": "2019-06-23"
     },
     {
       "date": "7/7/2019",
@@ -94,7 +108,9 @@
       "home": "Pithogs",
       "venue": "Bridgeport Sportsfield #3",
       "away_score": 10,
-      "home_score": 12
+      "home_score": 12,
+      "id": 8,
+      "iso": "2019-07-07"
     },
     {
       "date": "7/14/2019",
@@ -104,7 +120,9 @@
       "home": "Pithogs",
       "venue": "Bridgeport Sportsfield #3",
       "away_score": 17,
-      "home_score": 15
+      "home_score": 15,
+      "id": 9,
+      "iso": "2019-07-14"
     },
     {
       "date": "7/21/2019",
@@ -114,7 +132,9 @@
       "home": "Misfits",
       "venue": "Bridgeport Sportsfield #3",
       "away_score": 21,
-      "home_score": 4
+      "home_score": 4,
+      "id": 10,
+      "iso": "2019-07-21"
     },
     {
       "date": "7/28/2019",
@@ -124,7 +144,9 @@
       "home": "Pithogs",
       "venue": "Bridgeport Sportsfield #2",
       "away_score": 8,
-      "home_score": 12
+      "home_score": 12,
+      "id": 11,
+      "iso": "2019-07-28"
     }
   ],
   "complete": false,

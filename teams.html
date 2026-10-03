@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://docs.google.com https://script.google.com https://*.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; form-action 'self' https://docs.google.com; base-uri 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://docs.google.com https://script.google.com https://*.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; form-action 'self' https://docs.google.com; base-uri 'self'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Teams | Tri-County Slo-Pitch League</title>
 <meta name="description" content="Teams in the Tri-County Slo-Pitch League, with records and fixtures for the current season.">
@@ -25,12 +25,6 @@
 <link rel="stylesheet" href="css/site.css">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B4KTYY907V"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-B4KTYY907V');
-</script>
 </head>
 <body>
 
@@ -75,34 +69,6 @@
   <div class="wrap foot__base"><small>&copy; <span data-reg-year>2027</span> Tri-County Slo-Pitch League</small></div>
 </footer>
 <script src="js/site.js"></script>
+<script src="js/pages/teams.js"></script>
 
-<script>
-loadSeason().then(d=>{
-    document.getElementById('sub').textContent = `${d.year} ${d.division} · ${d.teams.length} teams`;
-    const st = standings(d.teams, d.games);
-    const ord = n => n + (['th','st','nd','rd'][(n%100>10&&n%100<14)?0:Math.min(n%10,4)%4] || 'th');
-    const rank = Object.fromEntries(st.map((x,i)=>[x.team, x.gp?i+1:null]));
-    document.getElementById('cards').innerHTML = d.teams.map((t,i)=>{
-      const s = st.find(x=>x.team===t) || {gp:0,w:0,l:0};
-      const gs = d.games.filter(g=>g.home===t||g.away===t);
-      const next = gs[0];
-      return `<article class="teamcard">
-        <div class="teamcard__top">
-          <span class="teamcard__no">${(d.team_numbers && d.team_numbers[t]) || i+1}</span>
-          <span class="teamcard__name">${esc(t)}</span>
-          ${rank[t]?`<span class="teamcard__rank" title="Position in the standings">${ord(rank[t])}</span>`:''}
-        </div>
-        <div class="teamcard__stats">
-          <div><b>${s.gp||0}</b>Games</div>
-          <div><b>${s.gp?s.w:'&ndash;'}</b>Won</div>
-          <div><b>${s.gp?s.l:'&ndash;'}</b>Lost</div>
-        </div>
-        <div class="teamcard__foot">
-          ${gs.length?`${gs.length} fixture${gs.length>1?'s':''} in ${d.year}`:'No fixtures'}
-          <a href="schedule.html">View schedule &rarr;</a>
-        </div>
-      </article>`;
-    }).join('');
-  });
-</script>
 </body></html>

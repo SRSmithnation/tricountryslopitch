@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://docs.google.com https://script.google.com https://*.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; form-action 'self' https://docs.google.com; base-uri 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://docs.google.com https://script.google.com https://*.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; form-action 'self' https://docs.google.com; base-uri 'self'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Seasons | Tri-County Slo-Pitch League</title>
 <meta name="description" content="Season-by-season history of the Tri-County Slo-Pitch League in Kitchener, Ontario.">
@@ -23,12 +23,6 @@
 <link rel="stylesheet" href="css/site.css">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B4KTYY907V"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-B4KTYY907V');
-</script>
 </head>
 <body>
 <nav class="nav nav--compact">
@@ -73,25 +67,7 @@
   <div class="wrap foot__base"><small>&copy; <span data-reg-year>2027</span> Tri-County Slo-Pitch League</small></div>
 </footer>
 <script src="js/site.js"></script>
+<script src="js/pages/seasons.js"></script>
 
-<script>
-fetch('data/seasons.json').then(r=>r.json()).then(list=>{
-  const partial = list.filter(s=>!s.complete).length;
-  document.getElementById('notice').innerHTML =
-    `<strong>Records are incomplete.</strong> ${partial} of ${list.length} seasons are missing games or scores. `+
-    `The league's previous website was shut down and only some data could be recovered.`;
-  document.getElementById('seasons').innerHTML = list.map(s=>`
-    <a class="season" href="season.html?y=${s.year}">
-      <div class="season__yr">${s.year}</div>
-      <div class="season__div">${esc(s.division)}</div>
-      <div class="season__facts">
-        <div><b>${s.teams}</b>Teams</div>
-        <div><b>${s.games}</b>Games</div>
-        <div><b>${s.with_scores}</b>Scores</div>
-      </div>
-      ${s.complete?'':'<span class="flag">Partial record</span>'}
-    </a>`).join('');
-});
-</script>
 </body>
 </html>

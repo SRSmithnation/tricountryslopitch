@@ -32,7 +32,11 @@ function standings(teams, games) {
   return Object.values(t)
     .map(x => ({ ...x, gp: x.w + x.l + x.tie, diff: x.rf - x.ra,
                  pct: (x.w + x.l + x.tie) ? (x.w + x.tie / 2) / (x.w + x.l + x.tie) : 0 }))
-    .sort((a, b) => b.gp - a.gp || b.pct - a.pct || b.diff - a.diff || a.team.localeCompare(b.team));
+    /* Rank on win percentage, not games played. Teams with a game in hand must
+       not drop below teams with more losses. Teams yet to play sort last. */
+    .sort((a, b) => (b.gp ? 1 : 0) - (a.gp ? 1 : 0)
+                 || b.pct - a.pct || b.diff - a.diff || b.w - a.w
+                 || a.team.localeCompare(b.team));
 }
 
 /* shrink-on-scroll header */

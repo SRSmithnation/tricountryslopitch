@@ -8,3 +8,5 @@ apps-script/
 img/favicon-drafts/
 # sample sponsor logos used for local preview only — never publish these
 img/sponsors/sample-*
+reference/newsletter-*.html
+.vscode/
