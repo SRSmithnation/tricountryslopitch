@@ -22,7 +22,7 @@ slo-pitch league playing Sunday mornings in Kitchener and Waterloo, Ontario.
 A static site. No server, no database, no build step. Plain HTML, CSS and
 JavaScript, hosted free on GitHub Pages.
 
-Data lives in `data/seasons/*.json` in this repo. A published Google Sheet is
+Data lives in `src/data/seasons/*.json` in this repo. A published Google Sheet is
 layered on top so scores and teams can be edited without touching code. If the
 sheet is unreachable, the site falls back to the repo data and keeps working.
 
@@ -43,7 +43,7 @@ Needs a web server, because the pages fetch JSON and `file://` blocks that.
 
 ```bash
 cd tricountyslopitch
-python3 -m http.server 8000
+cd src && python3 -m http.server 8000
 ```
 
 Then open <http://localhost:8000>.
@@ -54,12 +54,25 @@ Then open <http://localhost:8000>.
 |---|---|
 | Record a score | the Google Form, or the Games tab of the sheet |
 | Add or rename a team | the Teams tab of the sheet |
-| Add a season | `data/seasons/`, see MAINTENANCE.md |
+| Add a season | `src/data/seasons/`, see docs/MAINTENANCE.md |
 | Edit page wording | the `.html` file |
-| Styling | `css/site.css` |
+| Styling | `src/css/site.css` |
 
 Pushing to `main` deploys automatically, usually within two minutes.
 
 **Full instructions, including what to do when something breaks, are in
-[MAINTENANCE.md](MAINTENANCE.md).**
+[docs/MAINTENANCE.md](docs/MAINTENANCE.md).**
 
+## Where things live
+
+| Path | What it is |
+|---|---|
+| `src/` | The website. Everything here is published |
+| `src/data/` | Season data, teams, config. The source of truth |
+| `src/img/` | Images, logos and icons |
+| `docs/` | Notes for running the site |
+| `.github/workflows/` | Checks that run on pull requests, and the deploy |
+| `reference/` | Old site archive and drafts. Not published |
+
+Editing anything in `src/` and merging to `main` publishes it. Nothing outside
+`src/` ever reaches the live site.

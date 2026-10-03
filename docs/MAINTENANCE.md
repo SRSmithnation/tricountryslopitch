@@ -60,9 +60,9 @@ appearing, the tab is not published, see "Publishing a sheet tab" below.)*
 
 ### Add next season's schedule
 
-1. Open `data/seasons/2026.json` to see the shape.
-2. Copy it to `data/seasons/2027.json`, replace the games.
-3. Add `2027` to `data/seasons.json`.
+1. Open `src/data/seasons/2026.json` to see the shape.
+2. Copy it to `src/data/seasons/2027.json`, replace the games.
+3. Add `2027` to `src/data/seasons.json`.
 4. Create a matching Games tab in the spreadsheet so captains can report scores.
 
 Each game needs: `id` (1,2,3...), `date` (MM/DD/YY), `iso` (YYYY-MM-DD),
@@ -115,7 +115,7 @@ The site can only read tabs that are **published to the web**.
 
 1. In the spreadsheet: **File → Share → Publish to web**
 2. Pick the tab, choose **CSV**, click **Publish**
-3. Copy the URL and put it in `data/config.json`
+3. Copy the URL and put it in `src/data/config.json`
 
 ```
 scores_csv      the Games tab
@@ -184,7 +184,7 @@ img/logo/source/                 originals and unused variants
 reference/                       archived old site, unused components
 ```
 
-`data/seasons/*.json` is the important one. Everything else is presentation.
+`src/data/seasons/*.json` is the important one. Everything else is presentation.
 
 ---
 

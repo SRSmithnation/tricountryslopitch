@@ -4,49 +4,46 @@
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://docs.google.com https://script.google.com https://*.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; form-action 'self' https://docs.google.com; base-uri 'self'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Schedule | Tri-County Slo-Pitch League</title>
-<meta name="description" content="Full game schedule for the Tri-County Slo-Pitch League in Kitchener, Ontario. Dates, times, diamonds and results by game day.">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Season | Tri-County Slo-Pitch League</title>
+<meta name="description" content="Season results and final standings for the Tri-County Slo-Pitch League.">
+<link rel="icon" href="img/icons/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;650&display=swap" rel="stylesheet">
-<link rel="canonical" href="https://tricountyslopitch.ca/schedule.html">
+<link rel="canonical" href="https://tricountyslopitch.ca/season.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tri-County Slo-Pitch League">
-<meta property="og:title" content="Schedule | Tri-County Slo-Pitch League">
-<meta property="og:description" content="Full game schedule for the Tri-County Slo-Pitch League in Kitchener, Ontario. Dates, times, diamonds and results by game day.">
-<meta property="og:url" content="https://tricountyslopitch.ca/schedule.html">
+<meta property="og:title" content="Season | Tri-County Slo-Pitch League">
+<meta property="og:description" content="Season results and final standings for the Tri-County Slo-Pitch League.">
+<meta property="og:url" content="https://tricountyslopitch.ca/season.html">
 <meta property="og:image" content="https://tricountyslopitch.ca/img/logo/banner-hero.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Schedule | Tri-County Slo-Pitch League">
-<meta name="twitter:description" content="Full game schedule for the Tri-County Slo-Pitch League in Kitchener, Ontario. Dates, times, diamonds and results by game day.">
+<meta name="twitter:title" content="Season | Tri-County Slo-Pitch League">
+<meta name="twitter:description" content="Season results and final standings for the Tri-County Slo-Pitch League.">
 <meta name="twitter:image" content="https://tricountyslopitch.ca/img/logo/banner-hero.png">
 <link rel="stylesheet" href="css/site.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B4KTYY907V"></script>
 </head>
 <body>
-
 <nav class="nav nav--compact">
   <div class="wrap nav__in">
     <a class="nav__brand" href="index.html">
       <span class="nav__marks">
         <img src="img/logo/logo-crest.png" alt="" class="nav__crest">
-        <img src="favicon.svg" alt="" class="nav__mark">
+        <img src="img/icons/favicon.svg" alt="" class="nav__mark">
       </span>
       <span class="nav__word">Tri-County <strong>Slo-Pitch</strong></span></a>
     <button class="nav__toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
       <span></span><span></span><span></span>
     </button>
     <ul class="nav__links" id="nav-menu">
-      <li><a href="schedule.html" aria-current="page">Schedule</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
       <li><a href="standings.html">Standings</a></li>
       <li><a href="teams.html">Teams</a></li>
       <li><a href="venues.html">Venues</a></li>
       <li><a href="rules.html">Rules</a></li>
       <li><a href="faq.html">FAQ</a></li>
       <li><a href="sponsors.html">Sponsors</a></li>
-      <li><a href="seasons.html">Seasons</a></li>
+      <li><a href="seasons.html" aria-current="page">Seasons</a></li>
     </ul>
   </div>
 </nav>
@@ -54,17 +51,19 @@
 <section class="sect">
   <div class="wrap">
     <div class="sect__head">
-      <div><h2>Schedule</h2><p class="sub" id="sub"></p></div>
-      <div class="head-tools">
-        <label class="filter">Team
-          <select id="team-filter"><option value="">All teams</option></select>
-        </label>
-        <a class="btn btn--sm btn--gold" id="report-link" href="#" target="_blank" rel="noopener">Report a score</a>
-      </div>
+      <div><h2 id="title">Season</h2><p class="sub" id="sub"></p></div>
+      <a class="link-more" href="seasons.html">&larr; All seasons</a>
     </div>
-    <p class="hint">Played a game with no score yet? <b>Click the game</b> to report it &mdash; the game number is filled in for you.</p>
+    <div class="notice" id="notice" hidden></div>
+
+    <h2 style="font-size:24px;margin-bottom:18px">Final Standings</h2>
+    <div class="card" style="margin-bottom:46px">
+      <table><thead><tr><th style="width:56px">#</th><th>Team</th><th class="num">W</th><th class="num">L</th><th class="num">PCT</th><th class="num">RF</th><th class="num">RA</th></tr></thead>
+      <tbody id="standings"></tbody></table>
+    </div>
+
+    <h2 style="font-size:24px;margin-bottom:18px">Results</h2>
     <div class="days" id="days"></div>
-    <p class="legend">Scores without a label have been confirmed. <b>Unconfirmed</b> means only one team reported; <b>Disputed</b> means the two reports disagree and the score is withheld.</p>
   </div>
 </section>
 
@@ -72,12 +71,13 @@
   <div class="wrap foot__in">
     <img class="foot__crest" src="img/logo/logo-crest.png" alt="Tri-County Slo-Pitch League crest">
     <div class="foot__col"><h3>Tri-County Slo-Pitch</h3><p>Adult recreational co-ed slo-pitch<br>Kitchener &amp; Waterloo, Ontario</p></div>
-    <div class="foot__col"><h3>League</h3><p><a href="schedule.html">Schedule</a><br><a href="standings.html">Standings</a><br><a href="rules.html">Rules</a><br><a href="venues.html">Venues</a><br><a href="fees.html">Fees</a><br><a href="faq.html">FAQ</a><br><a href="sponsors.html">Sponsors</a></p></div>
+    <div class="foot__col"><h3>League</h3><p><a href="index.html">Home</a><br><a href="seasons.html">Seasons</a></p></div>
     <div class="foot__col"><h3>Join</h3><p>Register for the <b data-reg-year>2027</b> season.<br><a data-contact href="contact.html">Get in touch</a></p></div>
   </div>
   <div class="wrap foot__base"><small>&copy; <span data-reg-year>2027</span> Tri-County Slo-Pitch League</small></div>
 </footer>
 <script src="js/site.js"></script>
-<script src="js/pages/schedule.js"></script>
+<script src="js/pages/season.js"></script>
 
-</body></html>
+</body>
+</html>
