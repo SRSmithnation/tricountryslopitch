@@ -63,11 +63,3 @@ Pushing to `main` deploys automatically, usually within two minutes.
 **Full instructions, including what to do when something breaks, are in
 [MAINTENANCE.md](MAINTENANCE.md).**
 
-## Credits
-
-Site structure originally adapted from a league site built by a friend for the
-Kitchener Co-ed Volleyball League, then rebuilt for slo-pitch.
-
-Historical season data was recovered from the league's previous LeagueLineup
-site after that platform shut down. Some seasons are incomplete as a result and
-are labelled accordingly.
