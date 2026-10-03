@@ -46,7 +46,6 @@ loadSeason(year)
       return `<li class="day__game">
         <div class="day__row">
           <div class="day__time">
-            <span class="gid" title="Game ID">#${g.id}</span>
             <span class="day__clock">${esc((g.time||'').toUpperCase())}</span>
             ${has ? `<span class="day__score"${verifyTitle(g)}>${g.away_score}&ndash;${g.home_score}</span>` : ''}
           </div>

@@ -4,7 +4,7 @@ window.dataLayer = window.dataLayer || [];
   gtag('config', 'G-B4KTYY907V');
 
 let SEASON = null, CFG = {};
-config().then(c=>{ CFG=c; if(c.score_form) document.getElementById('report-link').href=c.score_form; });
+config().then(c => { CFG = c; });
 const render = () => {
   const pick = document.getElementById('team-filter').value;
   const games = SEASON.games.filter(g => !pick || g.home === pick || g.away === pick);
@@ -25,7 +25,6 @@ const render = () => {
         return `<li class="day__game${has ? '' : ' day__game--report'}">
           <${tag} class="day__row"${attrs}>
             <div class="day__time">
-              <span class="gid" title="Game ID">#${g.id}</span>
               <span class="day__clock">${esc((g.time||'').toUpperCase())}</span>
               ${has ? `<span class="day__score"${verifyTitle(g)}>${g.away_score}&ndash;${g.home_score}</span>` : ''}
             </div>

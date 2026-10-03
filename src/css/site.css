@@ -154,7 +154,7 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
   .nav__in{gap:18px}
 }
 
-@media (max-width:1060px){
+@media (max-width:900px){
   .nav__links{display:none}
   .nav__in{height:80px}
   .nav--compact .nav__in{height:60px}
@@ -307,7 +307,7 @@ body.menu-open .nav__toggle span:nth-child(1){transform:translateY(7px) rotate(4
 body.menu-open .nav__toggle span:nth-child(2){opacity:0}
 body.menu-open .nav__toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-@media (max-width:1060px){
+@media (max-width:900px){
   .nav__toggle{display:flex}
   .nav__links{
     display:flex;position:fixed;inset:0 0 auto 0;top:var(--navh,80px);
