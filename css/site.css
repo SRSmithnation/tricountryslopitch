@@ -427,3 +427,11 @@ a.sponsor:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:v
 .sbanner img{display:block;width:100%;height:auto}
 .sbanner__cap{display:block;padding:9px 16px;border-top:1px solid var(--line);
   font-size:12.5px;color:var(--muted);background:#fbfaf6}
+
+/* fees */
+.feebox{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border-radius:var(--r);
+  padding:30px;text-align:center;box-shadow:var(--shadow-lg)}
+.feebox__amount{font-family:"Barlow Condensed",sans-serif;font-size:68px;font-weight:700;
+  line-height:1;color:var(--gold-light)}
+.feebox__per{font-size:13px;text-transform:uppercase;letter-spacing:.14em;
+  color:rgba(255,255,255,.78);margin-top:8px}
