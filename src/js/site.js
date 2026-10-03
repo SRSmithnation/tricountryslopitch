@@ -168,10 +168,13 @@ function loadSeason(year) {
         });
 
         const reports = new Map();
+        let stale = 0;
         if (rTxt) parseCsv(rTxt).forEach(r => {
           const id = String(r['Game ID'] || '').trim();
           const a = num(r['Away Score']), h = num(r['Home Score']);
           if (!id || a === null || h === null) return;
+          const rowSeason = String(r.Season || '').trim();
+          if (rowSeason && rowSeason !== String(d.year)) { stale++; return; }
           const who = (r['Reporting Team'] || r['Your Team'] || '').trim() || '(unnamed)';
           if (!reports.has(id)) reports.set(id, new Map());
           reports.get(id).set(who, { a, h, status: r.Status || 'Final', at: r.Timestamp || '' });
@@ -202,7 +205,8 @@ function loadSeason(year) {
           if (valid.length >= 2) { g.verify = 'confirmed'; confirmed++; }
           else { g.verify = 'unconfirmed'; unconfirmed++; }
         });
-        return { ...d, scoreSource: 'sheet', stats: { confirmed, unconfirmed, disputed, overridden, locked } };
+        if (stale) console.info(`Ignored ${stale} report(s) from other seasons.`);
+        return { ...d, scoreSource: 'sheet', stats: { confirmed, unconfirmed, disputed, overridden, locked, stale } };
       });
     }));
   });
@@ -380,7 +384,7 @@ function openScoreModal(game, cfg, opener) {
     note.className = 'modal__note';
     const payload = {
       game_id: String(game.id), away_score: away, home_score: home,
-      status: 'Final', team, code
+      status: 'Final', team, code, season: String(cfg.current_season || '')
     };
     try {
       const res = await fetch(cfg.score_endpoint, {
