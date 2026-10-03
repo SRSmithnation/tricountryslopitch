@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://docs.google.com https://script.google.com https://*.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; form-action 'self' https://docs.google.com; base-uri 'self'; object-src 'none'">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Players Wanted | Tri-County Slo-Pitch League</title>
+<meta name="description" content="Join the Tri-County Slo-Pitch League. Adult co-ed recreational slo-pitch, Sunday mornings from May to August in Kitchener and Waterloo.">
+<meta name="robots" content="noindex,follow">
+<link rel="icon" href="img/icons/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/icons/apple-touch-icon.png">
+<link rel="canonical" href="https://tricountyslopitch.ca/players-wanted.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tri-County Slo-Pitch League">
+<meta property="og:title" content="Players Wanted | Tri-County Slo-Pitch League">
+<meta property="og:description" content="Looking for a team? Adult co-ed slo-pitch, Sunday mornings, May to August, Kitchener and Waterloo.">
+<meta property="og:url" content="https://tricountyslopitch.ca/players-wanted.html">
+<meta property="og:image" content="https://tricountyslopitch.ca/img/logo/banner-hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;650&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B4KTYY907V"></script>
+</head>
+<body>
+
+<nav class="nav nav--compact">
+  <div class="wrap nav__in">
+    <a class="nav__brand" href="index.html">
+      <span class="nav__marks">
+        <img src="img/logo/logo-crest.png" alt="" class="nav__crest">
+        <img src="img/icons/favicon.svg" alt="" class="nav__mark">
+      </span>
+      <span class="nav__word">Tri-County <strong>Slo-Pitch</strong></span></a>
+    <button class="nav__toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__links" id="nav-menu">
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="standings.html">Standings</a></li>
+      <li><a href="teams.html">Teams</a></li>
+      <li><a href="rules.html">Rules</a></li>
+      <li><a href="sponsors.html">Sponsors</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="sect sect--tight">
+  <div class="wrap">
+    <div class="pw-top">
+      <figure class="pw-flyer">
+        <a href="img/flyer/players-wanted-flyer.png" download>
+          <img src="img/flyer/players-wanted-preview.jpg" alt="Tri-County Slo-Pitch players wanted flyer"
+               width="640" height="820" loading="eager"></a>
+        <figcaption>
+          <a class="btn btn--gold btn--sm" href="img/flyer/players-wanted-flyer.png" download>Download the flyer</a>
+        </figcaption>
+      </figure>
+
+      <div class="pw-intro">
+        <span class="eyebrow eyebrow--dark">Kitchener &amp; Waterloo</span>
+        <h1 class="solotitle">Players Wanted</h1>
+        <p class="lede lede--lg">Adult co-ed recreational slo-pitch, Sunday mornings from May through
+          August, on diamonds across Kitchener and Waterloo. All skill levels are welcome.</p>
+        <div class="factgrid factgrid--2">
+          <div class="fact"><span class="fact__k">When</span><span class="fact__v">Sunday mornings</span></div>
+          <div class="fact"><span class="fact__k">Season</span><span class="fact__v">May to August</span></div>
+          <div class="fact"><span class="fact__k">Where</span><span class="fact__v">Kitchener &amp; Waterloo</span></div>
+          <div class="fact"><span class="fact__k">Format</span><span class="fact__v">7 innings, co-ed</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pw-body">
+      <div class="pw-main">
+        <h2 class="subhead">Joining</h2>
+        <p class="lede">Tell us whether you are an individual looking for a team or a full team looking
+          for a league. We will come back to you with the details, including the fee and the start date
+          for the coming season.</p>
+        <form class="form" id="pw-form" novalidate>
+          <div class="form__row">
+            <label class="field"><span>Your name <b>*</b></span>
+              <input type="text" id="pw-name" name="name" required autocomplete="name"></label>
+            <label class="field"><span>Email <b>*</b></span>
+              <input type="email" id="pw-email" name="email" required autocomplete="email"></label>
+          </div>
+          <label class="field"><span>Are you</span>
+            <select id="pw-kind" name="kind">
+              <option>An individual looking for a team</option>
+              <option>A full team looking for a league</option>
+              <option>A few players looking to join together</option>
+            </select></label>
+          <label class="field"><span>Anything else <small>optional</small></span>
+            <textarea id="pw-msg" name="message" rows="4" placeholder="Experience, how many of you there are, questions"></textarea></label>
+          <input type="text" id="pw-hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="form__note" id="pw-note"></p>
+          <button class="btn btn--gold" type="submit" id="pw-send">Send</button>
+        </form>
+      </div>
+
+      <aside class="pw-side">
+        <div class="sidecard">
+          <h3>What it is like</h3>
+          <p>Seven innings, no hard time limit, usually about an hour and a half. The batting order
+            alternates between men and women.</p>
+          <p>Competitive enough to be worth winning, relaxed enough that nobody is shouting at you.</p>
+        </div>
+        <div class="sidecard">
+          <h3>On your own?</h3>
+          <p>Most people come as part of a team, but if you are on your own we will try to place you
+            with a team that is short on players.</p>
+        </div>
+        <div class="sidecard sidecard--quiet">
+          <h3>Have a look around</h3>
+          <p>See the <a href="schedule.html">schedule</a>, the <a href="standings.html">standings</a>,
+            the <a href="venues.html">diamonds we play on</a> and the <a href="rules.html">rules</a>.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <img class="foot__crest" src="img/logo/logo-crest.png" alt="Tri-County Slo-Pitch League crest">
+    <div class="foot__col"><h3>Tri-County Slo-Pitch</h3><p>Adult recreational co-ed slo-pitch<br>Kitchener &amp; Waterloo, Ontario</p></div>
+    <div class="foot__col"><h3>League</h3><p><a href="schedule.html">Schedule</a><br><a href="standings.html">Standings</a><br><a href="teams.html">Teams</a><br><a href="rules.html">Rules</a><br><a href="venues.html">Venues</a><br><a href="fees.html">Fees</a><br><a href="seasons.html">Past seasons</a><br><a href="faq.html">FAQ</a><br><a href="sponsors.html">Sponsors</a></p></div>
+    <div class="foot__col"><h3>Join</h3><p>Register for the <b data-reg-year>2027</b> season.<br><a data-contact href="contact.html">Get in touch</a></p></div>
+  </div>
+  <div class="wrap foot__base"><small>&copy; <span data-reg-year>2027</span> Tri-County Slo-Pitch League</small></div>
+</footer>
+<script src="js/site.js"></script>
+<script src="js/pages/venues.js"></script>
+</body>
+</html>
