@@ -54,12 +54,12 @@ Then open <http://localhost:8000>.
 |---|---|
 | Record a score | the Google Form, or the Games tab of the sheet |
 | Add or rename a team | the Teams tab of the sheet |
-| Add a season | `data/seasons/`, see MAINTENANCE.md |
+| Add a season | `data/seasons/`, see docs/MAINTENANCE.md |
 | Edit page wording | the `.html` file |
 | Styling | `css/site.css` |
 
 Pushing to `main` deploys automatically, usually within two minutes.
 
 **Full instructions, including what to do when something breaks, are in
-[MAINTENANCE.md](MAINTENANCE.md).**
+[docs/MAINTENANCE.md](docs/MAINTENANCE.md).**
 
