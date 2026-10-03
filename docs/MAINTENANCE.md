@@ -118,6 +118,26 @@ before. It does not stop someone who has been given a code from entering a
 wrong score for their own team. That is what the two-team confirmation is for,
 and you can always correct anything from the Games tab.
 
+## Building a schedule
+
+If the league has not already drawn one up, generate a balanced one:
+
+```bash
+python3 scripts/make-schedule.py \
+  --teams-from src/data/seasons/2026.json \
+  --start 2027-05-30 --weeks 10 \
+  --slots "10:00 am,11:30 am" \
+  --venues "Bridgeport #2,Bridgeport #3" \
+  --out ~/Downloads/schedule-2027.csv
+```
+
+It works with any number of teams, spreads byes when the count is odd, evens
+out home and away games, and prints a fairness table. If it warns that the
+result is poor, the usual cause is not enough time slots or diamonds for the
+number of teams. Each team needs a game, so N teams need N/2 games per day.
+
+The CSV it writes feeds straight into the next step.
+
 ## Starting a new season
 
 Once the new schedule arrives, put it in a CSV with a header row of
