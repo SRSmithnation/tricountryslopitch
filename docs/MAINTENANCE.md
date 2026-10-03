@@ -118,6 +118,27 @@ before. It does not stop someone who has been given a code from entering a
 wrong score for their own team. That is what the two-team confirmation is for,
 and you can always correct anything from the Games tab.
 
+## Starting a new season
+
+Once the new schedule arrives, put it in a CSV with a header row of
+`Date,Time,Venue,Away,Home` and run:
+
+```bash
+cd ~/Desktop/Playground/tricountryslopitch
+python3 scripts/new-season.py 2027 --from ~/Downloads/schedule.csv
+```
+
+That creates the season file, updates the season list, points the site at the
+new year, rebuilds the sitemap and checks the data makes sense. Team numbers
+carry over, so Misfits stays 1.
+
+Then in the spreadsheet: update the Teams tab, give every team a **new** code
+in the Captains tab, and clear last season's rows from Games and
+Form Responses 1. Old reports must not attach to reused game ids.
+
+Give captains their codes before the first game day, or nobody can report a
+score.
+
 ## Making changes safely (branches and pull requests)
 
 Small content edits can go straight to `main` from the GitHub web editor.
