@@ -72,6 +72,9 @@ jobs:
           console.log('season data is coherent');
           JS
 
+      - name: Nav and footer match partials
+        run: python3 scripts/sync-partials.py --check
+
       - name: No secrets committed
         run: |
           if grep -rInE 'gh[pousr]_[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{30,}|BEGIN [A-Z ]*PRIVATE KEY' \
