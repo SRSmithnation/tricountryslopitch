@@ -12,7 +12,7 @@ const renderTeams = d => {
       const s = st.find(x=>x.team===t) || {gp:0,w:0,l:0};
       const gs = d.games.filter(g=>g.home===t||g.away===t);
       const next = gs[0];
-      return `<article class="teamcard">
+      return `<a class="teamcard" href="team.html?t=${encodeURIComponent(t)}">
         <div class="teamcard__top">
           <span class="teamcard__no">${(d.team_numbers && d.team_numbers[t]) || i+1}</span>
           <span class="teamcard__name">${esc(t)}</span>
@@ -24,10 +24,10 @@ const renderTeams = d => {
           <div><b>${s.gp?s.l:'&ndash;'}</b>Lost</div>
         </div>
         <div class="teamcard__foot">
-          ${gs.length?`${gs.length} fixture${gs.length>1?'s':''} in ${d.year}`:'No fixtures'}
-          <a href="schedule.html">View schedule &rarr;</a>
+          ${gs.length?`${gs.length} game${gs.length>1?'s':''} in ${d.year}`:'No games'}
+          <span class="teamcard__go">Team page &rarr;</span>
         </div>
-      </article>`;
+        </a>`;
     }).join('');
   };
 
