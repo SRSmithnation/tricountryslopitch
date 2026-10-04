@@ -9,7 +9,12 @@ const renderStandings = d => {
     const played = d.games.filter(g=>g.home_score!=null).length;
     if (!played) { const n=document.getElementById('notice'); n.hidden=false;
       n.innerHTML = `<strong>No scores recorded yet.</strong> Teams are listed below. Standings will calculate automatically once game results are added.`; }
-    document.getElementById('body').innerHTML = rows.map((x,i)=>`
+    if (!rows.length) {
+    document.getElementById('body').innerHTML =
+      `<tr><td colspan="9">No teams yet for this season.</td></tr>`;
+    return;
+  }
+  document.getElementById('body').innerHTML = rows.map((x,i)=>`
       <tr><td>${x.gp?`<span class="rank">${i+1}</span>`:'<span class="dash">&ndash;</span>'}</td>
         <td class="team-name"><a href="team.html?t=${encodeURIComponent(x.team)}">${esc(x.team)}</a></td>
         <td class="num">${x.gp||'<span class="dash">&ndash;</span>'}</td>

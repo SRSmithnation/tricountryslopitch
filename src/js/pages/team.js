@@ -6,8 +6,9 @@ const render = d => {
   const team = d.teams.includes(wanted) ? wanted : (canon.matched ? canon.name : null);
 
   if (!team) {
+    document.getElementById('team-title').textContent = 'Team not found';
     document.getElementById('teamhead').innerHTML =
-      `<div class="empty"><strong>Team not found</strong>
+      `<div class="empty"><strong>Not in this season</strong>
         ${wanted ? `No team called &ldquo;${esc(wanted)}&rdquo; in the ${d.year} season. ` : ''}
         <a href="teams.html">See every team</a></div>`;
     ['team-results', 'team-fixtures'].forEach(id => document.getElementById(id).innerHTML = '');
@@ -18,6 +19,7 @@ const render = d => {
   }
 
   document.title = `${team} | Tri-County Slo-Pitch League`;
+  document.getElementById('team-title').textContent = team;
   const mine = d.games.filter(g => g.home === team || g.away === team);
   const played = mine.filter(g => g.home_score != null && g.away_score != null && g.verify !== 'disputed')
     .sort((a, b) => a.iso.localeCompare(b.iso));
@@ -27,17 +29,13 @@ const render = d => {
   const ord = n => n + (['th', 'st', 'nd', 'rd'][(n % 100 - n % 10 != 10) * (n % 10 < 4) * n % 10] || 'th');
   const num = (d.team_numbers || {})[team];
 
-  document.getElementById('teamhead').innerHTML = `
-    <div class="teamhead__no">${esc(String(num ?? ''))}</div>
-    <div class="teamhead__body">
-      <h2>${esc(team)}</h2>
-      <p class="sub">${d.year} ${esc(d.division)}${me.gp ? ` &middot; ${ord(place)} in the league` : ''}</p>
-    </div>
-    <div class="teamhead__stats">
-      <div><b>${me.w}&ndash;${me.l}${me.t ? '&ndash;' + me.t : ''}</b><span>Record</span></div>
-      <div><b>${me.gp}</b><span>Played</span></div>
-      <div><b>${me.diff >= 0 ? '+' : ''}${me.diff}</b><span>Run diff</span></div>
-    </div>`;
+  document.getElementById('team-no').textContent = num ?? '';
+  document.getElementById('team-sub').textContent =
+    `${d.year} ${d.division}${me.gp ? ` \u00b7 ${ord(place)} in the league` : ''}`;
+  document.getElementById('team-stats').innerHTML = `
+    <div><b>${me.w}&ndash;${me.l}${me.t ? '&ndash;' + me.t : ''}</b><span>Record</span></div>
+    <div><b>${me.gp}</b><span>Played</span></div>
+    <div><b>${me.diff >= 0 ? '+' : ''}${me.diff}</b><span>Run diff</span></div>`;
 
   const fmt = iso => new Date(iso + 'T00:00').toLocaleDateString('en-CA', { month: 'short', day: 'numeric' });
   document.getElementById('team-results').innerHTML = played.length
