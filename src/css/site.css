@@ -569,3 +569,8 @@ body.modal-open{overflow:hidden}
   .alertbar__in{padding:7px 16px;gap:8px}
   .alertbar__msg{font-size:11.5px;white-space:normal}
 }
+
+.venue__addr{font-size:12.5px;color:var(--muted);line-height:1.4}
+
+.venues-body{margin-top:0;padding-top:0;border-top:0}
+.sidecard p a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}
