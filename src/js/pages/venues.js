@@ -29,3 +29,19 @@ Promise.all([
     </article>`;
   }).join('');
 });
+
+fieldConditions().then(d => {
+  const card = document.getElementById('conditions-card');
+  if (!card || !d) return;
+  const when = Math.round(d.ageHours * 60);
+  const label = when < 90 ? `${when} min ago` : `${Math.round(d.ageHours)} h ago`;
+  const anyClosed = d.fields.some(f => f.status !== 'OPEN');
+  card.innerHTML = `<h3>Diamond status</h3>
+    <p class="condlist">${d.fields.map(f => `
+      <span class="cond ${f.status === 'OPEN' ? 'cond--open' : 'cond--closed'}">
+        <b>${esc(f.venue)} ${esc(f.field.replace('Diamond ', ''))}</b>${esc(f.status)}</span>`).join('')}</p>
+    <p>${anyClosed
+      ? 'A diamond is closed. Check the league banner for cancellations.'
+      : 'All diamonds open.'} From the City of Kitchener, checked ${label}.</p>
+    <p><a href="${esc(d.source_url)}" target="_blank" rel="noopener">City of Kitchener field conditions</a></p>`;
+});

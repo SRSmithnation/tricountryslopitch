@@ -113,6 +113,27 @@ done
 Sources live in `apps-script/standalone/`, which is gitignored because it
 contains an email address.
 
+## Diamond status
+
+The venues page shows whether the Bridgeport diamonds are open, taken from the
+City of Kitchener. A workflow checks every 20 minutes on Sunday mornings from
+May to August and nothing the rest of the year.
+
+The card **hides itself** if the data is more than 8 hours old or the check
+found nothing, so it can never show a stale OPEN. When it hides, the manual
+link to the city page is still there.
+
+To check by hand, go to the repo's **Actions** tab, pick **field conditions**
+on the left, then **Run workflow**:
+https://github.com/SRSmithnation/tricountryslopitch/actions
+
+Wilson Park is deliberately not included. Add it back in
+`scripts/field-conditions.py` if the league plays there again.
+
+This is scraped from the city's HTML, not an official API, so it can break if
+they redesign the page. If the card stops appearing, that is why, and the site
+degrades to the manual link rather than showing something wrong.
+
 ## Posting a rainout or an announcement
 
 A red banner appears across the top of every page, under the header. Use it for

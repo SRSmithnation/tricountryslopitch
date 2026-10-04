@@ -531,3 +531,12 @@ function renderNotice(n) {
 }
 
 initNotices();
+
+function fieldConditions(maxAgeHours = 8) {
+  return fetch('data/field-conditions.json').then(r => r.json()).then(d => {
+    if (!d || !Array.isArray(d.fields) || !d.fields.length) return null;
+    const age = (Date.now() - Date.parse(d.checked)) / 3600000;
+    if (!Number.isFinite(age) || age > maxAgeHours) return null;
+    return { ...d, ageHours: age };
+  }).catch(() => null);
+}

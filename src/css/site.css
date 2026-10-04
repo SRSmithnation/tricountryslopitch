@@ -605,3 +605,11 @@ body.modal-open{overflow:hidden}
 
 .team-name a{color:var(--navy);font-weight:650}
 .team-name a:hover{color:var(--gold)}
+
+.condlist{display:grid;gap:6px;margin:0 0 10px}
+.cond{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:13px;
+  padding:7px 10px;border-radius:6px}
+.cond b{font-weight:650}
+.cond--open{background:#e9f6ee;color:#166b35}
+.cond--closed{background:#fdecec;color:#9b2222}
+#conditions-card:empty{display:none}
