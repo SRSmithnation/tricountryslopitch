@@ -1,0 +1,18 @@
+{
+  "Bridgeport": {
+    "match": [
+      "Bridgeport"
+    ],
+    "name": "Bridgeport Community Centre",
+    "address": "51 Bridge St E, Kitchener, ON N2K 1J7",
+    "note": "Diamonds 2 and 3 are both here"
+  },
+  "Wilson Park": {
+    "match": [
+      "Wilson"
+    ],
+    "name": "Wilson Park",
+    "address": "1 Wilson Ave, Kitchener, ON N2C 1Y1",
+    "note": "Diamonds 2 and 3. Used once in 2026"
+  }
+}
