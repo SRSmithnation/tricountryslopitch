@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: field-conditions
@@ -19,16 +20,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Fetch conditions
         run: python3 scripts/field-conditions.py
-      - name: Commit if changed
+
+      - name: Open or update a pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if [ -n "$(git status --porcelain src/data/field-conditions.json)" ]; then
-            git config user.name  "field-conditions bot"
-            git config user.email "actions@github.com"
-            git add src/data/field-conditions.json
-            git commit -m "Update field conditions"
-            git push
-          else
+          if [ -z "$(git status --porcelain src/data/field-conditions.json)" ]; then
             echo "nothing changed"
+            exit 0
           fi
+          git config user.name  "field-conditions bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B bot/field-conditions
+          git add src/data/field-conditions.json
+          git commit -m "Update field conditions"
+          git push --force origin bot/field-conditions
+          if [ -z "$(gh pr list --head bot/field-conditions --state open --json number -q '.[0].number')" ]; then
+            gh pr create --head bot/field-conditions --base main \
+              --title "Update field conditions" \
+              --body "Diamond status from the City of Kitchener. Opened automatically; merges itself once checks pass."
+          fi
+          gh pr merge bot/field-conditions --squash --auto --delete-branch

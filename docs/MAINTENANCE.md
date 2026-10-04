@@ -289,6 +289,21 @@ This was added after finding real drift: the seasons page footer was missing
 Rules, Venues, Fees, FAQ and Sponsors, and the sponsors page was missing Fees,
 Past seasons and Sponsors.
 
+## Why main is protected
+
+`main` has a ruleset requiring the `verify` check to pass. It also blocks force
+pushes and branch deletion.
+
+This exists because a pull request with a **failing check was merged anyway**,
+which made CI advisory rather than enforcing.
+
+Repository admins can bypass it, so you are never locked out of your own site.
+Everything else, including the field-conditions bot, must go through a pull
+request with green checks.
+
+That is why the bot opens a pull request and auto-merges rather than pushing
+to `main` directly.
+
 ## Making changes safely (branches and pull requests)
 
 Small content edits can go straight to `main` from the GitHub web editor.
