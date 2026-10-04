@@ -38,7 +38,7 @@ jobs:
           process.chdir('src');
           for (const f of fs.readdirSync('.').filter(n => n.endsWith('.html'))) {
             const html = fs.readFileSync(f, 'utf8');
-            for (const m of html.matchAll(/(?:href|src)="(?!https?:|mailto:|#|data:)([^"#?]+)/g)) {
+            for (const m of html.matchAll(/(?:href|src)="(?!https?:|mailto:|tel:|webcal:|#|data:)([^"#?]+)/g)) {
               const p = m[1];
               if (p.includes('${')) continue;            // template literal, runtime only
               if (!fs.existsSync(p)) { console.log(`::error file=${f}::missing ${p}`); bad++; }
