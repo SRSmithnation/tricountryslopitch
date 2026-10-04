@@ -156,6 +156,29 @@ Visitors cannot dismiss it, so turn it off by setting `Active` to `no` rather
 than leaving a stale message up. Setting `Expires` to the day after the game
 means it turns itself off.
 
+## Calendar files
+
+Players can put the games in their phone calendar. The schedule page links the
+whole season, and each team page links just that team's games.
+
+Two options are offered: **download**, a one-off snapshot, and **subscribe**
+via a `webcal://` link, which keeps updating when the file changes. Subscribe
+is the better one to point people at.
+
+The files live in `src/calendar/` and are generated, not hand-written. **After
+any change to the schedule, regenerate them:**
+
+```bash
+python3 scripts/make-ics.py
+```
+
+`new-season.py` runs it automatically when a new season is created. If you edit
+a game date or venue by hand, run it yourself or the calendars will be stale.
+
+Games are 95 minutes in the calendar, which is the usual hour and a half plus a
+little. Venue addresses come from `src/data/venues.json`, so a subscriber can
+tap the location for directions.
+
 ## Score reporting
 
 Clicking a game with no score opens a panel on the site. A captain enters the

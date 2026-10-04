@@ -109,6 +109,14 @@ const render = d => {
     });
     return `${w}&ndash;${l}${t ? '&ndash;' + t : ''}`;
   };
+  const slug = team.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const cal = document.getElementById('team-cal');
+  if (cal) cal.innerHTML = `<h3>Calendar</h3>
+    <p>Put ${esc(team)}'s games in your phone.</p>
+    <p><a href="calendar/${slug}-${d.year}.ics" download>Download</a> &middot;
+       <a href="webcal://tricountyslopitch.ca/calendar/${slug}-${d.year}.ics">Subscribe</a></p>
+    <p class="hint">Subscribing keeps it up to date if the schedule changes.</p>`;
+
   document.getElementById('team-splits').innerHTML = `<h3>Splits</h3>
     <p>Home <b>${rec(homeG)}</b> &middot; Away <b>${rec(awayG)}</b></p>
     <p>Runs for <b>${me.rf}</b> &middot; against <b>${me.ra}</b></p>`;

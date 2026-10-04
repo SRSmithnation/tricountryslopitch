@@ -168,6 +168,9 @@ def main():
                 print(f'  ERROR game {g["id"]}: "{g[side]}" is not in the team list'); bad += 1
     print('  checks passed' if not bad else f'  {bad} problem(s) found')
 
+    import subprocess
+    subprocess.run([sys.executable, os.path.join(ROOT, 'scripts', 'make-ics.py')], check=False)
+
     print('\n  next:')
     print('    1. update the Teams tab in the sheet if the teams changed')
     print('    2. give every team a new code in the Captains tab')
