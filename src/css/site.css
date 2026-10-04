@@ -141,7 +141,8 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
 
 .foot{background:var(--navy);color:rgba(255,255,255,.7);padding:56px 0 0}
 .foot__in{display:grid;grid-template-columns:auto repeat(3,1fr);gap:40px;align-items:start;padding-bottom:44px}
-.foot__crest{height:132px;width:auto;filter:drop-shadow(0 10px 28px rgba(0,0,0,.4))}
+.foot__crest{height:118px;width:auto;border-radius:6px;
+  box-shadow:0 10px 28px rgba(0,0,0,.4)}
 .foot__col h3{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;
   color:var(--gold-light);margin-bottom:12px}
 .foot__col p{margin:0;font-size:14.5px;line-height:1.85}
@@ -574,3 +575,4 @@ body.modal-open{overflow:hidden}
 
 .venues-body{margin-top:0;padding-top:0;border-top:0}
 .sidecard p a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}
+
