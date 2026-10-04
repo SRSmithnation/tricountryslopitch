@@ -473,3 +473,47 @@ config().then(cfg => {
   const fb = document.getElementById('fb-link');
   if (fb && cfg.facebook_url) { fb.href = cfg.facebook_url; fb.hidden = false; }
 });
+
+function initNotices() {
+  config().then(cfg => {
+    const sources = [];
+    if (cfg.notices_csv) sources.push(fetch(cfg.notices_csv).then(r => r.text()).then(parseCsv).catch(() => []));
+    sources.push(fetch('data/notices.json').then(r => r.json()).catch(() => []));
+    return Promise.all(sources).then(sets => {
+      const rows = sets.find(s => s && s.length) || [];
+      const today = new Date().toISOString().slice(0, 10);
+      const live = rows.filter(r => {
+        const on = String(r.Active ?? r.active ?? '').trim().toLowerCase();
+        if (on && !['yes', 'y', 'true', '1', 'on'].includes(on)) return false;
+        const until = String(r.Expires ?? r.expires ?? '').trim();
+        if (until && until < today) return false;
+        return String(r.Message ?? r.message ?? '').trim();
+      });
+      if (!live.length) return;
+      renderNotice(live[0]);
+    });
+  }).catch(() => {});
+}
+
+function renderNotice(n) {
+  const msg = String(n.Message ?? n.message ?? '').trim();
+  const level = String(n.Level ?? n.level ?? 'alert').trim().toLowerCase();
+  const url = String(n.Link ?? n.link ?? '').trim();
+  const nav = document.querySelector('.nav');
+  if (!nav) return;
+  const el = document.createElement('div');
+  el.className = 'alertbar' + (level === 'info' ? ' alertbar--info' : '');
+  el.setAttribute('role', 'status');
+  el.innerHTML = `<div class="wrap alertbar__in">
+      <span class="alertbar__dot" aria-hidden="true"></span>
+      <p class="alertbar__msg">${esc(msg)}${url ? ` <a href="${esc(url)}">More</a>` : ''}</p>
+    </div>`;
+  nav.insertAdjacentElement('afterend', el);
+  const setAlertH = () => document.documentElement.style
+    .setProperty('--alerth', el.offsetHeight + 'px');
+  setAlertH();
+  if (window.ResizeObserver) new ResizeObserver(setAlertH).observe(el);
+  addEventListener('resize', setAlertH);
+}
+
+initNotices();
