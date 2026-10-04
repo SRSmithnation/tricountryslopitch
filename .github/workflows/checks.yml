@@ -72,6 +72,28 @@ jobs:
           console.log('season data is coherent');
           JS
 
+      - name: Page scripts only reach for elements that exist
+        run: |
+          node - <<'JS'
+          const fs = require('fs');
+          let bad = 0;
+          for (const js of fs.readdirSync('src/js/pages')) {
+            const page = js.replace(/\.js$/, '.html');
+            if (!fs.existsSync('src/' + page)) continue;
+            const html = fs.readFileSync('src/' + page, 'utf8');
+            const code = fs.readFileSync('src/js/pages/' + js, 'utf8');
+            const ids = new Set([...code.matchAll(/getElementById\('([^']+)'\)/g)].map(m => m[1]));
+            for (const id of ids) {
+              if (!html.includes(`id="${id}"`)) {
+                console.log(`::error file=src/${page}::${js} writes to #${id}, which does not exist`);
+                bad++;
+              }
+            }
+          }
+          if (bad) process.exit(1);
+          console.log('every element the page scripts use exists');
+          JS
+
       - name: Nav and footer match partials
         run: python3 scripts/sync-partials.py --check
 
