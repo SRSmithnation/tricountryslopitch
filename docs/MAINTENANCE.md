@@ -79,6 +79,40 @@ The site updates in about two minutes.
 
 ---
 
+## The three Google endpoints
+
+Three things on the site talk to Google: the contact form, the newsletter
+signup and score reporting. Each one is a **separate** Apps Script project:
+
+| Project | Does what | Writes to |
+|---|---|---|
+| TCS contact | emails you the contact form, logs a copy | Contact Log |
+| TCS subscribe | newsletter signups, emails you each one | Subscribers |
+| TCS scores | captain score reports, checks team codes | Form Responses 1 |
+
+They are standalone, not attached to the spreadsheet, and reach it with
+`openById`. They used to be three files in one project, which meant three
+functions called `doPost` in one namespace, where only the last one loaded
+wins. Redeploying any of them would have silently broken the other two.
+
+Each can now be edited and redeployed on its own.
+
+When deploying one: **Execute as Me**, **Who has access Anyone**. Anything
+else returns Access Denied, because the site calls them from a visitor's
+browser with no Google session.
+
+After any redeploy, check all three still answer as themselves:
+
+```bash
+for k in contact_endpoint subscribe_endpoint score_endpoint; do
+  curl -sL "$(python3 -c "import json;print(json.load(open('src/data/config.json'))['$k'])")"
+  echo
+done
+```
+
+Sources live in `apps-script/standalone/`, which is gitignored because it
+contains an email address.
+
 ## Posting a rainout or an announcement
 
 A red banner appears across the top of every page, under the header. Use it for
