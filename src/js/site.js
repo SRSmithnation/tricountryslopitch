@@ -137,12 +137,26 @@ const num = v => { const n = Number(String(v).trim()); return Number.isFinite(n)
 let _config = null;
 const config = () => _config ||= fetch('data/config.json').then(r => r.json()).catch(() => ({}));
 
-function loadSeason(year) {
+const seasonHint = () => {
+  const m = document.querySelector('meta[name="tcs-season"]');
+  return m && m.content ? m.content : null;
+};
+
+function loadSeason(year, onRepoData) {
+  const hint = year || seasonHint();
+  const early = hint ? fetch(`data/seasons/${hint}.json`).then(r => r.json()) : null;
   return config().then(cfg => {
     const base = year
       ? Promise.resolve(year)
-      : fetch('data/seasons.json').then(r => r.json()).then(l => Math.max(...l.map(s => s.year)));
-    return base.then(y => fetch(`data/seasons/${y}.json`).then(r => r.json()).then(d => {
+      : hint
+        ? Promise.resolve(hint)
+        : cfg.current_season
+          ? Promise.resolve(cfg.current_season)
+          : fetch('data/seasons.json').then(r => r.json()).then(l => Math.max(...l.map(s => s.year)));
+    return base.then(y => (String(y) === String(hint) && early
+        ? early
+        : fetch(`data/seasons/${y}.json`).then(r => r.json())).then(d => {
+      if (onRepoData) { try { onRepoData({ ...d, scoreSource: 'repo' }); } catch (e) {} }
       const isCurrent = !year || +year === +cfg.current_season;
       if (!isCurrent || !cfg.scores_csv) return { ...d, scoreSource: 'repo' };
 

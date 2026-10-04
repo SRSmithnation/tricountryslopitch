@@ -3,7 +3,7 @@ window.dataLayer = window.dataLayer || [];
   gtag('js', new Date());
   gtag('config', 'G-B4KTYY907V');
 
-loadSeason().then(season=>{
+const renderHome = season => {
   const g = season.games;
 
   const tnums = season.team_numbers || {};
@@ -67,7 +67,7 @@ loadSeason().then(season=>{
     }
   });
 
-});
+};
 
 const navEl = document.querySelector('.nav');
 const onScroll = () => navEl.classList.toggle('nav--compact', window.scrollY > 40);
@@ -101,10 +101,12 @@ hs.addEventListener('submit', async e => {
   } finally { btn.disabled = false; }
 });
 
-loadSeason().then(d => {
+const paintHome = d => {
+  renderHome(d);
   const bar = document.getElementById('scorebar');
   if (bar) bar.innerHTML = scoreStrip(d);
-});
+};
+loadSeason(null, paintHome).then(paintHome);
 sponsorRow().then(html => {
   const row = document.getElementById('sponsor-row');
   if (row) row.innerHTML = html;

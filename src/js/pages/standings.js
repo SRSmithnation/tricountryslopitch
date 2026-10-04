@@ -3,7 +3,7 @@ window.dataLayer = window.dataLayer || [];
   gtag('js', new Date());
   gtag('config', 'G-B4KTYY907V');
 
-loadSeason().then(d=>{
+const renderStandings = d => {
     document.getElementById('sub').textContent = `${d.year} ${d.division}`;
     const rows = standings(d.teams, d.games);
     const played = d.games.filter(g=>g.home_score!=null).length;
@@ -19,9 +19,9 @@ loadSeason().then(d=>{
         <td class="num">${x.gp?x.rf:'<span class="dash">&ndash;</span>'}</td>
         <td class="num">${x.gp?x.ra:'<span class="dash">&ndash;</span>'}</td>
         <td class="num">${x.gp?(x.diff>0?'+':'')+x.diff:'<span class="dash">&ndash;</span>'}</td></tr>`).join('');
-  });
+  };
 
-loadSeason().then(d => {
+const renderExtras = d => {
   const played = d.games.filter(g => g.home_score != null && g.away_score != null);
   const teams = d.teams.slice();
   if (!played.length) return;
@@ -96,4 +96,7 @@ loadSeason().then(d => {
       <span class="runrow__diff ${r.diff >= 0 ? 'pos' : 'neg'}">${r.diff >= 0 ? '+' : ''}${r.diff}</span>
     </div>`).join('') +
     '<p class="legend"><span class="key key--for"></span> runs for &nbsp; <span class="key key--against"></span> runs against</p>';
-});
+};
+
+const paint = d => { renderStandings(d); renderExtras(d); };
+loadSeason(null, paint).then(paint);
