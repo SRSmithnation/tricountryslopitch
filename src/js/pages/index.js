@@ -7,7 +7,6 @@ loadSeason().then(season=>{
   const g = season.games;
 
   const tnums = season.team_numbers || {};
-  document.getElementById('s-teams').textContent = season.teams.length;
   document.getElementById('teams').innerHTML = season.teams.map(t=>`
     <div class="team"><div class="team__no">${esc(tnums[t] ?? '')}</div><div class="team__name">${esc(t)}</div></div>`).join('');
 
@@ -23,8 +22,6 @@ loadSeason().then(season=>{
       <td class="num">${x.gp?x.w:'<span class="dash">&ndash;</span>'}</td>
       <td class="num">${x.gp?x.l:'<span class="dash">&ndash;</span>'}</td>
       <td class="num pct">${x.gp?x.pct.toFixed(3).replace(/^0/,''):'<span class="dash">&ndash;</span>'}</td></tr>`).join('');
-  document.getElementById('s-games').textContent = g.length;
-  document.getElementById('s-venues').textContent = new Set(g.map(x=>x.venue)).size;
   const today = new Date(); today.setHours(0,0,0,0);
 
   const days = new Map();
@@ -57,7 +54,6 @@ loadSeason().then(season=>{
   };
 
   const upcoming = all.filter(d=>d.dt>=today).slice(0,3);
-  const recent   = all.filter(d=>d.dt< today).slice(-2).reverse();
 
   document.getElementById('days-upcoming').innerHTML = upcoming.map(block).join('');
   seasonMeta().then(m => {
@@ -71,9 +67,6 @@ loadSeason().then(season=>{
     }
   });
 
-  document.getElementById('days-recent').innerHTML = recent.length
-    ? recent.map(d=>block(d,false)).join('')
-    : `<div class="empty"><strong>No games played yet</strong>Check back once the season is underway.</div>`;
 });
 
 const navEl = document.querySelector('.nav');
@@ -106,4 +99,13 @@ hs.addEventListener('submit', async e => {
     hn.textContent = 'Something went wrong. Please try again.';
     hn.className = 'form__note form__note--err';
   } finally { btn.disabled = false; }
+});
+
+loadSeason().then(d => {
+  const bar = document.getElementById('scorebar');
+  if (bar) bar.innerHTML = scoreStrip(d);
+});
+sponsorRow().then(html => {
+  const row = document.getElementById('sponsor-row');
+  if (row) row.innerHTML = html;
 });
