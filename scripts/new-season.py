@@ -143,6 +143,21 @@ def main():
     open(SITEMAP, 'w', encoding='utf-8').write('\n'.join(x) + '\n')
     print(f'  sitemap.xml rebuilt with {len(pages) + len(index)} URLs')
 
+    html_updated = 0
+    for name in os.listdir(ROOT + '/src'):
+        if not name.endswith('.html'):
+            continue
+        path = os.path.join(ROOT, 'src', name)
+        html = open(path, encoding='utf-8').read()
+        before = html
+        html = re.sub(r'(<meta name="tcs-season" content=")\d+(">)', rf'\g<1>{a.year}\g<2>', html)
+        html = re.sub(r'(<link rel="preload" as="fetch" crossorigin href="data/seasons/)\d+(\.json">)',
+                      rf'\g<1>{a.year}\g<2>', html)
+        if html != before:
+            open(path, 'w', encoding='utf-8').write(html)
+            html_updated += 1
+    print(f'  season hint updated in {html_updated} page(s)')
+
     bad = 0
     ids = [g['id'] for g in games]
     if len(set(ids)) != len(ids):

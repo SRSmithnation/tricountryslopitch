@@ -3,7 +3,7 @@ window.dataLayer = window.dataLayer || [];
   gtag('js', new Date());
   gtag('config', 'G-B4KTYY907V');
 
-loadSeason().then(d=>{
+const renderTeams = d => {
     document.getElementById('sub').textContent = `${d.year} ${d.division} · ${d.teams.length} teams`;
     const st = standings(d.teams, d.games);
     const ord = n => n + (['th','st','nd','rd'][(n%100>10&&n%100<14)?0:Math.min(n%10,4)%4] || 'th');
@@ -29,4 +29,6 @@ loadSeason().then(d=>{
         </div>
       </article>`;
     }).join('');
-  });
+  };
+
+loadSeason(null, renderTeams).then(renderTeams);

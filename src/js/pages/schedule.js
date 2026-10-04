@@ -37,13 +37,21 @@ const render = () => {
   document.getElementById('sub').textContent =
     `${SEASON.year} ${SEASON.division} · ${games.length} game${games.length===1?'':'s'} · ${days.length} game day${days.length===1?'':'s'}`;
 };
-loadSeason().then(d=>{
-    SEASON = d;
-    document.getElementById('team-filter').insertAdjacentHTML('beforeend',
-      d.teams.map(t=>`<option value="${esc(t)}">${esc(t)}</option>`).join(''));
-    document.getElementById('team-filter').addEventListener('change', render);
-    render();
-  });
+let filterReady = false;
+const bootSchedule = d => {
+  SEASON = d;
+  const sel = document.getElementById('team-filter');
+  if (!filterReady) {
+    const keep = sel.value;
+    sel.insertAdjacentHTML('beforeend',
+      d.teams.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join(''));
+    if (keep) sel.value = keep;
+    sel.addEventListener('change', render);
+    filterReady = true;
+  }
+  render();
+};
+loadSeason(null, bootSchedule).then(bootSchedule);
 
 document.addEventListener('click', e => {
   const link = e.target.closest('[data-report]');
