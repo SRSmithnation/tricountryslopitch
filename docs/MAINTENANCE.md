@@ -236,6 +236,36 @@ Form Responses 1. Old reports must not attach to reused game ids.
 Give captains their codes before the first game day, or nobody can report a
 score.
 
+## Changing the nav or the footer
+
+GitHub Pages does no templating, so every page carries its own copy of the nav
+and footer. Rather than editing 14 files, edit one:
+
+- `partials/nav.html`
+- `partials/footer.html`
+
+Then push it into every page:
+
+```bash
+python3 scripts/sync-partials.py
+```
+
+Two placeholders handle the per-page differences:
+
+| Placeholder | What it does |
+|---|---|
+| `{{COMPACT}}` | the homepage header starts tall, every other page starts compact |
+| `{{CURRENT:teams}}` | marks that nav item as the current page |
+
+**Never edit the nav or footer inside a page.** The next sync overwrites it,
+and CI will fail the pull request because the page no longer matches the
+partial. If you want a page to differ, add it to `NO_CHROME` in the script, as
+`sponsor-pack.html` is, since it has a standalone layout.
+
+This was added after finding real drift: the seasons page footer was missing
+Rules, Venues, Fees, FAQ and Sponsors, and the sponsors page was missing Fees,
+Past seasons and Sponsors.
+
 ## Making changes safely (branches and pull requests)
 
 Small content edits can go straight to `main` from the GitHub web editor.
