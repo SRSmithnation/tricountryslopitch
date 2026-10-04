@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://docs.google.com https://script.google.com https://*.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; form-action 'self' https://docs.google.com; base-uri 'self'; object-src 'none'">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Team | Tri-County Slo-Pitch League</title>
+<meta name="description" content="Team record, results and remaining fixtures in the Tri-County Slo-Pitch League.">
+<meta name="tcs-season" content="2026">
+<link rel="preload" as="fetch" crossorigin href="data/seasons/2026.json">
+<link rel="preload" as="fetch" crossorigin href="data/config.json">
+<link rel="icon" href="img/icons/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;650&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://tricountyslopitch.ca/team.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tri-County Slo-Pitch League">
+<meta property="og:title" content="Team | Tri-County Slo-Pitch League">
+<meta property="og:description" content="Current standings for the Tri-County Slo-Pitch League — wins, losses, win percentage and run differential for every team.">
+<meta property="og:url" content="https://tricountyslopitch.ca/team.html">
+<meta property="og:image" content="https://tricountyslopitch.ca/img/logo/banner-hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Team | Tri-County Slo-Pitch League">
+<meta name="twitter:description" content="Current standings for the Tri-County Slo-Pitch League — wins, losses, win percentage and run differential for every team.">
+<meta name="twitter:image" content="https://tricountyslopitch.ca/img/logo/banner-hero.png">
+<link rel="stylesheet" href="css/site.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B4KTYY907V"></script>
+</head>
+<body>
+
+<nav class="nav nav--compact">
+  <div class="wrap nav__in">
+    <a class="nav__brand" href="index.html">
+      <span class="nav__marks">
+        <img src="img/logo/logo-crest.png" alt="" class="nav__crest">
+        <img src="img/icons/favicon.svg" alt="" class="nav__mark">
+      </span>
+      <span class="nav__word">Tri-County <strong>Slo-Pitch</strong></span></a>
+    <button class="nav__toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__links" id="nav-menu">
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="standings.html" aria-current="page">Standings</a></li>
+      <li><a href="teams.html" aria-current="page">Teams</a></li>
+      <li><a href="rules.html">Rules</a></li>
+      <li><a href="sponsors.html">Sponsors</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="sect">
+  <div class="wrap">
+    <div class="teamhead" id="teamhead"></div>
+
+    <div class="pw-body venues-body">
+      <div class="pw-main">
+        <h3 class="subhead">Results</h3>
+        <div class="card"><table>
+          <thead><tr><th>Date</th><th>Opponent</th><th class="num">Score</th><th class="num">Result</th></tr></thead>
+          <tbody id="team-results"></tbody>
+        </table></div>
+
+        <h3 class="subhead" id="fixtures-head">Still to play</h3>
+        <div class="card"><table>
+          <thead><tr><th>Date</th><th>Time</th><th>Opponent</th><th>Diamond</th></tr></thead>
+          <tbody id="team-fixtures"></tbody>
+        </table></div>
+      </div>
+
+      <aside class="pw-side">
+        <div class="sidecard" id="team-form"></div>
+        <div class="sidecard" id="team-splits"></div>
+        <div class="sidecard sidecard--quiet">
+          <h3>League</h3>
+          <p>See the full <a href="standings.html">standings</a>, the
+            <a href="schedule.html">schedule</a>, or <a href="teams.html">every team</a>.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <img class="foot__crest" src="img/logo/original-league-logo.jpg" alt="Tri-County Slo-Pitch League">
+    <div class="foot__col"><h3>Tri-County Slo-Pitch</h3><p>Adult recreational co-ed slo-pitch<br>Kitchener &amp; Waterloo, Ontario</p></div>
+    <div class="foot__col"><h3>League</h3><p><a href="schedule.html">Schedule</a><br><a href="standings.html">Standings</a><br><a href="teams.html">Teams</a><br><a href="rules.html">Rules</a><br><a href="venues.html">Venues</a><br><a href="fees.html">Fees</a><br><a href="seasons.html">Past seasons</a><br><a href="faq.html">FAQ</a><br><a href="sponsors.html">Sponsors</a></p></div>
+    <div class="foot__col"><h3>Join</h3><p>Register for the <b data-reg-year>2027</b> season.<br><a data-contact href="contact.html">Get in touch</a></p></div>
+  </div>
+  <div class="wrap foot__base"><small>&copy; <span data-reg-year>2027</span> Tri-County Slo-Pitch League</small></div>
+</footer>
+<script src="js/site.js"></script>
+<script src="js/pages/team.js"></script>
+<script src="js/pages/standings.js"></script>
+
+</body></html>

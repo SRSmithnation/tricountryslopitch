@@ -11,7 +11,7 @@ const renderStandings = d => {
       n.innerHTML = `<strong>No scores recorded yet.</strong> Teams are listed below. Standings will calculate automatically once game results are added.`; }
     document.getElementById('body').innerHTML = rows.map((x,i)=>`
       <tr><td>${x.gp?`<span class="rank">${i+1}</span>`:'<span class="dash">&ndash;</span>'}</td>
-        <td class="team-name">${esc(x.team)}</td>
+        <td class="team-name"><a href="team.html?t=${encodeURIComponent(x.team)}">${esc(x.team)}</a></td>
         <td class="num">${x.gp||'<span class="dash">&ndash;</span>'}</td>
         <td class="num">${x.gp?x.w:'<span class="dash">&ndash;</span>'}</td>
         <td class="num">${x.gp?x.l:'<span class="dash">&ndash;</span>'}</td>

@@ -210,8 +210,12 @@ tbody tr:nth-child(1) .rank{background:var(--gold);color:var(--navy)}
 .legend{margin-top:14px;font-size:12.5px;color:var(--muted)}
 .dash{color:#aab4c4}
 .teamcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
-.teamcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
-  box-shadow:var(--shadow);overflow:hidden;transition:.2s}
+.teamcard{display:block;color:inherit;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;transition:.2s}
+.teamcard:hover{color:inherit}
+.teamcard__go{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--blue);white-space:nowrap}
+.teamcard:hover .teamcard__go{color:var(--gold)}
 .teamcard:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);border-color:rgba(193,162,93,.55)}
 .teamcard__top{display:flex;align-items:center;justify-content:space-between;gap:10px;
   background:var(--navy);color:#fff;padding:14px 18px}
@@ -576,3 +580,28 @@ body.modal-open{overflow:hidden}
 .venues-body{margin-top:0;padding-top:0;border-top:0}
 .sidecard p a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}
 
+
+.teamhead{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:30px}
+.teamhead__no{flex:0 0 66px;height:66px;display:grid;place-items:center;border-radius:10px;
+  background:var(--navy);color:var(--gold-light);font-family:"Barlow Condensed",sans-serif;
+  font-size:34px;font-weight:700}
+.teamhead__body{flex:1 1 220px}
+.teamhead__body h2{font-size:clamp(28px,3.4vw,40px);font-weight:700;text-transform:uppercase;
+  color:var(--navy);margin:0;line-height:1.05}
+.teamhead__stats{display:flex;gap:10px;flex-wrap:wrap}
+.teamhead__stats div{background:var(--navy);color:#fff;border-radius:10px;padding:12px 18px;
+  text-align:center;min-width:92px}
+.teamhead__stats b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:26px;
+  font-weight:700;line-height:1;color:var(--gold-light)}
+.teamhead__stats span{display:block;font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.11em;color:rgba(255,255,255,.62);margin-top:5px}
+.res{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:6px;
+  font-size:12px;font-weight:700;color:#fff}
+.res--w{background:#166b35}
+.res--l{background:#9b2222}
+.res--t{background:#8a6d1f}
+.formdots{display:flex;gap:6px;margin:0 0 10px}
+.at{color:var(--muted);font-weight:500;font-size:12.5px}
+
+.team-name a{color:var(--navy);font-weight:650}
+.team-name a:hover{color:var(--gold)}
