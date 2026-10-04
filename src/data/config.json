@@ -4,7 +4,7 @@
   "score_form": "https://forms.gle/QBJNoubmbqfp6mVs8",
   "responses_csv": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRm45WcUvtNDCJJUiJDt1C-Nk1nFmAUErAFeHGMDQ1KHschdh40v85Uj9HhUhSi9UcPs2XVFmAl828p/pub?gid=1496442190&single=true&output=csv",
   "contact_form": "contact.html",
-  "contact_endpoint": "https://script.google.com/macros/s/AKfycbwXHOs9-fI8DI38_uun9e45NoD--VaTfJivNw3vtRN4pwNb6EL3cWb0NTFs642ZwtQV/exec",
+  "contact_endpoint": "https://script.google.com/macros/s/AKfycbwopm449d7r5aao3bGfxy76LATs41znPSfdAFIetxJqTDPy6fBxkyoaX-xsDFxrF8CO4Q/exec",
   "score_form_prefill": "https://docs.google.com/forms/d/e/1FAIpQLScT_kiG4R0LnpWNrZoieC5RrPyfpADjA7Wmqbz4DgZRIYc4hQ/viewform?usp=pp_url",
   "score_form_fields": {
     "game_id": "entry.790579520",
@@ -14,8 +14,8 @@
     "reporting_team": "entry.1861315490"
   },
   "teams_csv": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRm45WcUvtNDCJJUiJDt1C-Nk1nFmAUErAFeHGMDQ1KHschdh40v85Uj9HhUhSi9UcPs2XVFmAl828p/pub?gid=1747791455&single=true&output=csv",
-  "subscribe_endpoint": "https://script.google.com/macros/s/AKfycbxlz8ePrAe_Rv_qaNZ1OE4Q6eHdQfz4UGOwhp_TOcQu1dCTe_CZd_fSTStixj3u9W-p/exec",
-  "score_endpoint": "https://script.google.com/macros/s/AKfycbwCGYIT_BofeQW07vXconIwpocNwI4fZU7jw2dEdjE8z_-TYN3PTJVR3ZmgAr8Ryz8X/exec",
+  "subscribe_endpoint": "https://script.google.com/macros/s/AKfycbxHGlvqzAZHcKhCw7EQ2FYVzUfK6ibYT62JqPY3YHruAsFSywp5NNYr-70Ma8veX0vx/exec",
+  "score_endpoint": "https://script.google.com/macros/s/AKfycbzV8E6PckEBUZK924kFoyKv4S3xOx41CindqBO8h5QFy0C19Bs1GJ2GspKKZUegPIxa/exec",
   "facebook_url": "",
   "notices_csv": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRm45WcUvtNDCJJUiJDt1C-Nk1nFmAUErAFeHGMDQ1KHschdh40v85Uj9HhUhSi9UcPs2XVFmAl828p/pub?gid=1654009504&single=true&output=csv"
 }
