@@ -47,6 +47,8 @@ function initNav() {
     setH();
   };
   addEventListener('resize', setH);
+  if (window.ResizeObserver) new ResizeObserver(setH).observe(nav);
+  nav.addEventListener('transitionend', setH);
   f(); addEventListener('scroll', f, { passive: true });
 }
 
@@ -413,3 +415,61 @@ function openScoreModal(game, cfg, opener) {
     }
   };
 }
+
+function scoreStrip(d, limit = 6) {
+  const played = d.games
+    .filter(g => g.home_score != null && g.away_score != null && g.verify !== 'disputed')
+    .sort((a, b) => b.iso.localeCompare(a.iso) || String(b.id).localeCompare(String(a.id)));
+
+  const short = n => stripNo(n).replace(/\s+/g, ' ').trim();
+  const day = iso => new Date(iso + 'T00:00')
+    .toLocaleDateString('en-CA', { month: 'short', day: 'numeric' }).toUpperCase();
+
+  const result = g => {
+    const win = g.away_score > g.home_score ? 'a' : g.home_score > g.away_score ? 'h' : '';
+    return `<div class="sbcard">
+      <span class="sbcard__date">${day(g.iso)} &middot; Final</span>
+      <span class="sbcard__row${win === 'a' ? ' is-win' : ''}">
+        <span class="sbcard__team">${esc(short(g.away))}</span>
+        <span class="sbcard__score">${g.away_score}</span></span>
+      <span class="sbcard__row${win === 'h' ? ' is-win' : ''}">
+        <span class="sbcard__team">${esc(short(g.home))}</span>
+        <span class="sbcard__score">${g.home_score}</span></span>
+    </div>`;
+  };
+  const cards = played.slice(0, limit).map(result);
+  if (!cards.length) return '';
+  return `<div class="scorebar">
+    <div class="scorebar__in">
+      <a class="scorebar__all" href="schedule.html">Full schedule</a>
+      <div class="scorebar__rail">${cards.join('')}</div>
+    </div>
+  </div>`;
+}
+
+function sponsorRow() {
+  return fetch('data/sponsors.json').then(r => r.json()).then(d => {
+    const all = [...(d.league || []), ...(d.team || [])].filter(s => s && s.name);
+    if (!all.length) return '';
+    const tile = s => {
+      const inner = s.logo
+        ? `<img src="${esc(s.logo)}" alt="${esc(s.name)}" loading="lazy">`
+        : `<span class="sprow__name">${esc(s.name)}</span>`;
+      return s.url
+        ? `<a class="sprow__tile" href="${esc(s.url)}" target="_blank" rel="noopener">${inner}</a>`
+        : `<span class="sprow__tile">${inner}</span>`;
+    };
+    return `<section class="sprow">
+      <div class="wrap">
+        <span class="sprow__head">Supported by</span>
+        <div class="sprow__tiles">${all.map(tile).join('')}</div>
+        <a class="sprow__cta" href="sponsors.html">Become a sponsor</a>
+      </div>
+    </section>`;
+  }).catch(() => '');
+}
+
+config().then(cfg => {
+  const fb = document.getElementById('fb-link');
+  if (fb && cfg.facebook_url) { fb.href = cfg.facebook_url; fb.hidden = false; }
+});
