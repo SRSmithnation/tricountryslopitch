@@ -484,7 +484,7 @@ function initNotices() {
       const today = new Date().toISOString().slice(0, 10);
       const live = rows.filter(r => {
         const on = String(r.Active ?? r.active ?? '').trim().toLowerCase();
-        if (on && !['yes', 'y', 'true', '1', 'on'].includes(on)) return false;
+        if (!['yes', 'y', 'true', '1', 'on'].includes(on)) return false;
         const until = String(r.Expires ?? r.expires ?? '').trim();
         if (until && until < today) return false;
         return String(r.Message ?? r.message ?? '').trim();
