@@ -92,7 +92,7 @@ Open the **Notices** tab in the spreadsheet and fill in a row:
 | `Level` | `alert` for red, use for cancellations. `info` for gold, use for news |
 | `Link` | optional, adds a More link |
 | `Expires` | optional `YYYY-MM-DD`. The banner stops showing after this date |
-| `Active` | `yes` or `no` |
+| `Active` | must say `yes` to show. Blank or anything else is ignored |
 
 It appears on the site within about ten minutes, usually sooner.
 
