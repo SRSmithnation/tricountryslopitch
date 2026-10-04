@@ -510,7 +510,7 @@ body.modal-open{overflow:hidden}
 }
 @media (max-width:480px){ .factgrid--2{grid-template-columns:1fr} }
 
-#scorebar{position:sticky;top:calc(var(--navh,80px) - 1px);z-index:45;
+#scorebar{position:sticky;top:calc(var(--navh,80px) + var(--alerth,0px) - 2px);z-index:45;
   background:var(--navy-800)}
 #scorebar:empty{display:none}
 .scorebar{background:var(--navy-800);border-bottom:1px solid rgba(193,162,93,.25);
@@ -552,3 +552,20 @@ body.modal-open{overflow:hidden}
 .foot__social a{display:grid;place-items:center;width:38px;height:38px;border-radius:6px;
   background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);transition:.18s}
 .foot__social a:hover{background:var(--gold);color:var(--navy)}
+
+.alertbar{position:sticky;top:calc(var(--navh,80px) - 1px);z-index:46;background:#9b1f1a;
+  color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.alertbar--info{background:var(--gold);color:var(--navy)}
+.alertbar__in{display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:7px 24px;min-height:34px;text-align:center}
+.alertbar__dot{flex:0 0 7px;width:7px;height:7px;border-radius:50%;background:currentColor;
+  animation:alertPulse 1.6s ease-in-out infinite}
+@keyframes alertPulse{0%,100%{opacity:.25}50%{opacity:1}}
+.alertbar__msg{margin:0;flex:0 1 auto;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.alertbar__msg a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+@media (prefers-reduced-motion:reduce){ .alertbar__dot{animation:none} }
+@media (max-width:640px){
+  .alertbar__in{padding:7px 16px;gap:8px}
+  .alertbar__msg{font-size:11.5px;white-space:normal}
+}

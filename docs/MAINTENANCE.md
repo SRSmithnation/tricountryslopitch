@@ -79,6 +79,28 @@ The site updates in about two minutes.
 
 ---
 
+## Posting a rainout or an announcement
+
+A red banner appears across the top of every page, under the header. Use it for
+cancellations, venue changes and season news.
+
+Open the **Notices** tab in the spreadsheet and fill in a row:
+
+| Column | What it does |
+|---|---|
+| `Message` | the text shown. Keep it short, it sits on one line |
+| `Level` | `alert` for red, use for cancellations. `info` for gold, use for news |
+| `Link` | optional, adds a More link |
+| `Expires` | optional `YYYY-MM-DD`. The banner stops showing after this date |
+| `Active` | `yes` or `no` |
+
+It appears on the site within about ten minutes, usually sooner.
+
+Only the first active row shows, so put the most important one at the top.
+Visitors cannot dismiss it, so turn it off by setting `Active` to `no` rather
+than leaving a stale message up. Setting `Expires` to the day after the game
+means it turns itself off.
+
 ## Score reporting
 
 Clicking a game with no score opens a panel on the site. A captain enters the
