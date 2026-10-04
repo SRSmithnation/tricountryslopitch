@@ -14,5 +14,13 @@
     "name": "Wilson Park",
     "address": "1 Wilson Ave, Kitchener, ON N2C 1Y1",
     "note": "Diamonds 2 and 3. Used once in 2026"
+  },
+  "Rittenhouse Park": {
+    "match": [
+      "Rittenhouse"
+    ],
+    "name": "Rittenhouse Park",
+    "address": "Rittenhouse Park, Kitchener, ON",
+    "note": "Used in 2019. Between Blockline and Erinbrook on Rittenhouse Drive"
   }
 }

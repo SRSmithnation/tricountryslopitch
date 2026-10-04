@@ -70,8 +70,12 @@ standings, the head-to-head grid and both season charts all run on half a
 season. Missing are 31 May to 28 June, one game on 12 July, and the playoffs
 on 16, 23 and 30 August.
 
-Older seasons: 2019 has 11 games, 2020 has none. Both came from the recovered
-LeagueLineup archive and are incomplete.
+Older seasons: 2019 has 66 games across 12 teams, rebuilt from the league's own
+official schedule PDF found in the archive. Only 11 of those have scores,
+because the archive was captured from one team's page and carried only their
+results. 2020 has no games.
+
+2019 used a third venue, Rittenhouse Park, which is no longer in use.
 
 ## Score reporting
 
