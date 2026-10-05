@@ -8,6 +8,17 @@ Artwork for the league. None of this is published to the website.
 | `facebook-4x5.png` | 912x1140 | Facebook feed post. 4:5 so it shows in full without cropping |
 | `print-letter.png` | 912x1168 | Print, with the QR code embedded |
 
+## Artwork history
+
+The first version was shot at golden hour. Looked good on screen but read as
+gloomy, and it contradicted its own text: the image said end of day while the
+words said SUNDAY MORNINGS. Replaced with a bright morning version, clear blue
+sky and green grass.
+
+If regenerating, say explicitly: bright early morning, no sunset, no golden
+hour, no low sun, no long shadows, and keep the navy for the poster graphics
+rather than the sky.
+
 ## The QR code
 
 Points to https://tricountyslopitch.ca and is verified to decode, not just
