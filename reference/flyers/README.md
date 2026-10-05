@@ -10,6 +10,23 @@ Artwork for the league. None of this is published to the website.
 
 ## Artwork history
 
+Current version: home plate in the foreground with the glove, ball and bat,
+bright morning sky, chalk batter's box lines. The plate gives the eye an anchor
+and says softball immediately, where bare infield dirt could be anywhere.
+
+Things learned while iterating:
+- **give the model the whole prompt, never a fragment.** Handing it only the
+  imagery paragraph produced a 1408x768 landscape photograph instead of a poster
+- **it cannot move objects**, only add and remove. Asking to move the bat
+  produced a second bat. Remove then add, in two steps
+- cleat prints over the headline were tried and dropped. They read as smudges
+  at feed size and hurt the one line that has to be readable from a distance.
+  The grit already comes from the worn plate, the dirt and the brush frame
+- the white QR square must be filled. An empty white box looks like a printing
+  error, so the Facebook crop carries the QR too rather than a blank square
+
+## Artwork history, first version
+
 The first version was shot at golden hour. Looked good on screen but read as
 gloomy, and it contradicted its own text: the image said end of day while the
 words said SUNDAY MORNINGS. Replaced with a bright morning version, clear blue
